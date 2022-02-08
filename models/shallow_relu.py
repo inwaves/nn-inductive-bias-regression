@@ -2,13 +2,11 @@ import torch.nn as nn
 
 
 class ShallowRelu(nn.Module):
-    def __init__(self, n):
+    def __init__(self, n, input_dim, output_dim):
         super(ShallowRelu, self).__init__()
-        self.shallow_relu = nn.Sequential(
-            nn.Linear(1, n),
-            nn.ReLU(),
-            nn.Linear(n, 1)
-        )
+        self.hidden = nn.Linear(input_dim, n)
+        self.relu = nn.ReLU()
+        self.out = nn.Linear(n, output_dim)
 
     def forward(self, x):
-        return self.shallow_relu(x)
+        return self.out(self.relu(self.hidden(x)))

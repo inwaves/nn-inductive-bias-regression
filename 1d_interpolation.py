@@ -7,9 +7,15 @@ from torch.utils.data import DataLoader
 
 # Constants.
 from models.shallow_relu import ShallowRelu
+from utils.plotting import plot_data
 
 device = "cpu"
-n = 512
+n = 10
+
+# TODO: start with a "large" learning rate, halve it until loss starts to decrease.
+# TODO: implement stopping condition for training: loss(t)- loss(t-1) < 10^{-8}.
+# TODO: implement anti-symmetric initialisation.
+# TODO: solve variational problem over the domain, calculate infinity norm of difference.
 
 
 def train(dataloader, model, loss_fn, optimiser):
@@ -17,33 +23,31 @@ def train(dataloader, model, loss_fn, optimiser):
     size = len(dataloader.dataset)
     model.train()
     for i, batch in enumerate(dataloader):
-        X, y = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        x, y = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
 
         # Compute prediction error.
-        pred = model(X)
+        pred = model(x)
 
         # print(f"pred: {pred}")
         loss = loss_fn(pred, y)
 
-        # Backpropagate error.
+        # Back-propagate error.
         optimiser.zero_grad()
         loss.backward()
         optimiser.step()
 
-        if i % 100 == 0:
-            loss, current = loss.item(), i * len(X)
-            print(f"loss: {loss:>7f} [{current:>5d}/{size:>5d}]")
+        return loss.item()
 
 
 def test(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
     num_batches = len(dataloader)
-    model.eval()  # Sets the model in evaluation mode, no gradients computed.
+    model.eval()  # Sets the model to evaluation mode, no gradients computed.
     test_loss, correct = 0, 0
     with torch.no_grad():
         for i, batch in enumerate(dataloader):
-            X, y = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
-            pred = model(X)
+            x, y = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+            pred = model(x)
             test_loss += loss_fn(pred, y).item()
             correct += (pred == y).sum().item()
     test_loss /= num_batches
@@ -62,21 +66,24 @@ def generate_data():
     test_data = np.array(list(zip(x_test, y_test)))
 
     # Split data into batches for training.
-    batch_size = 64
+    batch_size = len(x)
     train_dataloader = DataLoader(training_data, batch_size=batch_size)
     test_dataloader = DataLoader(test_data, batch_size=batch_size)
-    return train_dataloader, test_dataloader
+    return train_dataloader, test_dataloader, x_test, y_test
 
 
 if __name__ == '__main__':
-    train_dataloader, test_dataloader = generate_data()
-    model = ShallowRelu(n).to(device).float()
+    train_dataloader, test_dataloader, x_test, y_test = generate_data()
+    model = ShallowRelu(n, 1, 1).to(device).float()
     loss_fn = nn.MSELoss()
-    optimiser = torch.optim.SGD(model.parameters(), lr=1e-3)
+    optimiser = torch.optim.SGD(model.parameters(), lr=1e-5)
 
-    epochs = 100
+    epochs = 500
     for t in range(epochs):
-        print(f"Epoch {t + 1}\n---------------------------------")
-        train(train_dataloader, model, loss_fn, optimiser)
-        test(test_dataloader, model, loss_fn)
-    print("Done!")
+        loss = train(train_dataloader, model, loss_fn, optimiser)
+        print(f"Epoch {t + 1:>5d} loss: {loss:>8f}")
+
+    test(test_dataloader, model, loss_fn)
+
+    y_pred = model(torch.tensor(x_test).float().unsqueeze(1).to(device))
+    plot_data(x_test, y_pred.detach().numpy(), y_test)
