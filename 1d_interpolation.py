@@ -12,6 +12,7 @@ from utils.plotting import plot_data
 device = "cpu"
 n = 10
 
+# TODO: port me to Pytorch Lightning!
 # TODO: start with a "large" learning rate, halve it until loss starts to decrease.
 # TODO: implement stopping condition for training: loss(t)- loss(t-1) < 10^{-8}.
 # TODO: implement anti-symmetric initialisation.
