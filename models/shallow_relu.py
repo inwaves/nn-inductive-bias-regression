@@ -12,7 +12,7 @@ class ShallowRelu(pl.LightningModule):
         super().__init__()
 
         self.save_hyperparameters()
-        self.hidden = nn.Linear(input_dim, n)
+        self.hidden = nn.Linear(input_dim)
         self.relu = nn.ReLU()
         self.out = nn.Linear(n, output_dim)
 
@@ -37,4 +37,7 @@ class ShallowRelu(pl.LightningModule):
 
     def configure_optimizers(self):
         optimizer = torch.optim.SGD(self.parameters(), lr=1e-5)
-        return optimizer
+        return {
+            "optimizer": optimizer,
+            # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),
+        }

@@ -4,16 +4,13 @@ import torch
 
 from torch.utils.data import DataLoader
 
-
 # Constants.
 from models.shallow_relu import ShallowRelu
 from utils.plotting import plot_data
 
 device = "cpu"
-n = 10
+n = 100
 
-# TODO: start with a "large" learning rate, halve it until loss starts to decrease.
-# TODO: implement stopping condition for training: loss(t)- loss(t-1) < 10^{-8}.
 # TODO: implement anti-symmetric initialisation.
 # TODO: solve variational problem over the domain, calculate infinity norm of difference.
 
@@ -40,8 +37,8 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, x_test, y_test = generate_data()
     model = ShallowRelu(n, 1, 1).to(device).float()
 
-    epochs = 100
-    trainer = pl.Trainer(max_epochs=epochs, callbacks=[])
+    epochs = 1000
+    trainer = pl.Trainer(max_epochs=epochs, callbacks=[], log_every_n_steps=1)
     trainer.fit(model, train_dataloader)
 
     trainer.test(test_dataloaders=test_dataloader)
