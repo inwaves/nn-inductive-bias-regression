@@ -4,16 +4,26 @@ import torch.nn.functional as F
 import pytorch_lightning as pl
 
 
-class ShallowRelu(pl.LightningModule):
+class MLP(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,
-                 output_dim,) -> None:
+                 output_dim, ) -> None:
         super().__init__()
 
         self.save_hyperparameters()
-        self.hidden = nn.Linear(input_dim, n)
-        self.relu = nn.ReLU()
+        self.hidden = nn.Sequential(
+            nn.Linear(input_dim, n),
+            nn.ReLU(),
+            nn.Linear(n, 2 * n),
+            nn.ReLU(),
+            nn.Linear(2 * n, 3 * n),
+            nn.ReLU(),
+            nn.Linear(3 * n, 2 * n),
+            nn.ReLU(),
+            nn.Linear(2 * n, n),
+            nn.ReLU(),
+        )
         self.out = nn.Linear(n, output_dim)
 
     def forward(self, x):
@@ -36,7 +46,7 @@ class ShallowRelu(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=1e-5)
+        optimizer = torch.optim.SGD(self.parameters(), lr=1e-1)
         return {
             "optimizer": optimizer,
             # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),

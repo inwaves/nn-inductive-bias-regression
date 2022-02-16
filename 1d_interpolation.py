@@ -3,22 +3,26 @@ import pytorch_lightning as pl
 import torch
 
 from torch.utils.data import DataLoader
-
-# Constants.
+from models.mlp import MLP
 from models.shallow_relu import ShallowRelu
 from utils.plotting import plot_data
 
+
+# Constants.
 device = "cpu"
-n = 100
+n = 5
 
-# TODO: implement anti-symmetric initialisation.
 # TODO: solve variational problem over the domain, calculate infinity norm of difference.
+# TODO: generate multiple datasets
 
 
-def generate_data():
-    # Generate data.
-    x = np.concatenate((np.linspace(-2 * np.pi, 0, 10000), np.linspace(np.pi, 3 * np.pi, 10000)))
-    x_test = np.linspace(-2 * np.pi, 3 * np.pi, 25_000)
+def generate_sine_wave(gap_size, step_size):
+    """Generate data points for a sine wave where the
+    training set ranges [-2π, gap_size) u [2π-gap_size, 4π),
+    and the training set ranges [-2π, 4π)."""
+
+    x = np.concatenate((np.arange(-2 * np.pi, gap_size, step_size), np.arange(2 * np.pi - gap_size, 4 * np.pi, step_size)))
+    x_test = np.arange(-2 * np.pi, 4 * np.pi, step_size)
     y = np.sin(x)
     y_test = np.sin(x_test)
 
@@ -34,7 +38,7 @@ def generate_data():
 if __name__ == '__main__':
     pl.seed_everything(1337)
 
-    train_dataloader, test_dataloader, x_test, y_test = generate_data()
+    train_dataloader, test_dataloader, x_test, y_test = generate_sine_wave(gap_size=0, step_size=0.001)
     model = ShallowRelu(n, 1, 1).to(device).float()
 
     epochs = 1000
