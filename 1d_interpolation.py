@@ -9,18 +9,19 @@ from models.shallow_relu import ShallowRelu, AsiShallowRelu
 from utils.plotting import plot_data
 
 
-# Constants.
-device = "cpu"
-n = 10
-
 # TODO: solve variational problem over the domain, calculate infinity norm of difference.
 # TODO: generate multiple datasets
 
+# Constants.
+device = "cuda" if torch.cuda.is_available() else "cpu"
+n = 10
 
 def generate_sine_wave(gap_size, num_samples):
     """Generate data points for a sine wave where the
     training set ranges [-2π, gap_size) u [2π-gap_size, 4π),
-    and the test set ranges [-2π, 4π)."""
+    and the test set ranges [-2π, 4π).
+    :param gap_size: gap size between training and test set. gap size of π means no gap.
+    """
 
     x_train = np.concatenate((np.linspace(-2 * np.pi, gap_size, num_samples//2), np.linspace(2 * np.pi - gap_size, 4 * np.pi, num_samples//2)))
     x_test = np.linspace(gap_size, 2*np.pi-gap_size, num_samples//2)
