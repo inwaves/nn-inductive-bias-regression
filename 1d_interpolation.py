@@ -4,9 +4,11 @@ import torch
 from torch.utils.data import DataLoader
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
+from datasets.dataset import generate_sine_interpolation_dataset
 from models.mlp import MLP
-from models.shallow_relu import ShallowRelu, AsiShallowRelu
-from utils.plotting import plot_data
+from models.linear_regression import LinearRegression
+from models.shallow_relu import AsiShallowRelu
+from utils.plotting import plot_sin_data_vs_predictions
 
 
 # TODO: solve variational problem over the domain, calculate infinity norm of difference.
@@ -14,27 +16,36 @@ from utils.plotting import plot_data
 
 # Constants.
 device = "cuda" if torch.cuda.is_available() else "cpu"
-n = 10
+n = 1000
+num_samples = 10
 
-def generate_sine_wave(gap_size, num_samples):
-    """Generate data points for a sine wave where the
-    training set ranges [-2π, gap_size) u [2π-gap_size, 4π),
-    and the test set ranges [-2π, 4π).
-    :param gap_size: gap size between training and test set. gap size of π means no gap.
-    """
 
-    x_train = np.concatenate((np.linspace(-2 * np.pi, gap_size, num_samples//2), np.linspace(2 * np.pi - gap_size, 4 * np.pi, num_samples//2)))
-    x_test = np.linspace(gap_size, 2*np.pi-gap_size, num_samples//2)
-    y_train = np.sin(x_train)
-    y_test = np.sin(x_test)
+def adjust_data_linearly(x_train, y_train):
+    """Fit a linear regression model."""
 
-    return x_train, y_train, x_test, y_test
+    training_data = np.array(list(zip(x_train, y_train)))
+    print(f"Training data: {training_data}")
+    train_dataloader = DataLoader(training_data, batch_size=len(x_train))
+
+    model = LinearRegression(input_dim=1, output_dim=1).to(device).float()
+
+    trainer = pl.Trainer(max_epochs=100)
+    trainer.fit(model, train_dataloader)
+    y_hat = model(torch.tensor(x_train).float().unsqueeze(1).to(device))
+    residual = y_train - y_hat.detach().numpy().reshape(y_train.shape)
+
+    print(f"Shape of y_hat: {y_hat.detach().numpy().shape}")
+    print(f"Shape of residual: {residual.shape}, shape of y_train: {y_train.shape}")
+    return residual
 
 
 if __name__ == '__main__':
     pl.seed_everything(1337)
 
-    x_train, y_train, x_test, y_test = generate_sine_wave(gap_size=0, num_samples=10)
+    x_train, y_train, x_test, y_test = generate_sine_interpolation_dataset(gap_size=0, num_train_datapoints=num_samples)
+
+    # Fit linear regression model.
+    # y_train = adjust_data_linearly(x_train, y_train)
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
@@ -55,7 +66,8 @@ if __name__ == '__main__':
     trainer.test(model=model, dataloaders=[test_dataloader])
     x_all = np.concatenate([x_train, x_test])
     x_all.sort()
+    y_all = np.sin(x_all)
 
     y_pred = model(torch.tensor(x_all).float().unsqueeze(1).to(device)).detach().numpy()
-    plot_data(x_train, y_train, x_test, y_test, y_pred, x_all)
+    plot_sin_data_vs_predictions(x_train, y_train, x_test, y_test, y_pred, x_all, y_all)
 
