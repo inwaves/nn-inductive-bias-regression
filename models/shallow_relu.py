@@ -1,21 +1,24 @@
 import torch
+import wandb
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
+
 
 class ShallowRelu(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,
-                 output_dim,) -> None:
+                 output_dim,
+                 lr=1e-3) -> None:
         super().__init__()
 
         self.save_hyperparameters()
 
+        self.lr = lr
         self.hidden = nn.Linear(input_dim, n)
         self.relu = nn.ReLU()
         self.out = nn.Linear(n, output_dim, bias=False)
-        # self.out.weight.data = torch.sqrt(torch.tensor(1.0 / n)) * self.out.weight.data
 
     def forward(self, x):
         return self.out(self.relu(self.hidden(x)))
@@ -26,6 +29,8 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
+        wandb.log("train_loss", loss)
+
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -34,6 +39,7 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("val_loss", loss)
+        wandb.log("val_loss", loss)
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -42,10 +48,11 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
+        wandb.log({"test_loss": loss})
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=1e-3)
+        optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         return {
             "optimizer": optimizer,
             # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),
@@ -56,10 +63,12 @@ class AsiShallowRelu(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,
-                 output_dim,) -> None:
+                 output_dim,
+                 lr=1e-3) -> None:
         super().__init__()
 
         self.save_hyperparameters()
+        self.lr = lr
         self.hidden1 = nn.Linear(input_dim, n)
         self.hidden2 = nn.Linear(input_dim, n)
         self.hidden2.weight.data = self.hidden1.weight.data
@@ -83,6 +92,7 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
+        wandb.log({"train_loss": loss})
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -91,6 +101,7 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("val_loss", loss)
+        wandb.log({"val_loss": loss})
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -99,10 +110,11 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
+        wandb.log({"test_loss": loss})
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=1e-3)
+        optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         return {
             "optimizer": optimizer,
             # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),

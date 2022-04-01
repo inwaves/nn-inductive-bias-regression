@@ -4,3 +4,4 @@ lightning_logs/
 .virtual_documents/
 .idea/
 models/__pycache__/
+wandb/

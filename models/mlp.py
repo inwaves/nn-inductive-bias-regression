@@ -1,4 +1,5 @@
 import torch
+import wandb
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
@@ -8,10 +9,12 @@ class MLP(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,
-                 output_dim, ) -> None:
+                 output_dim,
+                 lr=1e-1) -> None:
         super().__init__()
 
         self.save_hyperparameters()
+        self.lr = lr
         self.hidden = nn.Sequential(
             nn.Linear(input_dim, n),
             nn.ReLU(),
@@ -35,6 +38,7 @@ class MLP(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
+        wandb.log("train_loss", loss)
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -43,10 +47,11 @@ class MLP(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
+        wandb.log("test_loss", loss)
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=1e-1)
+        optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         return {
             "optimizer": optimizer,
             # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),
