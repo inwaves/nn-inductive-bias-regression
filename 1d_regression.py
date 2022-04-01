@@ -126,7 +126,6 @@ if __name__ == '__main__':
     trainer.fit(model, train_dataloader)
 
     trainer.test(model=model, dataloaders=[test_dataloader])
-    print(x_train, x_test)
 
     # Apply g* to all the data points.
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
