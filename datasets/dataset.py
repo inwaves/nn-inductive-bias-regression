@@ -3,15 +3,38 @@ import numpy as np
 from utils.maths import chebyshev_polynomial
 
 
+def generate_deterministic_sine_baseline():
+    x_train = np.array([
+        0,
+        np.pi / 6,
+        np.pi / 3,
+        np.pi / 2,
+        2 * np.pi / 3,
+        np.pi,
+        4 * np.pi / 3,
+        3 * np.pi / 2,
+        5 * np.pi / 3,
+        2 * np.pi
+    ])
+    x_test = np.array([])
+    y_train, y_test = np.sin(x_train), np.array([])
+
+    # Scale x to be between 0, 1.
+    train_max = np.max(x_train)
+    x_train /= train_max
+
+    return x_train, y_train, x_test, y_test
+
+
 def generate_deterministic_sine_interpolation():
     x_train = np.array([
         0,
-        np.pi/6,
-        np.pi/3,
-        np.pi/2,
-        3*np.pi/2,
-        5*np.pi/3,
-        2*np.pi
+        np.pi / 6,
+        np.pi / 3,
+        np.pi / 2,
+        3 * np.pi / 2,
+        5 * np.pi / 3,
+        2 * np.pi
     ])
     x_test = np.array([
         2 * np.pi / 3,

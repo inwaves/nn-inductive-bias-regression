@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
     wandb_logger = WandbLogger(project="generalisation")
-    trainer = pl.Trainer(max_epochs=10000,
+    trainer = pl.Trainer(max_epochs=-1,
                          callbacks=[early_stopping_callback],
                          logger=wandb_logger,
                          log_every_n_steps=args.log_every_k_steps, )
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     toc = time.time()
     print(f"Training took {toc - tic:.2f} seconds.")
 
-    trainer.test(model=model, dataloaders=[test_dataloader])
+    # trainer.test(model=model, dataloaders=[test_dataloader])
 
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
 

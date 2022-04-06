@@ -12,7 +12,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def train():
     # Hyperparameters
-    num_epochs = 10000
+    num_epochs = 1000
     learning_rate = 1e-3
 
     train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()

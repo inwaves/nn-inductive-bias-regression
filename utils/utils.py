@@ -8,7 +8,8 @@ from torch.utils.data import DataLoader
 
 from datasets.dataset import generate_deterministic_sine_interpolation, generate_sine_extrapolation_dataset, \
     generate_parabola, generate_square_interpolation_dataset, generate_polynomial_spline_interpolation_dataset, \
-    generate_polynomial_spline_extrapolation_dataset, generate_chebyshev_polynomial_interpolation_dataset
+    generate_polynomial_spline_extrapolation_dataset, generate_chebyshev_polynomial_interpolation_dataset, \
+    generate_deterministic_sine_baseline
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowRelu, ShallowRelu, PlainTorchAsiShallowRelu
 
@@ -21,7 +22,7 @@ def parse_args():
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default=False, type=bool, help="Adjust the data linearly?")
-    parser.add_argument("--num_samples", "-s", default=50, type=int,
+    parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
                         help="Learning rate of the optimiser.")
@@ -59,6 +60,8 @@ def select_dataset(args):
         return generate_deterministic_sine_interpolation()
     elif args.dataset == "sine" and args.generalisation_task == "extrapolation":
         return generate_sine_extrapolation_dataset(num_train_datapoints=args.num_samples)
+    elif args.dataset == "sine" and args.generalisation_task == "baseline":
+        return generate_deterministic_sine_baseline()
     elif args.dataset == "parabola" and args.generalisation_task == "interpolation":
         return generate_parabola(num_train_datapoints=args.num_samples)
     elif args.dataset == "square" and args.generalisation_task == "interpolation":
@@ -82,7 +85,8 @@ def setup():
                        "lr": args.learning_rate,
                        "dataset": args.dataset,
                        "generalisation_task": args.generalisation_task,
-                       "num_samples": args.num_samples, })
+                       "num_samples": args.num_samples,
+                       "adjust_data_linearly": args.adjust_data_linearly})
 
     x_train, y_train, x_test, y_test = select_dataset(args)
 
@@ -95,7 +99,7 @@ def setup():
 
     # We're doing full-batch gradient descent, so the batch_size = n
     train_dataloader = DataLoader(training_data, batch_size=len(x_train))
-    test_dataloader = DataLoader(test_data, batch_size=len(x_test))
+    test_dataloader = DataLoader(test_data, batch_size=len(x_test)) if len(x_test) > 0 else None
 
     if args.model_type == "ASIShallowRelu":
         model = AsiShallowRelu(args.hidden_units,
