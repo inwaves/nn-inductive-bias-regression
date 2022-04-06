@@ -1,1 +1,1 @@
-python3 1d_regression.py --dataset=sine --generalisation_task=interpolation --model=ASIShallowRelu --hidden_units=10 --lr=0.001
+python3 1d_regression.py --dataset=sine --generalisation_task=interpolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.001

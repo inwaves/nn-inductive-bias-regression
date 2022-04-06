@@ -6,10 +6,11 @@ import torch
 import wandb
 from torch.utils.data import DataLoader
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+from pytorch_lightning.loggers import WandbLogger
 
 from scipy.interpolate import CubicSpline
 from sklearn.linear_model import LinearRegression
-from datasets.dataset import generate_sine_interpolation_dataset, generate_sine_extrapolation_dataset, \
+from datasets.dataset import generate_deterministic_sine_interpolation, generate_sine_interpolation_dataset, generate_sine_extrapolation_dataset, \
     generate_parabola, generate_square_interpolation_dataset, \
     generate_polynomial_spline_interpolation_dataset, generate_polynomial_spline_extrapolation_dataset, \
     generate_chebyshev_polynomial_interpolation_dataset, glue_dataset_portions
@@ -29,6 +30,8 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
+    parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--adjust_data_linearly", "-a", default=False, type=bool, help="Adjust the data linearly?")
     parser.add_argument("--num_samples", "-s", default=50, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
@@ -64,7 +67,7 @@ def variational_solution_vs_neural_network(variational_predictions, network_pred
 def select_dataset(args):
     """Select the dataset to use."""
     if args.dataset == "sine" and args.generalisation_task == "interpolation":
-        return generate_sine_interpolation_dataset(gap_size=np.pi / 2, num_train_datapoints=args.num_samples)
+        return generate_deterministic_sine_interpolation()
     elif args.dataset == "sine" and args.generalisation_task == "extrapolation":
         return generate_sine_extrapolation_dataset(num_train_datapoints=args.num_samples)
     elif args.dataset == "parabola" and args.generalisation_task == "interpolation":
@@ -95,7 +98,9 @@ def setup():
     x_train, y_train, x_test, y_test = select_dataset(args)
 
     # Adjust the data linearly.
-    y_train = adjust_data_linearly(x_train, y_train)
+    if args.adjust_data_linearly:
+        y_train = adjust_data_linearly(x_train, y_train)
+
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
@@ -120,22 +125,28 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+    wandb_logger = WandbLogger(project="generalisation")
     trainer = pl.Trainer(max_epochs=-1,
                          callbacks=[early_stopping_callback],
-                         log_every_n_steps=1, )
+                         logger=wandb_logger,
+                         log_every_n_steps=args.log_every_k_steps, )
     trainer.fit(model, train_dataloader)
 
     trainer.test(model=model, dataloaders=[test_dataloader])
 
-    # Apply g* to all the data points.
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
+
+    # Grid is used to plot g* correctly, otherwise it doesn't match the actual function
+    # because there are not that many data points in x_all.
     grid = np.linspace(np.min(x_all), np.max(x_all), 100)
 
     # Fit the cubic spline to the training data only.
     spline = CubicSpline(x_train, y_train)
 
+    # Find NN predictions for all data points (train + test).
     y_pred = model(torch.tensor(x_all).float().unsqueeze(1).to(device)).detach().numpy()
 
+    # Calculate the difference between the NN function and g* on the training data.
     error = variational_solution_vs_neural_network(spline(x_train), model(torch.tensor(x_train)
                                                                           .float()
                                                                           .unsqueeze(1)

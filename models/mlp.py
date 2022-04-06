@@ -38,7 +38,6 @@ class MLP(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
-        wandb.log("train_loss", loss)
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -47,7 +46,6 @@ class MLP(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
-        wandb.log("test_loss", loss)
         return loss
 
     def configure_optimizers(self):

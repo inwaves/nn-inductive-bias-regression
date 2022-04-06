@@ -3,6 +3,31 @@ import numpy as np
 from utils.maths import chebyshev_polynomial
 
 
+def generate_deterministic_sine_interpolation():
+    x_train = np.array([
+        0,
+        np.pi/6,
+        np.pi/3,
+        np.pi/2,
+        3*np.pi/2,
+        5*np.pi/3,
+        2*np.pi
+    ])
+    x_test = np.array([
+        2 * np.pi / 3,
+        np.pi,
+        4 * np.pi / 3,
+    ])
+    y_train, y_test = np.sin(x_train), np.sin(x_test)
+
+    # Scale x to be between 0, 1.
+    train_max = np.max(x_train)
+    x_train /= train_max
+    x_test /= train_max
+
+    return x_train, y_train, x_test, y_test
+
+
 # Scale x to be between -1, 1
 def generate_sine_interpolation_dataset(gap_size, num_train_datapoints=10, num_test_datapoints=None):
     """Generate data points for a sine wave where the
@@ -21,6 +46,8 @@ def generate_sine_interpolation_dataset(gap_size, num_train_datapoints=10, num_t
     x_test = np.linspace(gap_size, 2 * np.pi - gap_size, num_test_datapoints, endpoint=False)
     y_train = np.sin(x_train)
     y_test = np.sin(x_test)
+
+    # Normalise the data.
     train_max = np.max(x_train)
     x_train /= train_max
     x_test /= train_max

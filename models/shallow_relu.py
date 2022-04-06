@@ -1,5 +1,4 @@
 import torch
-import wandb
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
@@ -29,7 +28,6 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
-        wandb.log("train_loss", loss)
 
         return loss
 
@@ -39,7 +37,6 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("val_loss", loss)
-        wandb.log("val_loss", loss)
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -48,7 +45,6 @@ class ShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
-        wandb.log({"test_loss": loss})
         return loss
 
     def configure_optimizers(self):
@@ -92,7 +88,6 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("train_loss", loss)
-        wandb.log({"train_loss": loss})
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -101,7 +96,6 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("val_loss", loss)
-        wandb.log({"val_loss": loss})
         return loss
 
     def test_step(self, batch, batch_idx):
@@ -110,7 +104,6 @@ class AsiShallowRelu(pl.LightningModule):
 
         loss = F.mse_loss(out, targets)
         self.log("test_loss", loss)
-        wandb.log({"test_loss": loss})
         return loss
 
     def configure_optimizers(self):
