@@ -1,8 +1,8 @@
-numpy~=1.21.2
-wandb~=0.12.11
-scikit-learn~=1.0.2
-matplotlib~=3.5.0
-seaborn~=0.11.2
-scipy~=1.7.3
+numpy
+wandb
+scikit-learn
+matplotlib
+seaborn
+scipy
 pytorch_lightning
 pytorch
