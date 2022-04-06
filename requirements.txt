@@ -6,3 +6,4 @@ seaborn
 scipy
 pytorch_lightning
 torch
+plotly
