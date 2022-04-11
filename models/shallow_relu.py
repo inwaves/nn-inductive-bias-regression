@@ -71,6 +71,9 @@ class AsiShallowRelu(pl.LightningModule):
         self.out2 = nn.Linear(n, output_dim, bias=False)
         # self.out2.weight.data = -self.out1.weight.data
 
+        print(f"In the ASIShallowRelu initialiser, the weights are on these devices: {self.out1.weight.device}, {self.out2.weight.device}")
+        print(f"In the ASIShallowRelu initialiser, the hidden weights are on these devices: {self.hidden1.weight.device}, {self.hidden2.weight.device}")
+
     def forward(self, x):
         path1 = self.out1(self.relu(self.hidden1(x)))
         path2 = self.out2(self.relu(self.hidden2(x)))
