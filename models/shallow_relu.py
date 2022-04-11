@@ -66,10 +66,10 @@ class AsiShallowRelu(pl.LightningModule):
         self.relu = nn.ReLU()
 
         self.out1 = nn.Linear(n, output_dim, bias=False)
-        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
+        # self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
 
         self.out2 = nn.Linear(n, output_dim, bias=False)
-        self.out2.weight.data = -self.out1.weight.data
+        # self.out2.weight.data = -self.out1.weight.data
 
     def forward(self, x):
         path1 = self.out1(self.relu(self.hidden1(x)))
