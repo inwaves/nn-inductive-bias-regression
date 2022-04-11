@@ -56,14 +56,14 @@ if __name__ == '__main__':
     spline = CubicSpline(x_train, y_train)
 
     # Find NN predictions for all data points (train + test).
-    y_pred = model(torch.tensor(x_all).float().unsqueeze(1).to(device)).detach().numpy()
+    y_pred = model(torch.tensor(x_all).float().unsqueeze(1).to(device)).cpu().detach().numpy()
 
     # Calculate the difference between the NN function and g* on the training data.
     error = variational_solution_vs_neural_network(spline(x_train), model(torch.tensor(x_train)
                                                                           .float()
                                                                           .unsqueeze(1)
                                                                           .to(device))
-                                                   .detach().numpy())
+                                                   .cpu().detach().numpy())
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
