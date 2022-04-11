@@ -56,7 +56,9 @@ if __name__ == '__main__':
     spline = CubicSpline(x_train, y_train)
 
     # Find NN predictions for all data points (train + test).
-    y_pred = model(torch.tensor(x_all).float().unsqueeze(1).to(device)).cpu().detach().numpy()
+    all_data = torch.tensor(x_all).float().unsqueeze(1).to(device)
+    print(f"all_data is on device: {all_data.device}")
+    y_pred = model(all_data).cpu().detach().numpy()
 
     # Calculate the difference between the NN function and g* on the training data.
     error = variational_solution_vs_neural_network(spline(x_train), model(torch.tensor(x_train)
