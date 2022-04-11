@@ -4,7 +4,6 @@ import torch
 import wandb
 
 from sklearn.linear_model import LinearRegression
-from torch.utils.data import DataLoader
 
 from datasets.dataset import generate_deterministic_sine_interpolation, generate_sine_extrapolation_dataset, \
     generate_parabola, generate_square_interpolation_dataset, generate_polynomial_spline_interpolation_dataset, \
@@ -99,7 +98,7 @@ def setup():
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
-    custom_dataloader = CustomDataLoader(training_data, test_data)
+    custom_dataloader = CustomDataLoader(training_data, test_data, device)
     train_dataloader = custom_dataloader.train_dataloader()
     test_dataloader = custom_dataloader.test_dataloader() if len(x_test) > 0 else None
 
