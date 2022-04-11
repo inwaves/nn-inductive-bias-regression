@@ -77,6 +77,8 @@ class AsiShallowRelu(pl.LightningModule):
         print(f"In the ASIShallowRelu initialiser, the hidden weights are on these devices: {self.hidden1.weight.device}, {self.hidden2.weight.device}")
 
     def forward(self, x):
+        x = x.to(device)
+        print(f"x is on device {x.device}")
         path1 = self.out1(self.relu(self.hidden1(x)))
         path2 = self.out2(self.relu(self.hidden2(x)))
         return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
