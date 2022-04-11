@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J baseline-generalisation-experiments
+#SBATCH -J one-experiment
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL3-GPU
 #! How many whole nodes should be allocated?
@@ -31,5 +31,3 @@
 #/bin/bash
 
 python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.001
-python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.001
-python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001

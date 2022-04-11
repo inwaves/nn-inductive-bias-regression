@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J baseline-generalisation-experiments
+#SBATCH -J check-cuda
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL3-GPU
 #! How many whole nodes should be allocated?

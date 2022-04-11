@@ -22,11 +22,23 @@ if __name__ == '__main__':
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
     wandb_logger = WandbLogger(project="generalisation")
-    trainer = pl.Trainer(max_epochs=-1,
-                         callbacks=[early_stopping_callback],
-                         gpus=1,
-                         logger=wandb_logger,
-                         log_every_n_steps=args.log_every_k_steps, )
+
+    # This control flow is needed to be able to run this script
+    # on either CPU (locally) or GPU (on a cluster).
+    if device == "cuda":
+        trainer = pl.Trainer(max_epochs=-1,
+                             callbacks=[early_stopping_callback],
+                             accelerator="gpu",
+                             devices=1,
+                             logger=wandb_logger,
+                             log_every_n_steps=args.log_every_k_steps, )
+    else:
+        trainer = pl.Trainer(max_epochs=-1,
+                             callbacks=[early_stopping_callback],
+                             accelerator="cpu",
+                             logger=wandb_logger,
+                             log_every_n_steps=args.log_every_k_steps, )
+
     tic = time.time()
     trainer.fit(model, train_dataloader)
     toc = time.time()
