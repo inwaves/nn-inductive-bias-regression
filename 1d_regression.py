@@ -21,6 +21,9 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+
+    # Wrap up any hanging logger.
+    wandb.finish()
     wandb_logger = WandbLogger(project="generalisation")
 
     # This control flow is needed to be able to run this script
