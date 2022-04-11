@@ -25,7 +25,7 @@ class ShallowRelu(pl.LightningModule):
         return self.out(self.relu(self.hidden(x)))
 
     def training_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -34,7 +34,7 @@ class ShallowRelu(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -66,7 +66,7 @@ class AsiShallowRelu(pl.LightningModule):
         self.relu = nn.ReLU()
 
         self.out1 = nn.Linear(n, output_dim, bias=False)
-        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n)) * self.out1.weight.data
+        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
 
         self.out2 = nn.Linear(n, output_dim, bias=False)
         self.out2.weight.data = -self.out1.weight.data
@@ -77,7 +77,7 @@ class AsiShallowRelu(pl.LightningModule):
         return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
 
     def training_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -85,7 +85,7 @@ class AsiShallowRelu(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -114,12 +114,13 @@ class PlainTorchAsiShallowRelu(nn.Module):
         self.relu = nn.ReLU()
 
         self.out1 = nn.Linear(n, output_dim, bias=False)
-        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n)) * self.out1.weight.data
+        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
 
         self.out2 = nn.Linear(n, output_dim, bias=False)
         self.out2.weight.data = -self.out1.weight.data
 
     def forward(self, x):
+        x = x.to(device)
         path1 = self.out1(self.relu(self.hidden1(x)))
         path2 = self.out2(self.relu(self.hidden2(x)))
-        return (torch.sqrt(torch.tensor([2])) / 2) * path1 + (torch.sqrt(torch.tensor([2])) / 2) * path2
+        return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2

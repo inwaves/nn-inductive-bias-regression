@@ -4,6 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 
 class MLP(pl.LightningModule):
     def __init__(self,
@@ -33,7 +35,7 @@ class MLP(pl.LightningModule):
         return self.out(self.hidden(x))
 
     def training_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -41,7 +43,7 @@ class MLP(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1), batch[:, 1].float().unsqueeze(1)
+        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
@@ -52,5 +54,4 @@ class MLP(pl.LightningModule):
         optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         return {
             "optimizer": optimizer,
-            # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),
         }
