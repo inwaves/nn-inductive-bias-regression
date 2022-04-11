@@ -61,8 +61,8 @@ class AsiShallowRelu(pl.LightningModule):
         self.lr = lr
         self.hidden1 = nn.Linear(input_dim, n)
         self.hidden2 = nn.Linear(input_dim, n)
-        self.hidden1.weight = self.hidden1.weight.to(device)
-        self.hidden1.bias = self.hidden1.bias.to(device)
+        self.hidden1.weight.data = self.hidden1.weight.data.to(device)
+        self.hidden1.bias.data = self.hidden1.bias.data.to(device)
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
         self.relu = nn.ReLU()
