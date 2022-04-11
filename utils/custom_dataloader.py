@@ -11,12 +11,22 @@ class CustomDataLoader(pl.LightningDataModule):
     # num_workers here should be 4 * num_GPUs available as a rule of thumb.
     def train_dataloader(self):
         if self.device == "cuda":
-            return DataLoader(self.train_dataset, batch_size=len(self.train_dataset), num_workers=4)
+            return DataLoader(self.train_dataset,
+                              batch_size=len(self.train_dataset),
+                              num_workers=4,
+                              persistent_workers=True)
         else:
-            return DataLoader(self.train_dataset, batch_size=len(self.train_dataset), num_workers=0)
+            return DataLoader(self.train_dataset,
+                              batch_size=len(self.train_dataset),
+                              num_workers=0)
 
     def test_dataloader(self):
         if self.device == "cuda":
-            return DataLoader(self.test_dataset, batch_size=len(self.test_dataset), num_workers=4)
+            return DataLoader(self.test_dataset,
+                              batch_size=len(self.test_dataset),
+                              num_workers=4,
+                              persistent_workers=True)
         else:
-            return DataLoader(self.test_dataset, batch_size=len(self.test_dataset), num_workers=0)
+            return DataLoader(self.test_dataset,
+                              batch_size=len(self.test_dataset),
+                              num_workers=0)
