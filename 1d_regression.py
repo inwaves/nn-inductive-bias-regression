@@ -24,6 +24,7 @@ if __name__ == '__main__':
     wandb_logger = WandbLogger(project="generalisation")
     trainer = pl.Trainer(max_epochs=-1,
                          callbacks=[early_stopping_callback],
+                         gpus=1,
                          logger=wandb_logger,
                          log_every_n_steps=args.log_every_k_steps, )
     tic = time.time()
