@@ -99,8 +99,8 @@ def setup():
 
     # We're doing full-batch gradient descent, so the batch_size = n
     # num_workers here should be 4 * num_GPUs available as a rule of thumb.
-    train_dataloader = DataLoader(training_data, batch_size=len(x_train))
-    test_dataloader = DataLoader(test_data, batch_size=len(x_test)) if len(x_test) > 0 else None
+    train_dataloader = DataLoader(training_data, batch_size=len(x_train), num_workers=64)
+    test_dataloader = DataLoader(test_data, batch_size=len(x_test), num_workers=64) if len(x_test) > 0 else None
 
     if args.model_type == "ASIShallowRelu":
         model = AsiShallowRelu(args.hidden_units,
