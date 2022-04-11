@@ -89,12 +89,8 @@ def setup():
                        "num_samples": args.num_samples,
                        "adjust_data_linearly": args.adjust_data_linearly})
 
-    # A little bit of annoying boilerplate that might solve my issue.
     x_train, y_train, x_test, y_test = select_dataset(args)
-    x_train = x_train.to(device)
-    y_train = y_train.to(device)
-    x_test = x_test.to(device)
-    y_test = y_test.to(device)
+
     print(f"Data inside the setup is on device: {x_train.device}")
 
     # Adjust the data linearly.
