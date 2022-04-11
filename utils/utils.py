@@ -91,8 +91,6 @@ def setup():
 
     x_train, y_train, x_test, y_test = select_dataset(args)
 
-    print(f"Data inside the setup is on device: {x_train.device}")
-
     # Adjust the data linearly.
     if args.adjust_data_linearly:
         y_train = adjust_data_linearly(x_train, y_train)
@@ -113,6 +111,5 @@ def setup():
         model = ShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "PlainTorchAsiShallowRelu":
         model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
-    print(f"Model is on device: {device}")
 
     return train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model
