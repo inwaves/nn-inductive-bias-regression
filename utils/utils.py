@@ -12,8 +12,10 @@ from datasets.dataset import generate_deterministic_sine_interpolation, generate
     generate_deterministic_sine_baseline
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowRelu, ShallowRelu, PlainTorchAsiShallowRelu
+from utils.custom_dataloader import CustomDataLoader
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
 
 def parse_args():
     """Parses command-line arguments corresponding to experiment parameters."""
@@ -97,10 +99,9 @@ def setup():
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
-    # We're doing full-batch gradient descent, so the batch_size = n
-    # num_workers here should be 4 * num_GPUs available as a rule of thumb.
-    train_dataloader = DataLoader(training_data, batch_size=len(x_train), num_workers=64)
-    test_dataloader = DataLoader(test_data, batch_size=len(x_test), num_workers=64) if len(x_test) > 0 else None
+    custom_dataloader = CustomDataLoader(training_data, test_data)
+    train_dataloader = custom_dataloader.train_dataloader()
+    test_dataloader = custom_dataloader.test_dataloader() if len(x_test) > 0 else None
 
     if args.model_type == "ASIShallowRelu":
         model = AsiShallowRelu(args.hidden_units,
