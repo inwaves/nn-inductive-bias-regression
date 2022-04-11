@@ -61,15 +61,17 @@ class AsiShallowRelu(pl.LightningModule):
         self.lr = lr
         self.hidden1 = nn.Linear(input_dim, n)
         self.hidden2 = nn.Linear(input_dim, n)
+        self.hidden1.weight = self.hidden1.weight.to(device)
+        self.hidden1.bias = self.hidden1.bias.to(device)
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
         self.relu = nn.ReLU()
 
         self.out1 = nn.Linear(n, output_dim, bias=False)
-        # self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
+        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data.to(device)
 
         self.out2 = nn.Linear(n, output_dim, bias=False)
-        # self.out2.weight.data = -self.out1.weight.data
+        self.out2.weight.data = -self.out1.weight.data
 
         print(f"In the ASIShallowRelu initialiser, the weights are on these devices: {self.out1.weight.device}, {self.out2.weight.device}")
         print(f"In the ASIShallowRelu initialiser, the hidden weights are on these devices: {self.hidden1.weight.device}, {self.hidden2.weight.device}")
