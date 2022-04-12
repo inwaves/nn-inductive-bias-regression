@@ -16,7 +16,7 @@ from utils.plotting import plot_sin_data_vs_predictions
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Make deterministic for reproducibility, or comment out to average runs.
-pl.seed_everything(1337)
+# pl.seed_everything(1337)
 
 
 if __name__ == '__main__':

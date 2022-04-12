@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job58741957/slurm_script: line 33: syntax error near unexpected token `python3'
+/var/spool/slurm/slurmd/job58741957/slurm_script: line 33: `for i in {1..5} do; python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.001; done'
