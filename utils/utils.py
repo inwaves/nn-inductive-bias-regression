@@ -5,10 +5,10 @@ import wandb
 
 from sklearn.linear_model import LinearRegression
 
-from datasets.dataset import generate_deterministic_sine_interpolation, generate_sine_extrapolation_dataset, \
-    generate_parabola, generate_square_interpolation_dataset, generate_polynomial_spline_interpolation_dataset, \
-    generate_polynomial_spline_extrapolation_dataset, generate_chebyshev_polynomial_interpolation_dataset, \
-    generate_deterministic_sine_baseline
+from datasets.dataset import generate_sine_interpolation, generate_sine_extrapolation_dataset, \
+    generate_parabola, generate_square_interpolation, generate_polynomial_spline_interpolation, \
+    generate_polynomial_spline_extrapolation_dataset, generate_chebyshev_interpolation, \
+    generate_sine_baseline
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowRelu, ShallowRelu, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
@@ -58,23 +58,23 @@ def select_dataset(args):
     # TODO: Add a unit test for this.
     """Select the dataset to use."""
     if args.dataset == "sine" and args.generalisation_task == "interpolation":
-        return generate_deterministic_sine_interpolation()
+        return generate_sine_interpolation()
     elif args.dataset == "sine" and args.generalisation_task == "extrapolation":
         return generate_sine_extrapolation_dataset(num_train_datapoints=args.num_samples)
     elif args.dataset == "sine" and args.generalisation_task == "baseline":
-        return generate_deterministic_sine_baseline()
+        return generate_sine_baseline()
     elif args.dataset == "parabola" and args.generalisation_task == "interpolation":
         return generate_parabola(num_train_datapoints=args.num_samples)
     elif args.dataset == "square" and args.generalisation_task == "interpolation":
-        return generate_square_interpolation_dataset(gap_size=1,
-                                                     num_train_datapoints=args.num_samples)
+        return generate_square_interpolation(gap_size=1,
+                                             num_train_datapoints=args.num_samples)
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "interpolation":
-        return generate_polynomial_spline_interpolation_dataset(gap_size=-1, num_train_datapoints=args.num_samples)
+        return generate_polynomial_spline_interpolation(gap_size=-1, num_train_datapoints=args.num_samples)
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "extrapolation":
         return generate_polynomial_spline_extrapolation_dataset(num_train_datapoints=args.num_samples)
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "interpolation":
-        return generate_chebyshev_polynomial_interpolation_dataset(gap_size=-0.6,
-                                                                   num_train_datapoints=args.num_samples)
+        return generate_chebyshev_interpolation(gap_size=-0.6,
+                                                num_train_datapoints=args.num_samples)
 
 
 def setup():
