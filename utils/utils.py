@@ -51,7 +51,7 @@ def adjust_data_linearly(x_train, y_train):
 def variational_solution_vs_neural_network(variational_predictions, network_predictions):
     """Calculate the mean square error between the two predictions."""
 
-    return np.sqrt(np.mean((network_predictions - variational_predictions) ** 2))
+    return np.sqrt(np.mean((network_predictions.reshape(variational_predictions.shape) - variational_predictions) ** 2))
 
 
 def select_dataset(args):
