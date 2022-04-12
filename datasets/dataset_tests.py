@@ -1,8 +1,6 @@
 from datasets.dataset import *
 from utils.plotting import plot_raw_data
 
-gap_size = 0
-
 
 def generate_sine_baseline_unit_test():
     x_tr, y_tr, x_te, y_te = generate_sine_baseline()
