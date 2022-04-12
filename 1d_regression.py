@@ -65,7 +65,6 @@ if __name__ == '__main__':
     # Calculate the difference between g* and the NN function on the training data.
     y_variational = spline(x_train)
     y_train_pred = model(torch.tensor(x_train).float().unsqueeze(1)).cpu().detach().numpy()
-    print(f"y_variational: {y_variational}, y_train_pred: {y_train_pred}")
     error = variational_solution_vs_neural_network(y_variational, y_train_pred)
 
     # Log locally, so I can actually plot these values later...
