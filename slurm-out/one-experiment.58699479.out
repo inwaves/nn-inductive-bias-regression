@@ -1,0 +1,26 @@
+Global seed set to 1337
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220411_142437-3okrea0b
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fancy-plant-65
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/3okrea0b
+Traceback (most recent call last):
+  File "1d_regression.py", line 21, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 94, in setup
+    x_train = x_train.to(device)
+AttributeError: 'numpy.ndarray' object has no attribute 'to'
+Traceback (most recent call last):
+  File "1d_regression.py", line 21, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 94, in setup
+    x_train = x_train.to(device)
+AttributeError: 'numpy.ndarray' object has no attribute 'to'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced fancy-plant-65: https://wandb.ai/inwaves/generalisation/runs/3okrea0b
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220411_142437-3okrea0b/logs
+

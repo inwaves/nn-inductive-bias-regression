@@ -1,0 +1,30 @@
+Global seed set to 1337
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220411_133154-exc6q0z3
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run kind-wind-64
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/exc6q0z3
+Traceback (most recent call last):
+  File "1d_regression.py", line 21, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 109, in setup
+    lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 69, in __init__
+    self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+Traceback (most recent call last):
+  File "1d_regression.py", line 21, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 109, in setup
+    lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 69, in __init__
+    self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.002 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced kind-wind-64: https://wandb.ai/inwaves/generalisation/runs/exc6q0z3
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220411_133154-exc6q0z3/logs
+
