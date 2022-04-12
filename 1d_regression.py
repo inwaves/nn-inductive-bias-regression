@@ -14,7 +14,7 @@ from utils.plotting import plot_sin_data_vs_predictions
 
 # Initialisation.
 device = "cuda" if torch.cuda.is_available() else "cpu"
-pl.seed_everything(1337)
+# pl.seed_everything(1337)
 
 
 if __name__ == '__main__':
