@@ -29,7 +29,9 @@ def plot_raw_data(x_train, y_train, x_test, y_test):
     sns.set()
     fig, ax = plt.subplots()
     ax.plot(x_train, y_train, 'ro', label='data')
-    ax.plot(x_test, y_test, 'bo', label='unseen data')
-    ax.axvspan(np.min(x_test), np.max(x_test), alpha=0.1, color='blue')
+
+    if len(x_test) > 0:
+        ax.plot(x_test, y_test, 'bo', label='unseen data')
+        ax.axvspan(np.min(x_test), np.max(x_test), alpha=0.1, color='blue')
     plt.legend()
     plt.show()

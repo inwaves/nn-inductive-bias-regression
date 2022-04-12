@@ -1,9 +1,9 @@
 import numpy as np
 
-from utils.maths import chebyshev_polynomial
+from utils.maths import chebyshev_polynomial, normalise_data
 
 
-def generate_deterministic_sine_baseline():
+def generate_sine_baseline():
     x_train = np.array([
         0,
         np.pi / 6,
@@ -19,14 +19,12 @@ def generate_deterministic_sine_baseline():
     x_test = np.array([])
     y_train, y_test = np.sin(x_train), np.array([])
 
-    # Scale x to be between 0, 1.
-    train_max = np.max(x_train)
-    x_train /= train_max
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
 
-def generate_deterministic_sine_interpolation():
+def generate_sine_interpolation():
     x_train = np.array([
         0,
         np.pi / 6,
@@ -42,139 +40,200 @@ def generate_deterministic_sine_interpolation():
         4 * np.pi / 3,
     ])
     y_train, y_test = np.sin(x_train), np.sin(x_test)
-
-    # Scale x to be between 0, 1.
-    train_max = np.max(x_train)
-    x_train /= train_max
-    x_test /= train_max
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
 
-# Scale x to be between -1, 1
-def generate_sine_interpolation_dataset(gap_size, num_train_datapoints=10, num_test_datapoints=None):
-    """Generate data points for a sine wave where the
-    training set ranges [-2π, gap_size) u [2π-gap_size, 4π),
-    and the test set ranges [-2π, 4π).
-        :param gap_size: gap size between training and test set. gap size of π means no gap.
-        :param num_train_datapoints: number of training data points to generate.
-        :param num_test_datapoints: number of test data points to generate.
-    """
-
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
-
-    x_train = np.concatenate((np.linspace(-2 * np.pi, gap_size, num_train_datapoints // 2, endpoint=False),
-                              np.linspace(2 * np.pi - gap_size, 4 * np.pi, num_train_datapoints // 2, endpoint=False)))
-    x_test = np.linspace(gap_size, 2 * np.pi - gap_size, num_test_datapoints, endpoint=False)
-    y_train = np.sin(x_train)
-    y_test = np.sin(x_test)
-
-    # Normalise the data.
-    train_max = np.max(x_train)
-    x_train /= train_max
-    x_test /= train_max
-
-    return x_train, y_train, x_test, y_test
-
-
-def generate_sine_extrapolation_dataset(num_train_datapoints, num_test_datapoints=None):
-    """Generate data points for extrapolating a sine function.
-        :param num_train_datapoints: number of training data points to generate in interval [-2π, 2π).
-        :param num_test_datapoints: number of test data points to generate in [2π, 3π).
-    """
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
-
-    x_train = np.linspace(-2 * np.pi, 2 * np.pi, num_train_datapoints, endpoint=False)
-    x_test = np.linspace(2 * np.pi, 3 * np.pi, num_test_datapoints, endpoint=False)
+def generate_sine_extrapolation():
+    x_train = np.array([
+        0,
+        np.pi / 6,
+        np.pi / 3,
+        np.pi / 2,
+        2 * np.pi / 3,
+        np.pi,
+        4 * np.pi / 3,
+    ])
+    x_test = np.array([
+        3 * np.pi / 2,
+        5 * np.pi / 3,
+        2 * np.pi
+    ])
     y_train, y_test = np.sin(x_train), np.sin(x_test)
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
 
-def generate_square_interpolation_dataset(gap_size, num_train_datapoints=10, num_test_datapoints=None):
+def generate_square_baseline():
     """Generate data points for a square 'bump' (_---_)."""
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
 
-    head = np.linspace(0, 3.33, num_train_datapoints // 3, endpoint=False)
-    train_bump = np.linspace(3.33, 6.66, num_train_datapoints // 3, endpoint=False)
-    train_tail = np.linspace(9.99 + gap_size, 13.32 + gap_size, num_train_datapoints // 3, endpoint=False)
+    x_train = np.array([i for i in range(0, 10)])
+    x_test = np.array([])
 
-    test_bump = np.linspace(6.66, 6.66 + (3.33 + gap_size) / 2, num_test_datapoints // 2, endpoint=False)
-    test_tail = np.linspace(6.66 + (3.33 + gap_size) / 2, 9.99 + gap_size, num_test_datapoints // 2, endpoint=False)
+    y_train = np.array([0, 0, 0, 1, 1, 1, 0, 0, 0, 0])
+    y_test = np.array([])
 
-    x_train = np.concatenate((head, train_bump, train_tail))
-    x_test = np.concatenate((test_bump, test_tail))
-    y_train = np.concatenate((np.zeros(head.shape[0]),
-                              np.ones(train_bump.shape[0]),
-                              np.zeros(train_tail.shape[0])))
-    y_test = np.concatenate((np.ones(test_bump.shape[0]),
-                             np.zeros(test_tail.shape[0])))
+    x_train, x_test = normalise_data(x_train, x_test)
+
     return x_train, y_train, x_test, y_test
 
 
-def generate_polynomial_spline_interpolation_dataset(gap_size, num_train_datapoints=10, num_test_datapoints=None):
+def generate_square_interpolation():
+    """Generate data points for a square 'bump' (_---_)."""
+
+    x_train = np.array([0, 1, 2, 3, 7, 8, 9])
+    x_test = np.array([4, 5, 6])
+
+    y_train = np.array([0, 0, 0, 1, 0, 0, 0])
+    y_test = np.array([1, 1, 0])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_square_extrapolation():
+    """Generate data points for a square 'bump' (_---_)."""
+
+    x_train = np.array([0, 1, 2, 3, 4, 5, 6])
+    x_test = np.array([7, 8, 9])
+
+    y_train = np.array([0, 0, 0, 1, 1, 1, 0])
+    y_test = np.array([0, 0, 0])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_polynomial_spline_baseline():
     """Generate data points for a polynomial spline."""
 
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
+    train_squared = np.array([-2, -1.75, -1.5, -1.25, -1])
+    train_cubed = np.array([0, 1, 1.25, 1.5, 1.75, 2])
 
-    squared_train = np.linspace(-2, gap_size, num_train_datapoints // 2, endpoint=False)
-    cubed_train = np.linspace(1, 3, num_train_datapoints // 2, endpoint=False)
-    x_train = np.concatenate((squared_train, cubed_train))
-    y_train = np.concatenate((squared_train ** 2, cubed_train ** 3 - cubed_train))
+    x_train = np.concatenate((train_squared, train_cubed))
+    x_test = np.array([])
 
-    x_test = np.linspace(gap_size, 1, num_test_datapoints, endpoint=False)
-    y_test = x_test ** 3 - x_test
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
+    y_test = np.array([])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+    return x_train, y_train, x_test, y_test
+
+
+def generate_polynomial_spline_interpolation():
+    """Generate data points for a polynomial spline."""
+
+    train_squared = np.array([-2, -1.75, -1.5, -1.25])
+    train_cubed = np.array([1.5, 1.75, 2,])
+    test_squared = np.array([-1, 0])
+    test_cubed = np.array([1, 1.25])
+
+    x_train = np.concatenate((train_squared, train_cubed))
+    x_test = np.concatenate((test_squared, test_cubed))
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
+    y_test = np.concatenate((test_squared ** 2, test_cubed ** 3 - test_cubed))
+
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
 
-def generate_polynomial_spline_extrapolation_dataset(num_train_datapoints, num_test_datapoints=None):
-    """Generate data points for extrapolating a polynomial spline function."""
+def generate_polynomial_spline_extrapolation():
+    """Generate data points for a polynomial spline."""
 
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
+    train_squared = np.array([-2, -1.75, -1.5, -1.25, -1])
+    train_cubed = np.array([1, 1.25])
+    x_test = np.array([1.5, 1.75, 2])
 
-    squared_train = np.linspace(-2, 0, num_train_datapoints // 2, endpoint=False)
-    cubed_train = np.linspace(0, 2, num_train_datapoints // 2, endpoint=False)
-    x_train = np.concatenate((squared_train, cubed_train))
-    y_train = np.concatenate((squared_train ** 2, cubed_train ** 3 - cubed_train))
-
-    x_test = np.linspace(2, 4, num_test_datapoints, endpoint=False)
+    x_train = np.concatenate((train_squared, train_cubed))
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
     y_test = x_test ** 3 - x_test
+
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
 
-def generate_chebyshev_polynomial_interpolation_dataset(gap_size, num_train_datapoints=10, num_test_datapoints=None):
+def generate_chebyshev_baseline():
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
 
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
+    x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1])
+    x_test = np.array([])
 
-    x_train = np.concatenate((np.linspace(-1, gap_size, num_train_datapoints // 2, endpoint=False),
-                              np.linspace(0.6, 1, num_train_datapoints // 2, endpoint=False)))
-    x_test = np.linspace(gap_size, 0.6, num_test_datapoints, endpoint=False)
+    y_train = chebyshev_polynomial(x_train, 4)
+    y_test = np.array([])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_chebyshev_interpolation():
+    """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
+
+    x_train = np.array([-1, -0.8, -0.6, -0.4, 0.4, 0.6, 0.8, 1])
+    x_test = np.array([-0.2, 0, 0.2])
+
+    y_train = chebyshev_polynomial(x_train, 4)
+    y_test = chebyshev_polynomial(x_test, 4)
+    print(y_test)
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_chebyshev_extrapolation():
+    """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
+
+    x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4])
+    x_test = np.array([0.6, 0.8, 1])
 
     y_train = chebyshev_polynomial(x_train, 4)
     y_test = chebyshev_polynomial(x_test, 4)
 
+    x_train, x_test = normalise_data(x_train, x_test)
+
     return x_train, y_train, x_test, y_test
 
 
-def generate_parabola(num_train_datapoints=10, num_test_datapoints=None):
-    if num_test_datapoints is None:
-        num_test_datapoints = num_train_datapoints // 2
-
-    x_train = np.concatenate((np.linspace(-2, -1, num_train_datapoints, endpoint=False),
-                              np.linspace(1, 2, num_train_datapoints, endpoint=False)))
-    x_test = np.linspace(-1, 1, num_test_datapoints, endpoint=False)
+def generate_parabola_baseline():
+    x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
+    x_test = np.array([])
 
     y_train = x_train ** 2
     y_test = x_test ** 2
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_parabola_interpolation():
+
+    x_train = np.array([-5, -4, -3, -2, 2, 3, 4, 5])
+    x_test = np.array([-1, 0, 1])
+
+    y_train = x_train ** 2
+    y_test = x_test ** 2
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_parabola_extrapolation():
+    x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2])
+    x_test = np.array([3, 4, 5])
+
+    y_train = x_train ** 2
+    y_test = x_test ** 2
+
+    x_train, x_test = normalise_data(x_train, x_test)
 
     return x_train, y_train, x_test, y_test
 
