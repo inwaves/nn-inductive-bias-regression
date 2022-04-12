@@ -22,8 +22,6 @@ if __name__ == '__main__':
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
 
-    # Wrap up any hanging logger.
-    wandb.finish()
     wandb_logger = WandbLogger(project="generalisation")
 
     # This control flow is needed to be able to run this script
@@ -60,17 +58,20 @@ if __name__ == '__main__':
 
     # Find NN predictions for all data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
-    y_pred = model(all_data).cpu().detach().numpy()
+    y_all_pred = model(all_data).cpu().detach().numpy()
 
-    # Calculate the difference between the NN function and g* on the training data.
-    error = variational_solution_vs_neural_network(spline(x_train), model(torch.tensor(x_train)
-                                                                          .float()
-                                                                          .unsqueeze(1))
-                                                   .cpu().detach().numpy())
+    # Calculate the difference between g* and the NN function on the training data.
+    y_variational = spline(x_train)
+    y_train_pred = model(torch.tensor(x_train).float().unsqueeze(1)).cpu().detach().numpy()
+    print(f"y_variational: {y_variational}, y_train_pred: {y_train_pred}")
+    error = variational_solution_vs_neural_network(y_variational, y_train_pred)
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
         f.write(f"{str(args.hidden_units)}, {str(error)}\n")
 
     wandb.log({"nn_vs_solution_error": error})
-    plot_sin_data_vs_predictions(x_train, y_train, x_test, y_test, y_pred, x_all, grid, spline(grid))
+    plot_sin_data_vs_predictions(x_train, y_train, x_test, y_test, y_all_pred, x_all, grid, spline(grid))
+
+    # Wrap up any hanging logger.
+    wandb.finish()
