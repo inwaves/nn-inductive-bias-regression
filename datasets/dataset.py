@@ -111,13 +111,13 @@ def generate_square_extrapolation():
 def generate_polynomial_spline_baseline():
     """Generate data points for a polynomial spline."""
 
-    train_squared = np.array([-5, -4, -3, -2, -1])
-    train_cubed = np.array([1, 23, 4, 5])
+    train_squared = np.array([-2, -1.75, -1.5, -1.25, -1])
+    train_cubed = np.array([0, 1, 1.25, 1.5, 1.75, 2])
 
     x_train = np.concatenate((train_squared, train_cubed))
     x_test = np.array([])
 
-    y_train = np.concatenate(train_squared ** 2, train_cubed ** 3 - train_cubed)
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
     y_test = np.array([])
 
     x_train, x_test = normalise_data(x_train, x_test)
@@ -127,15 +127,15 @@ def generate_polynomial_spline_baseline():
 def generate_polynomial_spline_interpolation():
     """Generate data points for a polynomial spline."""
 
-    train_squared = np.array([-5, -4, -3, -2])
-    train_cubed = np.array([3, 4, 5])
-    test_squared = np.array([-1])
-    test_cubed = np.array([1, 2])
+    train_squared = np.array([-2, -1.75, -1.5, -1.25])
+    train_cubed = np.array([1.5, 1.75, 2,])
+    test_squared = np.array([-1, 0])
+    test_cubed = np.array([1, 1.25])
 
     x_train = np.concatenate((train_squared, train_cubed))
     x_test = np.concatenate((test_squared, test_cubed))
-    y_train = np.concatenate(train_squared ** 2, train_cubed ** 3 - train_cubed)
-    y_test = np.concatenate(test_squared ** 2, test_cubed ** 3 - test_cubed)
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
+    y_test = np.concatenate((test_squared ** 2, test_cubed ** 3 - test_cubed))
 
     x_train, x_test = normalise_data(x_train, x_test)
 
@@ -145,12 +145,12 @@ def generate_polynomial_spline_interpolation():
 def generate_polynomial_spline_extrapolation():
     """Generate data points for a polynomial spline."""
 
-    train_squared = np.array([-5, -4, -3, -2, -1])
-    train_cubed = np.array([1, 2])
-    x_test = np.array([3, 4, 5])
+    train_squared = np.array([-2, -1.75, -1.5, -1.25, -1])
+    train_cubed = np.array([1, 1.25])
+    x_test = np.array([1.5, 1.75, 2])
 
     x_train = np.concatenate((train_squared, train_cubed))
-    y_train = np.concatenate(train_squared ** 2, train_cubed ** 3 - train_cubed)
+    y_train = np.concatenate((train_squared ** 2, train_cubed ** 3 - train_cubed))
     y_test = x_test ** 3 - x_test
 
     x_train, x_test = normalise_data(x_train, x_test)
@@ -161,7 +161,7 @@ def generate_polynomial_spline_extrapolation():
 def generate_chebyshev_baseline():
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
 
-    x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
+    x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1])
     x_test = np.array([])
 
     y_train = chebyshev_polynomial(x_train, 4)
@@ -175,11 +175,12 @@ def generate_chebyshev_baseline():
 def generate_chebyshev_interpolation():
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
 
-    x_train = np.array([-5, -4, -3, -2, 2, 3, 4, 5])
-    x_test = np.array([-1, 0, 1])
+    x_train = np.array([-1, -0.8, -0.6, -0.4, 0.4, 0.6, 0.8, 1])
+    x_test = np.array([-0.2, 0, 0.2])
 
     y_train = chebyshev_polynomial(x_train, 4)
     y_test = chebyshev_polynomial(x_test, 4)
+    print(y_test)
 
     x_train, x_test = normalise_data(x_train, x_test)
 
@@ -189,8 +190,8 @@ def generate_chebyshev_interpolation():
 def generate_chebyshev_extrapolation():
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
 
-    x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2])
-    x_test = np.array([3, 4, 5])
+    x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4])
+    x_test = np.array([0.6, 0.8, 1])
 
     y_train = chebyshev_polynomial(x_train, 4)
     y_test = chebyshev_polynomial(x_test, 4)
