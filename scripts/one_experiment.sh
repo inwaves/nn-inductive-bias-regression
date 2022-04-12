@@ -30,4 +30,4 @@
 #SBATCH -p ampere
 #/bin/bash
 
-for i in {1..5}; do python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.001; done
+for i in {1..1}; do python3 1d_regression.py --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10000 --learning_rate=0.001; done

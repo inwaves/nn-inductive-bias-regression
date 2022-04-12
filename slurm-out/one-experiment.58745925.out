@@ -1,0 +1,60 @@
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220412_103052-1njjqxln
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run rose-lake-117
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1njjqxln
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/home/ata36/gen-experiments/lib/python3.6/site-packages/pytorch_lightning/loggers/wandb.py:342: UserWarning: There is a wandb run already in progress and newly created instances of `WandbLogger` will reuse this run. If this is not desired, call `wandb.finish()` before instantiating `WandbLogger`.
+  "There is a wandb run already in progress and newly created instances of `WandbLogger` will reuse"
+Set SLURM handle signals.
+
+  | Name    | Type   | Params
+-----------------------------------
+0 | hidden1 | Linear | 20.0 K
+1 | hidden2 | Linear | 20.0 K
+2 | relu    | ReLU   | 0     
+3 | out1    | Linear | 10.0 K
+4 | out2    | Linear | 10.0 K
+-----------------------------------
+60.0 K    Trainable params
+0         Non-trainable params
+60.0 K    Total params
+0.240     Total estimated model params size (MB)
+/home/ata36/gen-experiments/lib/python3.6/site-packages/pytorch_lightning/trainer/data_loading.py:433: UserWarning: The number of training samples (1) is smaller than the logging interval Trainer(log_every_n_steps=100). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+  f"The number of training samples ({self.num_training_batches}) is smaller than the logging interval"
+Training: 0it [00:00, ?it/s]Training:   0% 0/1 [00:00<?, ?it/s]Epoch 0:   0% 0/1 [00:00<?, ?it/s] Epoch 0: 100% 1/1 [00:00<00:00,  1.78it/s]Epoch 0: 100% 1/1 [00:00<00:00,  1.77it/s, loss=0.525, v_num=qxln]Epoch 0: 100% 1/1 [00:00<00:00,  1.73it/s, loss=0.525, v_num=qxln]Epoch 0:   0% 0/1 [00:00<?, ?it/s, loss=0.525, v_num=qxln]        Epoch 1:   0% 0/1 [00:00<?, ?it/s, loss=0.525, v_num=qxln]Epoch 1: 100% 1/1 [00:00<00:00, 137.60it/s, loss=0.472, v_num=qxln]Epoch 1: 100% 1/1 [00:00<00:00, 124.07it/s, loss=0.472, v_num=qxln]Epoch 1:   0% 0/1 [00:00<?, ?it/s, loss=0.472, v_num=qxln]         Epoch 2:   0% 0/1 [00:00<?, ?it/s, loss=0.472, v_num=qxln]Epoch 2: 100% 1/1 [00:00<00:00, 170.54it/s, loss=0.438, v_num=qxln]Epoch 2: 100% 1/1 [00:00<00:00, 151.62it/s, loss=0.438, v_num=qxln]Epoch 2:   0% 0/1 [00:00<?, ?it/s, loss=0.438, v_num=qxln]         Epoch 3:   0% 0/1 [00:00<?, ?it/s, loss=0.438, v_num=qxln]Epoch 3: 100% 1/1 [00:00<00:00, 162.18it/s, loss=0.441, v_num=qxln]Epoch 3: 100% 1/1 [00:00<00:00, 144.42it/s, loss=0.441, v_num=qxln]Epoch 3:   0% 0/1 [00:00<?, ?it/s, loss=0.441, v_num=qxln]         Epoch 4:   0% 0/1 [00:00<?, ?it/s, loss=0.441, v_num=qxln]Epoch 4: 100% 1/1 [00:00<00:00, 251.34it/s, loss=0.653, v_num=qxln]Epoch 4: 100% 1/1 [00:00<00:00, 216.21it/s, loss=0.653, v_num=qxln]Epoch 4:   0% 0/1 [00:00<?, ?it/s, loss=0.653, v_num=qxln]         Epoch 5:   0% 0/1 [00:00<?, ?it/s, loss=0.653, v_num=qxln]Epoch 5: 100% 1/1 [00:00<00:00, 215.08it/s, loss=2.53, v_num=qxln]Epoch 5: 100% 1/1 [00:00<00:00, 187.97it/s, loss=2.53, v_num=qxln]Epoch 5: 100% 1/1 [00:00<00:00, 58.56it/s, loss=2.53, v_num=qxln] 
+Training took 0.82 seconds.
+y_variational: [ 0.00000000e+00  5.00000000e-01  8.66025404e-01  1.00000000e+00
+  8.66025404e-01  1.22464680e-16 -8.66025404e-01 -1.00000000e+00
+ -8.66025404e-01 -2.77555756e-16], y_train_pred: [[ 9.302375]
+ [ 9.513794]
+ [ 9.731806]
+ [ 9.954435]
+ [10.180905]
+ [10.648337]
+ [11.146324]
+ [11.411253]
+ [11.688052]
+ [12.282061]]
+/home/ata36/gen-experiments/lib/python3.6/site-packages/plotly/matplotlylib/renderer.py:613: UserWarning:
+
+I found a path object that I don't think is part of a bar chart. Ignoring.
+
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.020 MB of 0.020 MB uploaded (0.000 MB deduped)wandb: \ 0.020 MB of 0.020 MB uploaded (0.000 MB deduped)wandb: | 0.020 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: / 0.020 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: - 0.020 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: \ 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: | 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: / 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: - 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: \ 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: | 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: / 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb: nn_vs_solution_error ▁
+wandb: 
+wandb: Run summary:
+wandb: nn_vs_solution_error 10.64664
+wandb: 
+wandb: Synced rose-lake-117: https://wandb.ai/inwaves/generalisation/runs/1njjqxln
+wandb: Synced 5 W&B file(s), 1 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220412_103052-1njjqxln/logs
+
