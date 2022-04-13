@@ -63,13 +63,13 @@ class AsiShallowRelu(pl.LightningModule):
         # Initialise hidden layers with uniform weights.
         self.hidden1 = nn.Linear(input_dim, n)
         self.hidden1.weight.data.uniform_(-1, 1)
-        self.hidden1.bias.data.uniform(-2, 2)
+        self.hidden1.bias.data.uniform_(-2, 2)
         self.hidden1.bias.data = self.hidden1.bias.data.to(device)
         self.hidden1.weight.data = self.hidden1.weight.data.to(device)
 
         self.hidden2 = nn.Linear(input_dim, n)
         self.hidden2.weight.data.uniform_(-1, 1)
-        self.hidden2.bias.data.uniform(-2, 2)
+        self.hidden2.bias.data.uniform_(-2, 2)
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
 
