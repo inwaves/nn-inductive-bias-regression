@@ -32,7 +32,7 @@ class MLP(pl.LightningModule):
         self.out = nn.Linear(n, output_dim)
 
     def forward(self, x):
-        return self.out(self.hidden(x))
+        return self.out(self.hidden(x)).to(device)
 
     def training_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)

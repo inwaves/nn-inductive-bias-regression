@@ -2,6 +2,36 @@ from datasets.dataset import *
 from utils.plotting import plot_raw_data
 
 
+def generate_constant_baseline_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_constant_baseline()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_constant_interpolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_constant_interpolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_constant_extrapolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_constant_extrapolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_linear_baseline_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_linear_baseline()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_linear_interpolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_linear_interpolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_linear_extrapolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_linear_extrapolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
 def generate_sine_baseline_unit_test():
     x_tr, y_tr, x_te, y_te = generate_sine_baseline()
     plot_raw_data(x_tr, y_tr, x_te, y_te)
@@ -78,4 +108,4 @@ def generate_parabola_extrapolation_unit_test():
 
 
 if __name__ == "__main__":
-    generate_polynomial_extrapolation_unit_test()
+    generate_linear_interpolation_unit_test()

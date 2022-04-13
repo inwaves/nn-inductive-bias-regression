@@ -1,5 +1,4 @@
 import argparse
-import numpy as np
 import torch
 import wandb
 
@@ -19,16 +18,17 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
-    parser.add_argument("--adjust_data_linearly", "-a", default=False, type=bool, help="Adjust the data linearly?")
+    parser.add_argument("--adjust_data_linearly", "-a", default=True, type=bool, help="Adjust the data linearly?")
     parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
                         help="Learning rate of the optimiser.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
                                                                                        "ShallowRelu, MLP.")
-    parser.add_argument("--dataset", "-d", default="sine", type=str, help="Select from sine, parabola, chebyshev, "
-                                                                          "spline.")
-    parser.add_argument("--generalisation_task", "-g", default="interpolation", type=str, help="Select from "
+    parser.add_argument("--dataset", "-d", default="sine", type=str, help="Select from constant, linear, sine, "
+                                                                          "parabola, chebyshev_polynomial, "
+                                                                          "polynomial_spline.")
+    parser.add_argument("--generalisation_task", "-g", default="interpolation", type=str, help="Select from baseline, "
                                                                                                "interpolation or "
                                                                                                "extrapolation.")
     args = parser.parse_args()
@@ -54,7 +54,19 @@ def variational_solution_vs_neural_network(variational_predictions, network_pred
 def select_dataset(args):
     # TODO: Add a unit test for this.
     """Select the dataset to use."""
-    if args.dataset == "sine" and args.generalisation_task == "baseline":
+    if args.dataset == "linear" and args.generalisation_task == "baseline":
+        return generate_linear_baseline()
+    elif args.dataset == "linear" and args.generalisation_task == "interpolation":
+        return generate_linear_interpolation()
+    if args.dataset == "linear" and args.generalisation_task == "extrapolation":
+        return generate_linear_extrapolation()
+    elif args.dataset == "constant" and args.generalisation_task == "baseline":
+        return generate_constant_baseline()
+    elif args.dataset == "constant" and args.generalisation_task == "interpolation":
+        return generate_constant_interpolation()
+    elif args.dataset == "constant" and args.generalisation_task == "extrapolation":
+        return generate_constant_extrapolation()
+    elif args.dataset == "sine" and args.generalisation_task == "baseline":
         return generate_sine_baseline()
     elif args.dataset == "sine" and args.generalisation_task == "interpolation":
         return generate_sine_interpolation()
@@ -95,7 +107,6 @@ def setup():
                        "lr": args.learning_rate,
                        "dataset": args.dataset,
                        "generalisation_task": args.generalisation_task,
-                       "num_samples": args.num_samples,
                        "adjust_data_linearly": args.adjust_data_linearly})
 
     x_train, y_train, x_test, y_test = select_dataset(args)
@@ -112,13 +123,12 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(x_test) > 0 else None
 
     if args.model_type == "ASIShallowRelu":
-        model = AsiShallowRelu(args.hidden_units,
-                               input_dim=1,
-                               output_dim=1,
-                               lr=args.learning_rate).to(device).float()
+        model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "ShallowRelu":
         model = ShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "PlainTorchAsiShallowRelu":
         model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
+    elif args.model_type == "MLP":
+        model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
     return train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model

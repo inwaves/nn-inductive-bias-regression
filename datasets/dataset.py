@@ -3,18 +3,78 @@ import numpy as np
 from utils.maths import chebyshev_polynomial, normalise_data
 
 
+def generate_constant_baseline():
+    x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    x_test = np.array([])
+    y_train, y_test = np.ones(10), np.array([])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_constant_interpolation():
+    x_train = np.array([0, 1, 2, 3, 7, 8, 9])
+    x_test = np.array([4, 5, 6])
+    y_train, y_test = np.ones(7), np.ones(3)
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_constant_extrapolation():
+    x_train = np.array([0, 1, 2, 3, 4, 5, 6])
+    x_test = np.array([7, 8, 9])
+    y_train, y_test = np.ones(7), np.ones(3)
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_linear_baseline():
+    x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    x_test = np.array([])
+    y_train, y_test = 2 * x_train + 3, np.array([])
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_linear_interpolation():
+    x_train = np.array([0, 1, 2, 3, 7, 8, 9])
+    x_test = np.array([4, 5, 6])
+    y_train, y_test = 2 * x_train + 3, 2 * x_test + 3
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_linear_extrapolation():
+    x_train = np.array([0, 1, 2, 3, 4, 5, 6])
+    x_test = np.array([7, 8, 9])
+    y_train, y_test = 2 * x_train + 3, 2 * x_test + 3
+
+    x_train, x_test = normalise_data(x_train, x_test)
+
+    return x_train, y_train, x_test, y_test
+
+
 def generate_sine_baseline():
     x_train = np.array([
-        0,
-        np.pi / 6,
-        np.pi / 3,
-        np.pi / 2,
-        2 * np.pi / 3,
-        np.pi,
-        4 * np.pi / 3,
-        3 * np.pi / 2,
-        5 * np.pi / 3,
-        2 * np.pi
+            0,
+            np.pi / 6,
+            np.pi / 3,
+            np.pi / 2,
+            2 * np.pi / 3,
+            np.pi,
+            4 * np.pi / 3,
+            3 * np.pi / 2,
+            5 * np.pi / 3,
+            2 * np.pi
     ])
     x_test = np.array([])
     y_train, y_test = np.sin(x_train), np.array([])
@@ -26,18 +86,18 @@ def generate_sine_baseline():
 
 def generate_sine_interpolation():
     x_train = np.array([
-        0,
-        np.pi / 6,
-        np.pi / 3,
-        np.pi / 2,
-        3 * np.pi / 2,
-        5 * np.pi / 3,
-        2 * np.pi
+            0,
+            np.pi / 6,
+            np.pi / 3,
+            np.pi / 2,
+            3 * np.pi / 2,
+            5 * np.pi / 3,
+            2 * np.pi
     ])
     x_test = np.array([
-        2 * np.pi / 3,
-        np.pi,
-        4 * np.pi / 3,
+            2 * np.pi / 3,
+            np.pi,
+            4 * np.pi / 3,
     ])
     y_train, y_test = np.sin(x_train), np.sin(x_test)
     x_train, x_test = normalise_data(x_train, x_test)
@@ -47,18 +107,18 @@ def generate_sine_interpolation():
 
 def generate_sine_extrapolation():
     x_train = np.array([
-        0,
-        np.pi / 6,
-        np.pi / 3,
-        np.pi / 2,
-        2 * np.pi / 3,
-        np.pi,
-        4 * np.pi / 3,
+            0,
+            np.pi / 6,
+            np.pi / 3,
+            np.pi / 2,
+            2 * np.pi / 3,
+            np.pi,
+            4 * np.pi / 3,
     ])
     x_test = np.array([
-        3 * np.pi / 2,
-        5 * np.pi / 3,
-        2 * np.pi
+            3 * np.pi / 2,
+            5 * np.pi / 3,
+            2 * np.pi
     ])
     y_train, y_test = np.sin(x_train), np.sin(x_test)
     x_train, x_test = normalise_data(x_train, x_test)
@@ -128,7 +188,7 @@ def generate_polynomial_spline_interpolation():
     """Generate data points for a polynomial spline."""
 
     train_squared = np.array([-2, -1.75, -1.5, -1.25])
-    train_cubed = np.array([1.5, 1.75, 2,])
+    train_cubed = np.array([1.5, 1.75, 2, ])
     test_squared = np.array([-1, 0])
     test_cubed = np.array([1, 1.25])
 
@@ -214,7 +274,6 @@ def generate_parabola_baseline():
 
 
 def generate_parabola_interpolation():
-
     x_train = np.array([-5, -4, -3, -2, 2, 3, 4, 5])
     x_test = np.array([-1, 0, 1])
 
