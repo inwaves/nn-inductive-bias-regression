@@ -2,6 +2,21 @@ from datasets.dataset import *
 from utils.plotting import plot_raw_data
 
 
+def generate_random_baseline_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_random_baseline()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_random_interpolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_random_interpolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
+def generate_random_extrapolation_unit_test():
+    x_tr, y_tr, x_te, y_te = generate_random_extrapolation()
+    plot_raw_data(x_tr, y_tr, x_te, y_te)
+
+
 def generate_constant_baseline_unit_test():
     x_tr, y_tr, x_te, y_te = generate_constant_baseline()
     plot_raw_data(x_tr, y_tr, x_te, y_te)
