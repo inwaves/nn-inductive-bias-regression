@@ -3,6 +3,42 @@ import numpy as np
 from utils.maths import chebyshev_polynomial, normalise_data
 
 
+def generate_random_baseline():
+    x_train = np.array([0.00626232, 0.03851067, 0.15995237, 0.24668581, 0.36837388,
+                        0.44915676, 0.47291526, 0.56167672, 0.95758722, 0.97322756])
+    y_train = np.array([0.03480159, 0.11098908, 0.18008615, 0.18644625, 0.26021901,
+                        0.36930498, 0.3823352, 0.43557663, 0.47847854, 0.60477822])
+
+    x_test = np.array([])
+    y_test = np.array([])
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_random_interpolation():
+    x_train = np.array([0.00626232, 0.03851067, 0.15995237, 0.47291526, 0.56167672, 0.95758722, 0.97322756])
+    y_train = np.array([0.03480159, 0.11098908, 0.18008615, 0.3823352, 0.43557663, 0.47847854, 0.60477822])
+
+    x_test = np.array([0.24668581, 0.36837388,
+                       0.44915676])
+    y_test = np.array([0.18644625, 0.26021901,
+                       0.36930498])
+
+    return x_train, y_train, x_test, y_test
+
+
+def generate_random_extrapolation():
+    x_train = np.array([0.00626232, 0.03851067, 0.15995237, 0.24668581, 0.36837388,
+                        0.44915676, 0.47291526])
+    y_train = np.array([0.03480159, 0.11098908, 0.18008615, 0.18644625, 0.26021901,
+                        0.36930498, 0.3823352])
+
+    x_test = np.array([0.56167672, 0.95758722, 0.97322756])
+    y_test = np.array([0.43557663, 0.47847854, 0.60477822])
+
+    return x_train, y_train, x_test, y_test
+
+
 def generate_constant_baseline():
     x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     x_test = np.array([])
