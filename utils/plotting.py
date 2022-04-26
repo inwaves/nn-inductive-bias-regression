@@ -20,7 +20,8 @@ def plot_data_vs_predictions(x_train, y_train, x_test, y_test, y_pred, x_all, gr
     ax.plot(grid, g_star_preds, label='cubic spline')
 
     # Plot ground truth function.
-    ax.plot(grid, fn(grid), label="ground truth")
+    fn_y = [fn(el) for el in grid]
+    ax.plot(grid, fn_y, label="ground truth")
     plt.legend()
     wandb.log({"plot": plt})
 
