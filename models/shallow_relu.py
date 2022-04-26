@@ -90,8 +90,12 @@ class AsiShallowRelu(pl.LightningModule):
 
     def forward(self, x):
         x = x.to(device)
+        print(x.device)
         path1 = self.out1(self.relu(self.hidden1(x))).to(device)
+        print(path1.device)
         path2 = self.out2(self.relu(self.hidden2(x))).to(device)
+        print(path2.device)
+
         return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (
                     torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
 
