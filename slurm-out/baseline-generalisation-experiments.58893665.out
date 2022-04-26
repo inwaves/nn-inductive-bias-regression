@@ -1,0 +1,435 @@
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150803-m8g2jedp
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run playful-breeze-133
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/m8g2jedp
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced playful-breeze-133: https://wandb.ai/inwaves/generalisation/runs/m8g2jedp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150803-m8g2jedp/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150822-pkm14cvo
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run mild-dew-134
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/pkm14cvo
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.002 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced mild-dew-134: https://wandb.ai/inwaves/generalisation/runs/pkm14cvo
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150822-pkm14cvo/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150836-32fbu1yq
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fearless-vortex-135
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/32fbu1yq
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced fearless-vortex-135: https://wandb.ai/inwaves/generalisation/runs/32fbu1yq
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150836-32fbu1yq/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150847-31s0nw11
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cool-planet-136
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/31s0nw11
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced cool-planet-136: https://wandb.ai/inwaves/generalisation/runs/31s0nw11
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150847-31s0nw11/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150900-3gyuyjox
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run expert-wood-137
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/3gyuyjox
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced expert-wood-137: https://wandb.ai/inwaves/generalisation/runs/3gyuyjox
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150900-3gyuyjox/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150928-cy9yihln
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run apricot-aardvark-138
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/cy9yihln
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.003 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced apricot-aardvark-138: https://wandb.ai/inwaves/generalisation/runs/cy9yihln
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150928-cy9yihln/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150939-1w3g8vzx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run stellar-resonance-139
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1w3g8vzx
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced stellar-resonance-139: https://wandb.ai/inwaves/generalisation/runs/1w3g8vzx
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150939-1w3g8vzx/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_150950-3bu9lmgp
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run electric-grass-140
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/3bu9lmgp
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.002 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced electric-grass-140: https://wandb.ai/inwaves/generalisation/runs/3bu9lmgp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_150950-3bu9lmgp/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151004-1q5sqr6e
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run splendid-voice-141
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1q5sqr6e
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced splendid-voice-141: https://wandb.ai/inwaves/generalisation/runs/1q5sqr6e
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151004-1q5sqr6e/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151017-2ggn35ik
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run peachy-dew-142
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/2ggn35ik
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced peachy-dew-142: https://wandb.ai/inwaves/generalisation/runs/2ggn35ik
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151017-2ggn35ik/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151029-1mw8i0ue
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run dark-meadow-143
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1mw8i0ue
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.002 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced dark-meadow-143: https://wandb.ai/inwaves/generalisation/runs/1mw8i0ue
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151029-1mw8i0ue/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151043-2n2vyar3
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run easy-salad-144
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/2n2vyar3
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced easy-salad-144: https://wandb.ai/inwaves/generalisation/runs/2n2vyar3
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151043-2n2vyar3/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151056-1yhbn7vl
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run likely-blaze-145
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1yhbn7vl
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced likely-blaze-145: https://wandb.ai/inwaves/generalisation/runs/1yhbn7vl
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151056-1yhbn7vl/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151108-1acas6ro
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run charmed-blaze-146
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1acas6ro
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced charmed-blaze-146: https://wandb.ai/inwaves/generalisation/runs/1acas6ro
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151108-1acas6ro/logs
+
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220413_151121-3708oh1z
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run dashing-pine-147
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/3708oh1z
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 126, in setup
+    model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+  File "/home/ata36/generalisation-claims/models/shallow_relu.py", line 66, in __init__
+    self.hidden1.bias.data.uniform(-2, 2)
+AttributeError: 'Tensor' object has no attribute 'uniform'
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced dashing-pine-147: https://wandb.ai/inwaves/generalisation/runs/3708oh1z
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220413_151121-3708oh1z/logs
+

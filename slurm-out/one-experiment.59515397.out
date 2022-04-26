@@ -1,0 +1,55 @@
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.15 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220426_161821-148e92tp
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run bright-morning-164
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/148e92tp
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 119, in setup
+    y_test = adjust_data_linearly(x_test, raw_y_test)
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 42, in adjust_data_linearly
+    linear_regressor = LinearRegression().fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/linear_model/_base.py", line 519, in fit
+    y_numeric=True, multi_output=True)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/base.py", line 433, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f
+    return f(*args, **kwargs)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 878, in check_X_y
+    estimator=estimator)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f
+    return f(*args, **kwargs)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 729, in check_array
+    context))
+ValueError: Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required.
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 119, in setup
+    y_test = adjust_data_linearly(x_test, raw_y_test)
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 42, in adjust_data_linearly
+    linear_regressor = LinearRegression().fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/linear_model/_base.py", line 519, in fit
+    y_numeric=True, multi_output=True)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/base.py", line 433, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f
+    return f(*args, **kwargs)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 878, in check_X_y
+    estimator=estimator)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f
+    return f(*args, **kwargs)
+  File "/home/ata36/gen-experiments/lib/python3.6/site-packages/sklearn/utils/validation.py", line 729, in check_array
+    context))
+ValueError: Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required.
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.002 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.003 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced bright-morning-164: https://wandb.ai/inwaves/generalisation/runs/148e92tp
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220426_161821-148e92tp/logs
+
