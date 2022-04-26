@@ -1,0 +1,27 @@
+wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
+wandb: wandb version 0.12.15 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.12.14
+wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220426_155751-3c7dlh01
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run desert-pond-163
+wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
+wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/3c7dlh01
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 113, in setup
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test, fn = select_dataset(args)
+ValueError: not enough values to unpack (expected 5, got 2)
+Traceback (most recent call last):
+  File "1d_regression.py", line 23, in <module>
+    train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+  File "/home/ata36/generalisation-claims/utils/utils.py", line 113, in setup
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test, fn = select_dataset(args)
+ValueError: not enough values to unpack (expected 5, got 2)
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
+wandb: Synced desert-pond-163: https://wandb.ai/inwaves/generalisation/runs/3c7dlh01
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20220426_155751-3c7dlh01/logs
+
