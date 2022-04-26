@@ -62,6 +62,7 @@ if __name__ == '__main__':
 
     # Find NN predictions for all data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
+    print(f"all_data.device: {all_data.device}")
     y_all_pred = model(all_data).cpu().detach().numpy()
 
     # Calculate the difference between g* and the NN function on the training data.
