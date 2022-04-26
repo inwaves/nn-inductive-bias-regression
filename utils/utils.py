@@ -116,7 +116,7 @@ def setup():
     # Adjust the data linearly.
     if args.adjust_data_linearly:
         y_train = adjust_data_linearly(x_train, raw_y_train)
-        y_test = adjust_data_linearly(x_test, raw_y_test)
+        y_test = adjust_data_linearly(x_test, raw_y_test) if len(raw_y_test) > 0 else raw_y_test
 
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
