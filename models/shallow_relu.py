@@ -89,14 +89,31 @@ class AsiShallowRelu(pl.LightningModule):
         self.out2.weight.data = -self.out1.weight.data
 
     def forward(self, x):
-        print(f"Before call x.device: {x.device}")
         x = x.to(device)
-        print(f"After call x.device: {x.device}, device: {device}")
-        path1 = self.out1(self.relu(self.hidden1(x))).to(device)
-        path2 = self.out2(self.relu(self.hidden2(x))).to(device)
 
-        return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (
-                    torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
+        hid1 = self.hidden1(x)
+        hid2 = self.hidden2(x)
+
+        print(f"hid1.device: {hid1.device}")
+        print(f"hid1.device: {hid1.device}")
+
+        rel1 = self.relu(hid1)
+        rel2 = self.relu(hid2)
+
+        print(f"rel1.device: {rel1.device}")
+        print(f"rel2.device: {rel2.device}")
+
+        p1 = self.out1(rel1)
+        p2 = self.out2(rel2)
+
+        print(f"p1.device: {p1.device}")
+        print(f"p2.device: {p2.device}")
+
+        # path1 = self.out1(self.relu(self.hidden1(x))).to(device)
+        # path2 = self.out2(self.relu(self.hidden2(x))).to(device)
+
+        return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * p1 + (
+                    torch.sqrt(torch.tensor([2]).to(device)) / 2) * p1
 
     def training_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
