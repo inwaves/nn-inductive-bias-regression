@@ -17,7 +17,7 @@ def plot_data_vs_predictions(x_train, y_train, x_test, y_test, y_pred, x_all, gr
         ax.axvspan(np.min(x_test), np.max(x_test), alpha=0.1, color='blue')
 
     ax.plot(x_all, y_pred, label='nn')
-    # ax.plot(grid, g_star_preds, label='cubic spline')
+    ax.plot(grid, g_star_preds, label='cubic spline')
 
     # Plot ground truth function.
     ax.plot(grid, fn(grid), label="ground truth")
