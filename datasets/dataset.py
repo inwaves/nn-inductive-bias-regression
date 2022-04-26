@@ -150,7 +150,7 @@ def generate_square_baseline():
     x_train = np.array([i for i in range(0, 10)])
     x_test = np.array([])
 
-    y_train = square(x_train)
+    y_train = np.array([square(el) for el in x_train])
     y_test = np.array([])
 
     return x_train, y_train, x_test, y_test
@@ -162,7 +162,8 @@ def generate_square_interpolation():
     x_train = np.array([0, 1, 2, 3, 7, 8, 9])
     x_test = np.array([4, 5, 6])
 
-    y_train, y_test = square(x_train), square(x_test)
+    y_train = np.array([square(el) for el in x_train])
+    y_test = np.array([square(el) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
@@ -173,7 +174,8 @@ def generate_square_extrapolation():
     x_train = np.array([0, 1, 2, 3, 4, 5, 6])
     x_test = np.array([7, 8, 9])
 
-    y_train, y_test = square(x_train), square(x_test)
+    y_train = np.array([square(el) for el in x_train])
+    y_test = np.array([square(el) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
@@ -184,7 +186,8 @@ def generate_polynomial_spline_baseline():
     x_train = np.array([-2, -1.75, -1.5, -1.25, -1, 0, 1, 1.25, 1.5, 1.75, 2])
     x_test = np.array([])
 
-    y_train, y_test = polynomial_spline(x_train), np.array([])
+    y_train = np.array([polynomial_spline(el) for el in x_train])
+    y_test = np.array([])
 
     return x_train, y_train, x_test, y_test
 
@@ -195,7 +198,8 @@ def generate_polynomial_spline_interpolation():
     x_train = np.array([-2, -1.75, -1.5, -1.25, 1.5, 1.75, 2, ])
     x_test = np.array([-1, 0, 1, 1.25])
 
-    y_train, y_test = polynomial_spline(x_train), polynomial_spline(x_test)
+    y_train = np.array([polynomial_spline(el) for el in x_train])
+    y_test = np.array([polynomial_spline(el) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
@@ -206,7 +210,8 @@ def generate_polynomial_spline_extrapolation():
     x_train = np.array([-2, -1.75, -1.5, -1.25, -1, 1, 1.25])
     x_test = np.array([1.5, 1.75, 2])
 
-    y_train, y_test = polynomial_spline(x_train), polynomial_spline(x_test)
+    y_train = np.array([polynomial_spline(el) for el in x_train])
+    y_test = np.array([polynomial_spline(el) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
@@ -217,7 +222,7 @@ def generate_chebyshev_baseline():
     x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1])
     x_test = np.array([])
 
-    y_train = chebyshev_polynomial(x_train, 4)
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
     y_test = np.array([])
 
     return x_train, y_train, x_test, y_test
@@ -229,7 +234,8 @@ def generate_chebyshev_interpolation():
     x_train = np.array([-1, -0.8, -0.6, -0.4, 0.4, 0.6, 0.8, 1])
     x_test = np.array([-0.2, 0, 0.2])
 
-    y_train, y_test = chebyshev_polynomial(x_train, 4), chebyshev_polynomial(x_test, 4)
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
+    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
@@ -240,8 +246,8 @@ def generate_chebyshev_extrapolation():
     x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4])
     x_test = np.array([0.6, 0.8, 1])
 
-    y_train = chebyshev_polynomial(x_train, 4)
-    y_test = chebyshev_polynomial(x_test, 4)
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
+    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test])
 
     return x_train, y_train, x_test, y_test
 
