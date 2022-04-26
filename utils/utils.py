@@ -110,7 +110,7 @@ def setup():
                        "adjust_data_linearly": args.adjust_data_linearly})
 
     # Set up the data.
-    raw_x_train, raw_y_train, raw_x_test, raw_y_test, fn = select_dataset(args)
+    (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
     x_train, x_test = normalise_data(raw_x_train, raw_x_test)
 
     # Adjust the data linearly.
