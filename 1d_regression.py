@@ -60,7 +60,7 @@ if __name__ == '__main__':
     print(f"grid: {grid}")
 
     # Fit the cubic spline to the *adjusted* training data so it matches what the modesl was trained on.
-    spline = CubicSpline(x_train, y_train)
+    spline = CubicSpline(raw_x_train, raw_y_train)
 
     model = model.to(device)
 
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     y_all_pred = model(all_data).cpu().detach().numpy()
 
     # Calculate the difference between g* and the NN function on the training data.
-    y_variational = spline(raw_x_train)
+    y_variational = spline(x_train)
     y_train_pred = model(torch.tensor(x_train).float().unsqueeze(1)).cpu().detach().numpy()
     error = variational_solution_vs_neural_network(y_variational, y_train_pred)
 
