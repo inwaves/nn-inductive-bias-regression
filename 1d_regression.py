@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # This control flow is needed to be able to run this script
     # on either CPU (locally) or GPU (on a cluster).
     if device == "cuda":
-        trainer = pl.Trainer(max_epochs=100,
+        trainer = pl.Trainer(max_epochs=-1,
                              callbacks=[early_stopping_callback],
                              accelerator="gpu",
                              devices=1,
@@ -52,12 +52,10 @@ if __name__ == '__main__':
     # trainer.test(model=model, dataloaders=[test_dataloader])
 
     x_all, y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
-    print(f": x_all: {x_all}, y_all: {y_all}")
 
     # Grid is used to plot g* correctly, otherwise it doesn't match the actual function
     # because there are not that many data points in x_all.
     grid = np.linspace(np.min(x_all), np.max(x_all), 100)
-    print(f"grid: {grid}")
 
     # Fit the cubic spline to the *adjusted* training data so it matches what the modesl was trained on.
     spline = CubicSpline(raw_x_train, raw_y_train)
@@ -66,7 +64,6 @@ if __name__ == '__main__':
 
     # Find NN predictions for all data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
-    print(f"all_data.device: {all_data.device}")
     y_all_pred = model(all_data).cpu().detach().numpy()
 
     # Calculate the difference between g* and the NN function on the training data.
