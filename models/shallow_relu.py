@@ -102,7 +102,6 @@ class AsiShallowRelu(pl.LightningModule):
         out = self.forward(idx)
 
         loss = F.mse_loss(out, targets)
-        print(f"Idx: {idx}, Outputs: {out}, targets: {targets}, loss: {loss}")
         self.log("train_loss", loss)
         return loss
 
