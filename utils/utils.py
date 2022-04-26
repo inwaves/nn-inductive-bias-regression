@@ -3,7 +3,7 @@ import torch
 import wandb
 
 from sklearn.linear_model import LinearRegression
-
+from functools import partial
 from datasets.dataset import *
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowRelu, ShallowRelu, PlainTorchAsiShallowRelu
@@ -55,47 +55,47 @@ def select_dataset(args):
     # TODO: Add a unit test for this.
     """Select the dataset to use."""
     if args.dataset == "linear" and args.generalisation_task == "baseline":
-        return generate_linear_baseline()
+        return generate_linear_baseline(), linear
     elif args.dataset == "linear" and args.generalisation_task == "interpolation":
-        return generate_linear_interpolation()
+        return generate_linear_interpolation(), linear
     if args.dataset == "linear" and args.generalisation_task == "extrapolation":
-        return generate_linear_extrapolation()
+        return generate_linear_extrapolation(), linear
     elif args.dataset == "constant" and args.generalisation_task == "baseline":
-        return generate_constant_baseline()
+        return generate_constant_baseline(), constant
     elif args.dataset == "constant" and args.generalisation_task == "interpolation":
-        return generate_constant_interpolation()
+        return generate_constant_interpolation(), constant
     elif args.dataset == "constant" and args.generalisation_task == "extrapolation":
-        return generate_constant_extrapolation()
+        return generate_constant_extrapolation(), constant
     elif args.dataset == "sine" and args.generalisation_task == "baseline":
-        return generate_sine_baseline()
+        return generate_sine_baseline(), sin
     elif args.dataset == "sine" and args.generalisation_task == "interpolation":
-        return generate_sine_interpolation()
+        return generate_sine_interpolation(), sin
     elif args.dataset == "sine" and args.generalisation_task == "extrapolation":
-        return generate_sine_extrapolation()
+        return generate_sine_extrapolation(), sin
     elif args.dataset == "parabola" and args.generalisation_task == "baseline":
-        return generate_parabola_baseline()
+        return generate_parabola_baseline(), parabola
     elif args.dataset == "parabola" and args.generalisation_task == "interpolation":
-        return generate_parabola_interpolation()
+        return generate_parabola_interpolation(), parabola
     elif args.dataset == "parabola" and args.generalisation_task == "extrapolation":
-        return generate_parabola_extrapolation()
+        return generate_parabola_extrapolation(), parabola
     elif args.dataset == "square" and args.generalisation_task == "baseline":
-        return generate_square_baseline()
+        return generate_square_baseline(), square
     elif args.dataset == "square" and args.generalisation_task == "interpolation":
-        return generate_square_interpolation()
+        return generate_square_interpolation(), square
     elif args.dataset == "square" and args.generalisation_task == "extrapolation":
-        return generate_square_extrapolation()
+        return generate_square_extrapolation(), square
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "baseline":
-        return generate_polynomial_spline_baseline()
+        return generate_polynomial_spline_baseline(), polynomial_spline
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "interpolation":
-        return generate_polynomial_spline_interpolation()
+        return generate_polynomial_spline_interpolation(), polynomial_spline
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "extrapolation":
-        return generate_polynomial_spline_extrapolation()
+        return generate_polynomial_spline_extrapolation(), polynomial_spline
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "baseline":
-        return generate_chebyshev_baseline()
+        return generate_chebyshev_baseline(), partial(chebyshev_polynomial, n=4)
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "interpolation":
-        return generate_chebyshev_interpolation()
+        return generate_chebyshev_interpolation(), partial(chebyshev_polynomial, n=4)
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "extrapolation":
-        return generate_chebyshev_extrapolation()
+        return generate_chebyshev_extrapolation(), partial(chebyshev_polynomial, n=4)
 
 
 def setup():
@@ -109,19 +109,23 @@ def setup():
                        "generalisation_task": args.generalisation_task,
                        "adjust_data_linearly": args.adjust_data_linearly})
 
-    x_train, y_train, x_test, y_test = select_dataset(args)
+    # Set up the data.
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test, fn = select_dataset(args)
+    x_train, x_test = normalise_data(raw_x_train, raw_x_test)
 
     # Adjust the data linearly.
     if args.adjust_data_linearly:
-        y_train = adjust_data_linearly(x_train, y_train)
+        y_train = adjust_data_linearly(x_train, raw_y_train)
+        y_test = adjust_data_linearly(x_test, raw_y_test)
 
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
     custom_dataloader = CustomDataLoader(training_data, test_data, device)
     train_dataloader = custom_dataloader.train_dataloader()
-    test_dataloader = custom_dataloader.test_dataloader() if len(x_test) > 0 else None
+    test_dataloader = custom_dataloader.test_dataloader() if len(raw_x_test) > 0 else None
 
+    # Set up the model.
     if args.model_type == "ASIShallowRelu":
         model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "ShallowRelu":
@@ -131,4 +135,4 @@ def setup():
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
-    return train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, fn

@@ -10,7 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.utils import variational_solution_vs_neural_network, setup
-from utils.plotting import plot_sin_data_vs_predictions
+from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -20,7 +20,9 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 if __name__ == '__main__':
-    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
+    train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+    x_train, y_train, x_test, y_test = data
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test = raw_data
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
 
@@ -49,13 +51,13 @@ if __name__ == '__main__':
 
     # trainer.test(model=model, dataloaders=[test_dataloader])
 
-    x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
+    x_all, y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
 
     # Grid is used to plot g* correctly, otherwise it doesn't match the actual function
     # because there are not that many data points in x_all.
     grid = np.linspace(np.min(x_all), np.max(x_all), 100)
 
-    # Fit the cubic spline to the training data only.
+    # Fit the cubic spline to the *adjusted* training data so it matches what the modesl was trained on.
     spline = CubicSpline(x_train, y_train)
 
     # Find NN predictions for all data points (train + test).
@@ -72,7 +74,10 @@ if __name__ == '__main__':
         f.write(f"{str(args.hidden_units)}, {str(error)}\n")
 
     wandb.log({"nn_vs_solution_error": error})
-    plot_sin_data_vs_predictions(x_train, y_train, x_test, y_test, y_all_pred, x_all, grid, spline(grid))
+
+    # Plot the predictions in the original, non-adjusted, non-normalised space.
+    plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
+                             y_all_pred, x_all, grid, spline(grid), fn)
 
     # Wrap up any hanging logger.
     wandb.finish()

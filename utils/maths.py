@@ -38,10 +38,10 @@ def parabola(x):
 
 
 def normalise_data(x_train, x_test):
-    """Normalise the training and test data to lie between 0 and 1."""
+    """Normalise the training and test data to lie between -1 and 1."""
 
     train_max = np.max(x_train)
-    x_train = x_train / train_max
-    x_test = x_test / train_max
+    x_train = x_train / (train_max/2)-1
+    x_test = x_test / (train_max/2)-1
 
     return x_train, x_test
