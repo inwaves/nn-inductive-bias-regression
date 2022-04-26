@@ -61,7 +61,6 @@ if __name__ == '__main__':
     spline = CubicSpline(x_train, y_train)
 
     model = model.to(device)
-    print(f"Model device: {model.device}")
 
     # Find NN predictions for all data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
