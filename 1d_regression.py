@@ -21,6 +21,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 if __name__ == '__main__':
     train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
+    model = model.to(device)
     x_train, y_train, x_test, y_test = data
     raw_x_train, raw_y_train, raw_x_test, raw_y_test = raw_data
 
