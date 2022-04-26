@@ -89,8 +89,9 @@ class AsiShallowRelu(pl.LightningModule):
         self.out2.weight.data = -self.out1.weight.data
 
     def forward(self, x):
+        print(f"Before call x.device: {x.device}")
         x = x.to(device)
-        print(f"x.device: {x.device}")
+        print(f"After call x.device: {x.device}, device: {device}")
         path1 = self.out1(self.relu(self.hidden1(x))).to(device)
         path2 = self.out2(self.relu(self.hidden2(x))).to(device)
 
