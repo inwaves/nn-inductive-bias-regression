@@ -21,7 +21,6 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 if __name__ == '__main__':
     train_dataloader, test_dataloader, data, raw_data, args, model, fn = setup()
-    model = model.to(device)
     x_train, y_train, x_test, y_test = data
     raw_x_train, raw_y_train, raw_x_test, raw_y_test = raw_data
 
@@ -60,6 +59,9 @@ if __name__ == '__main__':
 
     # Fit the cubic spline to the *adjusted* training data so it matches what the modesl was trained on.
     spline = CubicSpline(x_train, y_train)
+
+    model = model.to(device)
+    print(f"Model device: {model.device}")
 
     # Find NN predictions for all data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
