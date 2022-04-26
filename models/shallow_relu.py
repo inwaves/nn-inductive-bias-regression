@@ -74,6 +74,9 @@ class AsiShallowRelu(pl.LightningModule):
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
 
+        self.hidden1 = self.hidden1.to(device)
+        self.hidden2 = self.hidden2.to(device)
+
         self.relu = nn.ReLU()
 
         # Initialise output layers with uniform weights.
