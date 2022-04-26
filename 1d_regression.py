@@ -24,11 +24,6 @@ if __name__ == '__main__':
     x_train, y_train, x_test, y_test = data
     raw_x_train, raw_y_train, raw_x_test, raw_y_test = raw_data
 
-    # Sanity checking
-    print(f"x_train: {x_train}, raw_x_train: {raw_x_train}")
-    print(f"x_test: {x_test}, raw_x_test: {raw_x_test}")
-    print(f"y_train: {y_train}, raw_y_train: {raw_y_train}")
-
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
 
     wandb_logger = WandbLogger(project="generalisation")
