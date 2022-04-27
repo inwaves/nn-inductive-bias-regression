@@ -12,6 +12,15 @@ from utils.custom_dataloader import CustomDataLoader
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def parse_bool(arg):
+    arg = arg.lower()
+    if arg in ["true", "yes", "t", "1", "y"]:
+        return True
+    elif arg in ["false", "no", "f," "0", "n"]:
+        return False
+    # TODO: Should handle bad arg here.
+
+
 def parse_args():
     """Parses command-line arguments corresponding to experiment parameters."""
 
@@ -103,21 +112,21 @@ def setup():
     args = parse_args()
     wandb.init(project="generalisation",
                entity="inwaves",
-               config={"model_type": args.model_type,
-                       "hidden_units": args.hidden_units,
-                       "lr": args.learning_rate,
-                       "dataset": args.dataset,
-                       "generalisation_task": args.generalisation_task,
+               config={"model_type":           args.model_type,
+                       "hidden_units":         args.hidden_units,
+                       "lr":                   args.learning_rate,
+                       "dataset":              args.dataset,
+                       "generalisation_task":  args.generalisation_task,
                        "adjust_data_linearly": args.adjust_data_linearly})
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
 
-    if args.normalise:
+    if parse_bool(args.normalise):
         x_train, x_test = normalise_data(raw_x_train, raw_x_test)
 
     # Adjust the data linearly.
-    if args.adjust_data_linearly:
+    if parse_bool(args.adjust_data_linearly):
         y_train = adjust_data_linearly(x_train, raw_y_train)
         y_test = adjust_data_linearly(x_test, raw_y_test) if len(raw_y_test) > 0 else raw_y_test
 
@@ -138,4 +147,5 @@ def setup():
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, fn
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, fn
