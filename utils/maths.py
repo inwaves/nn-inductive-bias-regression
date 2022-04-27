@@ -14,7 +14,7 @@ def chebyshev_polynomial(x, n):
 
 
 def constant(x):
-    return 1
+    return np.ones(x.shape)
 
 
 def linear(x):
