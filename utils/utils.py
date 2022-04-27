@@ -27,8 +27,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
-    parser.add_argument("--adjust_data_linearly", "-a", default=True, type=bool, help="Adjust the data linearly?")
-    parser.add_argument("--normalise", default=True, type=bool, help="Normalise the data?")
+    parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
+    parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
@@ -125,12 +125,16 @@ def setup():
     if parse_bool(args.normalise):
         x_train, x_test = normalise_data(raw_x_train, raw_x_test)
         print(f"Normalising data because flag is: {args.normalise}")
+    else:
+        x_train, x_test = raw_x_train, raw_x_test
 
     # Adjust the data linearly.
     if parse_bool(args.adjust_data_linearly):
         y_train = adjust_data_linearly(x_train, raw_y_train)
         y_test = adjust_data_linearly(x_test, raw_y_test) if len(raw_y_test) > 0 else raw_y_test
         print(f"Adjusting data linearly because flag is: {args.adjust_data_linearly}")
+    else:
+        y_train, y_test = raw_y_train, raw_y_test
 
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
