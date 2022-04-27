@@ -68,9 +68,11 @@ if __name__ == '__main__':
     y_all_pred = model(all_data).cpu().detach().numpy() # Using the training and test datapoints.
     # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
 
+
     # Calculate the difference between g* and the NN function on the training data.
     y_variational = spline(grid)
-    error = variational_solution_vs_neural_network(y_variational, model(grid).cpu().detach().numpy())
+    y_nn_pred = model(torch.tensor(grid).float().unsqueeze(1)).cpu().detach().numpy()
+    error = variational_solution_vs_neural_network(y_variational, y_nn_pred)
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
