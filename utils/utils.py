@@ -19,7 +19,7 @@ def parse_args():
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default=True, type=bool, help="Adjust the data linearly?")
-    parser.add_argument("--normalise", "-s", default=True, type=bool, help="Normalise the data?")
+    parser.add_argument("--normalise", default=True, type=bool, help="Normalise the data?")
     parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
