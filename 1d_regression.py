@@ -67,9 +67,8 @@ if __name__ == '__main__':
 
     # Find NN predictions for all raw data points (train + test).
     all_data = torch.tensor(x_all).float().unsqueeze(1)
-    y_all_pred = model(all_data).cpu().detach().numpy() # Using the training and test datapoints.
+    y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
     # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
-
 
     # Calculate the difference between g* and the NN function on the grid.
     spline_predictions = spline(grid)

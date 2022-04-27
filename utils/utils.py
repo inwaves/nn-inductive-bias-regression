@@ -19,6 +19,7 @@ def parse_args():
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default=True, type=bool, help="Adjust the data linearly?")
+    parser.add_argument("--normalise", "-s", default=True, type=bool, help="Normalise the data?")
     parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
     parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
@@ -111,7 +112,9 @@ def setup():
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
-    x_train, x_test = normalise_data(raw_x_train, raw_x_test)
+
+    if args.normalise:
+        x_train, x_test = normalise_data(raw_x_train, raw_x_test)
 
     # Adjust the data linearly.
     if args.adjust_data_linearly:
