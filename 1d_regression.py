@@ -77,7 +77,7 @@ if __name__ == '__main__':
     # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
 
     # Calculate the difference between g* and the NN function on the grid.
-    normalised_grid = normalise_data(grid, [])
+    normalised_grid, [] = normalise_data(grid, [])
     spline_predictions = spline(normalised_grid)
     model_predictions = model(torch.tensor(normalised_grid).float().unsqueeze(1)).cpu().detach().numpy()
     error = calculate_spline_vs_model_error(spline_predictions, model_predictions)
