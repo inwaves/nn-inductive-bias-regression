@@ -68,6 +68,7 @@ if __name__ == '__main__':
     # Using adjusted data...
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
     _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
+    linreg_all = linreg_all.reshape(-1, 1)
     all_data = torch.tensor(x_all).float().unsqueeze(1)
 
     # ...find NN predictions
@@ -87,9 +88,6 @@ if __name__ == '__main__':
 
     # Apply ground truth function to the inputs on the grid.
     fn_y = [fn(el) for el in grid]
-
-    print(f"y_all_pred: {y_all_pred}")
-    print(f"linreg_all: {linreg_all}")
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
