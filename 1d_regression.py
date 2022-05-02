@@ -89,7 +89,7 @@ if __name__ == '__main__':
     wandb.log({"nn_vs_solution_error": error})
 
     # Apply ground truth function to the inputs on the grid.
-    fn_y = [fn(el) for el in grid]
+    fn_y = np.array([fn(el) for el in grid])
     _, linreg_spline = adjust_data_linearly(normalised_grid, fn_y)
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
