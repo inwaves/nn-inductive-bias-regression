@@ -9,6 +9,7 @@ from pytorch_lightning.loggers import WandbLogger
 
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
+from utils.maths import normalise_data
 from utils.utils import calculate_spline_vs_model_error, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -61,7 +62,7 @@ if __name__ == '__main__':
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
 
     # ...fit the cubic spline.
-    spline = CubicSpline(raw_x_train, raw_y_train)
+    spline = CubicSpline(x_train, y_train)
 
     model = model.to(device)
 
@@ -76,8 +77,9 @@ if __name__ == '__main__':
     # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
 
     # Calculate the difference between g* and the NN function on the grid.
-    spline_predictions = spline(grid)
-    model_predictions = model(torch.tensor(grid).float().unsqueeze(1)).cpu().detach().numpy()
+    normalised_grid = normalise_data(grid, [])
+    spline_predictions = spline(normalised_grid)
+    model_predictions = model(torch.tensor(normalised_grid).float().unsqueeze(1)).cpu().detach().numpy()
     error = calculate_spline_vs_model_error(spline_predictions, model_predictions)
 
     # Log locally, so I can actually plot these values later...
@@ -91,7 +93,7 @@ if __name__ == '__main__':
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred+linreg_all, grid, spline(grid), fn_y)
+                             raw_x_all, y_all_pred+linreg_all, grid, spline_predictions, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()
