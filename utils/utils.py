@@ -123,6 +123,7 @@ def setup():
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
+    train_linreg_pred, test_linreg_pred = [], []
 
     if parse_bool(args.normalise):
         x_train, x_test = normalise_data(raw_x_train, raw_x_test)
