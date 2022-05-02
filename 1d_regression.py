@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred+linreg_all, grid, spline(x_all)+linreg_all, fn_y)
+                             raw_x_all, y_all_pred+linreg_all, raw_x_all, spline(x_all).reshape(linreg_all.shape)+linreg_all, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()
