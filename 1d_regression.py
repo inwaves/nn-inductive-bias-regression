@@ -10,7 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import normalise_data
-from utils.utils import adjust_data_linearly, calculate_spline_vs_model_error, setup
+from utils.utils import calculate_spline_vs_model_error, setup
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
@@ -46,9 +46,8 @@ if __name__ == '__main__':
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
 
-    tic = time.time()
-
     # Model is fit to the normalised, linearly adjusted data.
+    tic = time.time()
     trainer.fit(model, train_dataloader)
     toc = time.time()
     print(f"Training took {toc - tic:.2f} seconds.")
@@ -60,6 +59,7 @@ if __name__ == '__main__':
 
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
+    normalised_grid, [] = normalise_data(grid, [])
 
     model = model.to(device)
 
@@ -67,6 +67,7 @@ if __name__ == '__main__':
     # ...fit the cubic spline.
     spline = CubicSpline(x_train, y_train)
 
+    # ...remembering the linear adjustment, so we can undo it when plotting
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
     _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
     linreg_all = linreg_all.reshape(-1, 1)
@@ -74,10 +75,8 @@ if __name__ == '__main__':
 
     # ...find NN predictions
     y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
-    # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
 
     # Calculate the difference between g* and the NN function on the grid.
-    normalised_grid, [] = normalise_data(grid, [])
     spline_predictions = spline(normalised_grid)
     model_predictions = model(torch.tensor(normalised_grid).float().unsqueeze(1)).cpu().detach().numpy()
     error = calculate_spline_vs_model_error(spline_predictions, model_predictions)
@@ -90,11 +89,11 @@ if __name__ == '__main__':
 
     # Apply ground truth function to the inputs on the grid.
     fn_y = np.array([fn(el) for el in grid])
-    _, linreg_spline = adjust_data_linearly(normalised_grid, fn_y)
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred+linreg_all, grid, spline(x_all).reshape(linreg_all.shape)+linreg_all, fn_y)
+                             raw_x_all, y_all_pred + linreg_all, grid,
+                             spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()

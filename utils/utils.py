@@ -18,7 +18,8 @@ def parse_bool(arg):
         return True
     elif arg in ["false", "no", "f," "0", "n"]:
         return False
-    # TODO: Should handle bad arg here.
+    else:
+        raise ValueError("Argument must be a valid boolean value.")
 
 
 def parse_args():
