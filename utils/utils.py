@@ -50,9 +50,10 @@ def adjust_data_linearly(x_train, y_train):
     """Fit a linear regression model."""
 
     linear_regressor = LinearRegression().fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
-    residual = y_train - linear_regressor.predict(x_train.reshape(-1, 1)).reshape(-1)
+    linreg_pred = linear_regressor.predict(x_train.reshape(-1, 1)).reshape(-1)
+    residual = y_train - linreg_pred
 
-    return residual
+    return residual, linreg_pred
 
 
 def calculate_spline_vs_model_error(variational_predictions, network_predictions):
@@ -131,8 +132,11 @@ def setup():
 
     # Adjust the data linearly.
     if parse_bool(args.adjust_data_linearly):
-        y_train = adjust_data_linearly(x_train, raw_y_train)
-        y_test = adjust_data_linearly(x_test, raw_y_test) if len(raw_y_test) > 0 else raw_y_test
+        y_train, train_linreg_pred = adjust_data_linearly(x_train, raw_y_train)
+        if len(raw_y_test) > 0:
+            y_test, test_linreg_pred = adjust_data_linearly(x_test, raw_y_test)
+        else:
+            y_test = raw_y_test
         print(f"Adjusting data linearly because flag is: {args.adjust_data_linearly}")
     else:
         y_train, y_test = raw_y_train, raw_y_test
@@ -154,4 +158,4 @@ def setup():
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, fn
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), train_linreg_pred, test_linreg_pred, model, fn
