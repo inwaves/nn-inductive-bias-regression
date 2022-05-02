@@ -61,12 +61,12 @@ if __name__ == '__main__':
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
 
-    # ...fit the cubic spline.
-    spline = CubicSpline(x_train, y_train)
-
     model = model.to(device)
 
     # Using adjusted data...
+    # ...fit the cubic spline.
+    spline = CubicSpline(x_train, y_train)
+
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
     _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
     linreg_all = linreg_all.reshape(-1, 1)
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred+linreg_all, grid, spline_predictions+linreg_spline, fn_y)
+                             raw_x_all, y_all_pred+linreg_all, grid, spline(x_all)+linreg_all, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()
