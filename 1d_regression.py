@@ -10,7 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import normalise_data
-from utils.utils import calculate_spline_vs_model_error, setup
+from utils.utils import adjust_data_linearly, calculate_spline_vs_model_error, setup
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
@@ -90,10 +90,11 @@ if __name__ == '__main__':
 
     # Apply ground truth function to the inputs on the grid.
     fn_y = [fn(el) for el in grid]
+    _, linreg_spline = adjust_data_linearly(normalised_grid, fn_y)
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred+linreg_all, grid, spline_predictions+linreg_all, fn_y)
+                             raw_x_all, y_all_pred+linreg_all, grid, spline_predictions+linreg_spline, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()
