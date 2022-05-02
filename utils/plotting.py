@@ -17,7 +17,7 @@ def plot_data_vs_predictions(x_train, y_train, x_test, y_test, x_all, y_all_pred
         ax.axvspan(np.min(x_test), np.max(x_test), alpha=0.1, color='blue')
 
     ax.plot(x_all, y_all_pred, label='nn')
-    ax.plot(grid, g_star_preds, label='cubic spline')
+    ax.plot(x_all, g_star_preds, label='cubic spline')
     ax.plot(grid, fn_y, label="ground truth")
     plt.legend()
     wandb.log({"plot": plt})
