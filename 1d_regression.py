@@ -54,19 +54,22 @@ if __name__ == '__main__':
 
     # trainer.test(model=model, dataloaders=[test_dataloader])
 
-    x_all, y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
+    # Using raw data...
+    raw_x_all, raw_y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
 
-    # Grid is used to plot g* correctly, otherwise it doesn't match the actual function
-    # because there are not that many data points in x_all.
-    grid = np.linspace(np.min(x_all), np.max(x_all), 100)
+    # ...generate a grid with more datapoints
+    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
 
-    # Fit the cubic spline to the raw training data.
+    # ...fit the cubic spline.
     spline = CubicSpline(raw_x_train, raw_y_train)
 
     model = model.to(device)
 
-    # Find NN predictions for all raw data points (train + test).
+    # Using adjusted data...
+    x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
     all_data = torch.tensor(x_all).float().unsqueeze(1)
+
+    # ...find NN predictions
     y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
     # y_all_pred = model(grid).cpu().detach().numpy() # Using a grid that spans the interval of the datapoints.
 
@@ -86,7 +89,7 @@ if __name__ == '__main__':
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             x_all, y_all_pred, grid, spline(grid), fn_y)
+                             raw_x_all, y_all_pred, grid, spline(grid), fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()

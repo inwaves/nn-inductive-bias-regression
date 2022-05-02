@@ -117,7 +117,8 @@ def setup():
                        "lr":                   args.learning_rate,
                        "dataset":              args.dataset,
                        "generalisation_task":  args.generalisation_task,
-                       "adjust_data_linearly": args.adjust_data_linearly})
+                       "adjust_data_linearly": args.adjust_data_linearly,
+                       "normalise": args.normalise})
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)

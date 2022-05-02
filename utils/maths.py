@@ -41,7 +41,8 @@ def normalise_data(x_train, x_test):
     """Normalise the training and test data to lie between -1 and 1."""
 
     train_max = np.max(x_train)
-    x_train = x_train / (train_max/2)-1
-    x_test = x_test / (train_max/2)-1
+    train_min = np.min(x_train)
+    x_train = ((2*(x_train-train_min))/(train_max-train_min))-1
+    x_test = ((2*(x_test-train_min))/(train_max-train_min))-1
 
     return x_train, x_test
