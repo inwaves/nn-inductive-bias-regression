@@ -91,17 +91,17 @@ if __name__ == '__main__':
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
-        f.write(f"{str(args.hidden_units)}, {str(error)}\n")
+        f.write(f"{args.dataset}-{args.generalisation_task}, {str(args.hidden_units)}, {str(error)}\n")
 
-    wandb.log({"nn_vs_solution_error": error})
+    wandb.summary["nn_vs_solution_error"] = error
 
     # Apply ground truth function to the inputs on the grid.
     fn_y = np.array([fn(el) for el in grid])
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot_data_plotly(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                             raw_x_all, y_all_pred + linreg_all, grid,
-                             spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y)
+                     raw_x_all, y_all_pred + linreg_all, grid,
+                     spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y)
 
     # Wrap up any hanging logger.
     wandb.finish()
