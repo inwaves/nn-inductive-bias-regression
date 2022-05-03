@@ -11,7 +11,7 @@ from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import normalise_data
 from utils.utils import calculate_spline_vs_model_error, setup
-from utils.plotting import plot_data_vs_predictions
+from utils.plotting import plot_data_plotly, plot_data_vs_predictions
 
 # Initialisation.
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -40,7 +40,7 @@ if __name__ == '__main__':
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=1,
+        trainer = pl.Trainer(max_epochs=100,
                              callbacks=[early_stopping_callback],
                              accelerator="cpu",
                              logger=wandb_logger,
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     fn_y = np.array([fn(el) for el in grid])
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
-    plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
+    plot_data_plotly(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
                              raw_x_all, y_all_pred + linreg_all, grid,
                              spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y)
 

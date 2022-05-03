@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.linear_model import LinearRegression
 
-num_runs = 3
+num_runs = 5
 
 def linlinplot(x, average_errors):
     # How are these picked? Seems completely arbitrary!
@@ -28,7 +28,9 @@ def loglogplot(x, average_errors):
     plt.loglog(x, average_errors, "-o")
     plt.loglog(Xline, np.exp(reg.predict(np.log(Xline))))
     plt.loglog(Xline, 1/np.sqrt(Xline))
-    plt.legend([f"$y={np.exp(reg.intercept_):.4f}x^{{{reg.coef_[0]:.4f}}}$", 'Error', "1/sqrt"], fontsize='large')
+    plt.legend([f"Error",
+                f"$y={np.exp(reg.intercept_):.4f}x^{{{reg.coef_[0]:.4f}}}$",
+                r"$y=\frac{1}{\sqrt{n}}$"], fontsize='large')
 
     plt.show()
 
