@@ -10,7 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import normalise_data
-from utils.utils import calculate_spline_vs_model_error, setup
+from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
 from utils.plotting import plot_data_plotly, plot_data_vs_predictions
 
 # Initialisation.
@@ -40,7 +40,7 @@ if __name__ == '__main__':
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=100,
+        trainer = pl.Trainer(max_epochs=-1,
                              callbacks=[early_stopping_callback],
                              accelerator="cpu",
                              logger=wandb_logger,
@@ -59,7 +59,12 @@ if __name__ == '__main__':
 
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
-    normalised_grid, [] = normalise_data(grid, [])
+
+    if parse_bool(args.normalise):
+        # TODO: if I'm going to do this, normalise_data should normalise one array at a time.
+        normalised_grid, [] = normalise_data(grid, [])
+    else:
+        normalised_grid = grid
 
     model = model.to(device)
 
@@ -69,8 +74,11 @@ if __name__ == '__main__':
 
     # ...remembering the linear adjustment, so we can undo it when plotting
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
-    _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
-    linreg_all = linreg_all.reshape(-1, 1)
+    if parse_bool(args.adjust_data_linearly):
+        _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
+        linreg_all = linreg_all.reshape(-1, 1)
+    else:
+        linreg_all = np.zeros(shape=(len(x_all), 1))
     all_data = torch.tensor(x_all).float().unsqueeze(1)
 
     # ...find NN predictions

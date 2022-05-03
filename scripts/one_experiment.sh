@@ -29,5 +29,6 @@
 #! Do not change:
 #SBATCH -p ampere
 #/bin/bash
+set -x # echo on
 
-for i in {1..1}; do python3 1d_regression.py --normalise=True --adjust_data_linearly=True --dataset=sine  --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001; done
+for i in {1..1}; do python3 1d_regression.py --generalisation_task=baseline --normalise=True --adjust_data_linearly=False --dataset=constant  --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.0001; done
