@@ -117,8 +117,8 @@ class AsiShallowRelu(pl.LightningModule):
         optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         return {
                 "optimizer": optimizer,
-                "monitor": "train_loss",
-                "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=2),
+                # "monitor": "train_loss",
+                # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=2),
         }
 
 
