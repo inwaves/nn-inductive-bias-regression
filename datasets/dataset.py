@@ -222,7 +222,7 @@ def generate_chebyshev_baseline():
     x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1])
     x_test = np.array([])
 
-    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train]).reshape(1, -1).squeeze()
     y_test = np.array([])
 
     return x_train, y_train, x_test, y_test
@@ -234,8 +234,8 @@ def generate_chebyshev_interpolation():
     x_train = np.array([-1, -0.8, -0.6, -0.4, 0.4, 0.6, 0.8, 1])
     x_test = np.array([-0.2, 0, 0.2])
 
-    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
-    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test])
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train]).reshape(1, -1).squeeze()
+    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test]).reshape(1, -1).squeeze()
 
     return x_train, y_train, x_test, y_test
 
@@ -246,8 +246,8 @@ def generate_chebyshev_extrapolation():
     x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4])
     x_test = np.array([0.6, 0.8, 1])
 
-    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train])
-    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test])
+    y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train]).reshape(1, -1).squeeze()
+    y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test]).reshape(1, -1).squeeze()
 
     return x_train, y_train, x_test, y_test
 
