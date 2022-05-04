@@ -95,7 +95,8 @@ if __name__ == '__main__':
     # Apply ground truth function to the inputs on the grid.
     fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
 
-    unadjusted_spline_preds = spline_predictions + linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0])
+    unadjusted_spline_preds = spline_predictions + linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0]) \
+        if parse_bool(args.adjust_data_linearly) else spline_predictions
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot = plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
                                     raw_x_all, y_all_pred + linreg_all, grid,

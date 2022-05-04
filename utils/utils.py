@@ -142,6 +142,7 @@ def setup():
         print(f"Adjusting data linearly because flag is: {args.adjust_data_linearly}")
     else:
         y_train, y_test = raw_y_train, raw_y_test
+        linear_fit = None
 
     print(list(zip(x_train, y_train)))
     training_data = np.array(list(zip(x_train, y_train)))
@@ -160,5 +161,7 @@ def setup():
         model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+    else:
+        model = None
 
     return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args,  model, linear_fit, fn
