@@ -6,7 +6,7 @@ import pytorch_lightning as pl
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-class ShallowRelu(pl.LightningModule):
+class ShallowNetwork(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,
@@ -50,7 +50,7 @@ class ShallowRelu(pl.LightningModule):
         }
 
 
-class AsiShallowRelu(pl.LightningModule):
+class AsiShallowNetwork(pl.LightningModule):
     def __init__(self,
                  n,
                  input_dim,

@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from functools import partial
 from datasets.dataset import *
 from models.mlp import MLP
-from models.shallow_relu import AsiShallowRelu, ShallowRelu, PlainTorchAsiShallowRelu
+from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -152,9 +152,9 @@ def setup():
 
     # Set up the model.
     if args.model_type == "ASIShallowRelu":
-        model = AsiShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+        model = AsiShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "ShallowRelu":
-        model = ShallowRelu(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+        model = ShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
     elif args.model_type == "PlainTorchAsiShallowRelu":
         model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
     elif args.model_type == "MLP":
