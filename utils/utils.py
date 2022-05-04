@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--num_samples", "-s", default=7, type=int,
                         help="Number of points in the training dataset.")
-    parser.add_argument("--learning_rate", "-lr", default=1e-3, type=float,
+    parser.add_argument("--learning_rate", "-lr", default=1e-4, type=float,
                         help="Learning rate of the optimiser.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
                                                                                        "ShallowRelu, MLP.")
@@ -54,7 +54,7 @@ def adjust_data_linearly(x_train, y_train):
     linreg_pred = linear_regressor.predict(x_train.reshape(-1, 1)).reshape(-1)
     residual = y_train - linreg_pred
 
-    return residual, linreg_pred
+    return residual, linear_regressor
 
 
 def calculate_spline_vs_model_error(variational_predictions, network_predictions):
@@ -124,7 +124,6 @@ def setup():
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
-    train_linreg_pred, test_linreg_pred = [], []
 
     if parse_bool(args.normalise):
         x_train, x_test = normalise_data(raw_x_train, raw_x_test)
@@ -134,15 +133,16 @@ def setup():
 
     # Adjust the data linearly.
     if parse_bool(args.adjust_data_linearly):
-        y_train, train_linreg_pred = adjust_data_linearly(x_train, raw_y_train)
+        y_train, linear_fit = adjust_data_linearly(x_train, raw_y_train)
         if len(raw_y_test) > 0:
-            y_test, test_linreg_pred = adjust_data_linearly(x_test, raw_y_test)
+            y_test = raw_y_test - linear(x_test, linear_fit.intercept_, linear_fit.coef_[0])
         else:
             y_test = raw_y_test
         print(f"Adjusting data linearly because flag is: {args.adjust_data_linearly}")
     else:
         y_train, y_test = raw_y_train, raw_y_test
 
+    print(list(zip(x_train, y_train)))
     training_data = np.array(list(zip(x_train, y_train)))
     test_data = np.array(list(zip(x_test, y_test)))
 
@@ -160,4 +160,4 @@ def setup():
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, train_linreg_pred, test_linreg_pred, model, fn
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args,  model, linear_fit, fn

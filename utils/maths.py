@@ -17,8 +17,8 @@ def constant(x):
     return np.ones(x.shape)
 
 
-def linear(x):
-    return 2 * x + 3
+def linear(x, intercept=3, slope=2):
+    return slope * x + intercept
 
 
 def sin(x):

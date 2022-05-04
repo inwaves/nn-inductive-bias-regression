@@ -9,7 +9,7 @@ from pytorch_lightning.loggers import WandbLogger
 
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
-from utils.maths import normalise_data
+from utils.maths import linear, normalise_data
 from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -21,7 +21,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 if __name__ == '__main__':
-    train_dataloader, test_dataloader, data, raw_data, args, train_linreg_pred, test_linreg_pred, model, fn = setup()
+    train_dataloader, test_dataloader, data, raw_data, args, model, linear_fit, fn = setup()
 
     x_train, y_train, x_test, y_test = data
     raw_x_train, raw_y_train, raw_x_test, raw_y_test = raw_data
@@ -75,7 +75,9 @@ if __name__ == '__main__':
     # ...remembering the linear adjustment, so we can undo it when plotting
     x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
     if parse_bool(args.adjust_data_linearly):
-        _, linreg_all = glue_dataset_portions(x_train, train_linreg_pred, x_test, test_linreg_pred)
+        train_linreg_predictions = linear(x_train, linear_fit.intercept_, linear_fit.coef_[0])
+        test_linreg_predictions = linear(x_test, linear_fit.intercept_, linear_fit.coef_[0])
+        _, linreg_all = glue_dataset_portions(x_train, train_linreg_predictions, x_test, test_linreg_predictions)
         linreg_all = linreg_all.reshape(-1, 1)
     else:
         linreg_all = np.zeros(shape=(len(x_all), 1))
@@ -98,10 +100,11 @@ if __name__ == '__main__':
     # Apply ground truth function to the inputs on the grid.
     fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
 
+    unadjusted_spline_preds = spline_predictions + linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0])
     # Plot the predictions in the original, non-adjusted, non-normalised space.
     plot = plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
                                     raw_x_all, y_all_pred + linreg_all, grid,
-                                    spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y, args)
+                                    unadjusted_spline_preds, fn_y, args)
 
     # Wrap up any hanging logger.
     wandb.finish()
