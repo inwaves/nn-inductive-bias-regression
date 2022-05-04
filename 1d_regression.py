@@ -59,12 +59,7 @@ if __name__ == '__main__':
 
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
-
-    if parse_bool(args.normalise):
-        # TODO: if I'm going to do this, normalise_data should normalise one array at a time.
-        normalised_grid, [] = normalise_data(grid, [])
-    else:
-        normalised_grid = grid
+    normalised_grid, _, _ = normalise_data(grid) if parse_bool(args.normalise) else grid
 
     model = model.to(device)
 

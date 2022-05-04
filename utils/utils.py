@@ -114,19 +114,20 @@ def setup():
     args = parse_args()
     wandb.init(project="generalisation",
                entity="inwaves",
-               config={"model_type":           args.model_type,
-                       "hidden_units":         args.hidden_units,
-                       "lr":                   args.learning_rate,
-                       "dataset":              args.dataset,
-                       "generalisation_task":  args.generalisation_task,
-                       "adjust_data_linearly": args.adjust_data_linearly,
-                       "normalise": args.normalise})
+               config={"model_type":            args.model_type,
+                       "hidden_units":          args.hidden_units,
+                       "lr":                    args.learning_rate,
+                       "dataset":               args.dataset,
+                       "generalisation_task":   args.generalisation_task,
+                       "adjust_data_linearly":  args.adjust_data_linearly,
+                       "normalise":             args.normalise})
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
 
     if parse_bool(args.normalise):
-        x_train, x_test = normalise_data(raw_x_train, raw_x_test)
+        x_train, xmin, xmax = normalise_data(raw_x_train)
+        x_test, _, _ = normalise_data(raw_x_test, xmin, xmax)
         print(f"Normalising data because flag is: {args.normalise}")
     else:
         x_train, x_test = raw_x_train, raw_x_test

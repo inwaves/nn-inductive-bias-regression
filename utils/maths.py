@@ -37,12 +37,11 @@ def parabola(x):
     return x ** 2
 
 
-def normalise_data(x_train, x_test):
-    """Normalise the training and test data to lie between -1 and 1."""
+def normalise_data(x, maxval=None, minval=None):
+    """Normalise training data to lie between -1 and 1. Normalise test data to lie between minval and maxval"""
 
-    train_max = np.max(x_train)
-    train_min = np.min(x_train)
-    x_train = ((2*(x_train-train_min))/(train_max-train_min))-1
-    x_test = ((2*(x_test-train_min))/(train_max-train_min))-1
+    maxval = np.min(x) if maxval is None else maxval
+    minval = np.max(x) if minval is None else minval
+    x = ((2 * (x - maxval)) / (minval - maxval)) - 1
 
-    return x_train, x_test
+    return x, maxval, minval
