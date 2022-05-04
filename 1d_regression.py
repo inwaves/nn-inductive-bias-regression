@@ -11,7 +11,7 @@ from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import normalise_data
 from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
-from utils.plotting import plot_data_plotly, plot_data_vs_predictions
+from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     toc = time.time()
     print(f"Training took {toc - tic:.2f} seconds.")
 
-    # trainer.test(model=model, dataloaders=[test_dataloader])
+    trainer.test(model=model, dataloaders=[test_dataloader])
 
     # Using raw data...
     raw_x_all, raw_y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
@@ -96,12 +96,12 @@ if __name__ == '__main__':
     wandb.summary["nn_vs_solution_error"] = error
 
     # Apply ground truth function to the inputs on the grid.
-    fn_y = np.array([fn(el) for el in grid])
+    fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
-    plot_data_plotly(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                     raw_x_all, y_all_pred + linreg_all, grid,
-                     spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y)
+    plot = plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
+                                    raw_x_all, y_all_pred + linreg_all, grid,
+                                    spline(x_all).reshape(linreg_all.shape) + linreg_all, fn_y, args)
 
     # Wrap up any hanging logger.
     wandb.finish()

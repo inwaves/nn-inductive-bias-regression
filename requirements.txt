@@ -1,3 +1,4 @@
+kaleido
 numpy
 wandb
 scikit-learn
