@@ -155,5 +155,7 @@ def setup():
         model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+    else:
+        model = None
 
     return train_dataloader, test_dataloader, da_train, da_test, args,  model, fn

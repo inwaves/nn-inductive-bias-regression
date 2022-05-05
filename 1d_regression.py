@@ -10,7 +10,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.data_adjuster import DataAdjuster
-from utils.maths import linear, normalise_data
+from utils.maths import linear
 from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -51,30 +51,32 @@ if __name__ == '__main__':
 
     trainer.test(model=model, dataloaders=[test_dataloader])
 
-    # Using raw data...
-    raw_x_all, raw_y_all = glue_dataset_portions(raw_x_train, raw_y_train, raw_x_test, raw_y_test)
-
-    # ...generate a grid with more datapoints
-    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
-    da_grid = DataAdjuster(grid, None)
-    if args.normalise:
-        da_grid.normalise()
-
     model = model.to(device)
 
     # Using adjusted data...
     # ...fit the cubic spline.
     spline = CubicSpline(da_train.x, da_train.y)
 
-    # ...remembering the linear adjustment, so we can undo it when plotting
     x_all, y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
-    if parse_bool(args.adjust_data_linearly):
-        da_train.unadjust()
-        da_test.unadjust()
     all_data = torch.tensor(x_all).float().unsqueeze(1)
 
     # ...find NN predictions
     y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
+
+    # Using raw data...
+    if parse_bool(args.adjust_data_linearly):
+        da_train.unadjust()
+        da_test.unadjust()
+    if parse_bool(args.normalise):
+        da_train.unnormalise()
+        da_test.unnormalise()
+    raw_x_all, raw_y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
+
+    # ...generate a grid with more datapoints
+    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
+    da_grid = DataAdjuster(grid, None)
+    if parse_bool(args.normalise):
+        da_grid.normalise()
 
     # Calculate the difference between g* and the NN function on the grid.
     spline_predictions = spline(da_grid.x)
@@ -90,11 +92,17 @@ if __name__ == '__main__':
     # Apply ground truth function to the inputs on the grid.
     fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
 
-    unadjusted_spline_preds = spline_predictions + linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0]) \
-        if parse_bool(args.adjust_data_linearly) else spline_predictions
+    if parse_bool(args.adjust_data_linearly):
+        intercept, slope = da_train.linear_regressor.intercept_, da_train.linear_regressor.coef_[0]
+        unadjusted_nn_preds = model_predictions.reshape(da_grid.x.shape) + linear(da_grid.x, intercept, slope)
+        unadjusted_spline_preds = spline_predictions.reshape(da_grid.x.shape) + linear(da_grid.x, intercept, slope)
+    else:
+        unadjusted_nn_preds = model_predictions
+        unadjusted_spline_preds = spline_predictions
+
     # Plot the predictions in the original, non-adjusted, non-normalised space.
-    plot = plot_data_vs_predictions(raw_x_train, raw_y_train, raw_x_test, raw_y_test,
-                                    raw_x_all, y_all_pred + linreg_all, grid,
+    plot = plot_data_vs_predictions(da_train.x, da_train.y, da_test.x, da_test.y,
+                                    unadjusted_nn_preds, grid,
                                     unadjusted_spline_preds, fn_y, args)
 
     # Wrap up any hanging logger.
