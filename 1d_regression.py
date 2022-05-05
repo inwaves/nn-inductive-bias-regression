@@ -40,7 +40,7 @@ if __name__ == '__main__':
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=1,
+        trainer = pl.Trainer(max_epochs=-1,
                              callbacks=[early_stopping_callback],
                              accelerator="cpu",
                              logger=wandb_logger,
