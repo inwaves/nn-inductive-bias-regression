@@ -40,7 +40,7 @@ if __name__ == '__main__':
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=-1,
+        trainer = pl.Trainer(max_epochs=1,
                              callbacks=[early_stopping_callback],
                              accelerator="cpu",
                              logger=wandb_logger,
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
-    normalised_grid, _, _ = normalise_data(grid) if parse_bool(args.normalise) else grid
+    normalised_grid, _, _ = normalise_data(grid, np.min(raw_x_train), np.max(raw_x_train)) if parse_bool(args.normalise) else grid
 
     model = model.to(device)
 
@@ -67,13 +67,8 @@ if __name__ == '__main__':
     # ...fit the cubic spline.
     spline = CubicSpline(x_train, y_train)
 
-    # ...remembering the linear adjustment, so we can undo it when plotting
-    x_all, y_all = glue_dataset_portions(x_train, y_train, x_test, y_test)
-
+    x_all, _ = glue_dataset_portions(x_train, y_train, x_test, y_test)
     all_data = torch.tensor(x_all).float().unsqueeze(1)
-
-    # ...find NN predictions
-    y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
 
     # Calculate the difference between g* and the NN function on the grid.
     spline_predictions = spline(normalised_grid)
@@ -83,8 +78,8 @@ if __name__ == '__main__':
     if parse_bool(args.adjust_data_linearly):
         unadjusted_nn_preds = model_predictions.reshape(normalised_grid.shape) + \
                               linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0])
-        unadjusted_spline_preds = spline_predictions + linear(normalised_grid, linear_fit.intercept_,
-                                                              linear_fit.coef_[0])
+        unadjusted_spline_preds = spline_predictions.reshape(normalised_grid.shape) + \
+                                  linear(normalised_grid, linear_fit.intercept_, linear_fit.coef_[0])
     else:
         unadjusted_nn_preds = model_predictions
         unadjusted_spline_preds = spline_predictions
