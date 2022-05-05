@@ -5,13 +5,13 @@ from utils.maths import linear
 
 
 class DataAdjuster:
-    def __init__(self, x, y):
+    def __init__(self, x, y, x_min=None, x_max=None):
         self.residual = None
         self.linear_regressor = None
         self.x = x
         self.y = y
-        self.x_min = np.min(self.x)
-        self.x_max = np.max(self.x)
+        self.x_min = np.min(self.x) if x_min is None else x_min
+        self.x_max = np.max(self.x) if x_max is None else x_max
 
     def adjust(self):
         self.linear_regressor = LinearRegression().fit(self.x.reshape(-1, 1), self.y.reshape(-1, 1))

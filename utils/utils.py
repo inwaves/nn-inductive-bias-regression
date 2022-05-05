@@ -8,6 +8,7 @@ from datasets.dataset import *
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
+from utils.data_adjuster import DataAdjuster
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -123,33 +124,27 @@ def setup():
                        "normalise":             args.normalise})
 
     # Set up the data.
-    (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
+    (x_train, y_train, x_test, y_test), fn = select_dataset(args)
+    da_train = DataAdjuster(x_train, y_train)
+    da_test = DataAdjuster(x_test, y_test, da_train.x_min, da_train.x_max)
 
     if parse_bool(args.normalise):
-        x_train, xmin, xmax = normalise_data(raw_x_train)
-        x_test, _, _ = normalise_data(raw_x_test, xmin, xmax)
+        da_train.normalise()
+        da_test.normalise()
         print(f"Normalising data because flag is: {args.normalise}")
-    else:
-        x_train, x_test = raw_x_train, raw_x_test
 
     # Adjust the data linearly.
     if parse_bool(args.adjust_data_linearly):
-        y_train, linear_fit = adjust_data_linearly(x_train, raw_y_train)
-        if len(raw_y_test) > 0:
-            y_test = raw_y_test - linear(x_test, linear_fit.intercept_, linear_fit.coef_[0])
-        else:
-            y_test = raw_y_test
+        da_train.adjust()
+        da_test.adjust()
         print(f"Adjusting data linearly because flag is: {args.adjust_data_linearly}")
-    else:
-        y_train, y_test = raw_y_train, raw_y_test
 
-    print(list(zip(x_train, y_train)))
-    training_data = np.array(list(zip(x_train, y_train)))
-    test_data = np.array(list(zip(x_test, y_test)))
+    training_data = np.array(list(zip(da_train.x, da_train.y)))
+    test_data = np.array(list(zip(da_test.x, da_test.y)))
 
     custom_dataloader = CustomDataLoader(training_data, test_data, device)
     train_dataloader = custom_dataloader.train_dataloader()
-    test_dataloader = custom_dataloader.test_dataloader() if len(raw_x_test) > 0 else None
+    test_dataloader = custom_dataloader.test_dataloader() if len(da_test.x) > 0 else None
 
     # Set up the model.
     if args.model_type == "ASIShallowRelu":
@@ -161,4 +156,4 @@ def setup():
     elif args.model_type == "MLP":
         model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args,  model, linear_fit, fn
+    return train_dataloader, test_dataloader, da_train, da_test, args,  model, fn
