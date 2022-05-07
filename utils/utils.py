@@ -12,6 +12,21 @@ from utils.custom_dataloader import CustomDataLoader
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def select_model(model_type, hidden_units, learning_rate):
+    if model_type == "asishallowrelu":
+        model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate).to(device).float()
+    elif model_type == "shallowrelu":
+        model = ShallowNetwork(hidden_units, 1, 1, lr=learning_rate).to(device).float()
+    elif model_type == "plaintorchasishallowrelu":
+        model = PlainTorchAsiShallowRelu(hidden_units, 1, 1).to(device).float()
+    elif model_type == "mlp":
+        model = MLP(hidden_units, 1, 1, lr=learning_rate).to(device).float()
+    else:
+        print(f"Error: model type {model_type} not supported.")
+        model = None
+    return model
+
+
 def parse_bool(arg):
     arg = arg.lower()
     if arg in ["true", "yes", "t", "1", "y"]:
@@ -114,13 +129,13 @@ def setup():
     args = parse_args()
     wandb.init(project="generalisation",
                entity="inwaves",
-               config={"model_type":            args.model_type,
-                       "hidden_units":          args.hidden_units,
-                       "lr":                    args.learning_rate,
-                       "dataset":               args.dataset,
-                       "generalisation_task":   args.generalisation_task,
-                       "adjust_data_linearly":  args.adjust_data_linearly,
-                       "normalise":             args.normalise})
+               config={"model_type":           args.model_type,
+                       "hidden_units":         args.hidden_units,
+                       "lr":                   args.learning_rate,
+                       "dataset":              args.dataset,
+                       "generalisation_task":  args.generalisation_task,
+                       "adjust_data_linearly": args.adjust_data_linearly,
+                       "normalise":            args.normalise})
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
@@ -153,15 +168,7 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(raw_x_test) > 0 else None
 
     # Set up the model.
-    if args.model_type == "ASIShallowRelu":
-        model = AsiShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
-    elif args.model_type == "ShallowRelu":
-        model = ShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
-    elif args.model_type == "PlainTorchAsiShallowRelu":
-        model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
-    elif args.model_type == "MLP":
-        model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
-    else:
-        model = None
+    model = select_model(args.model_type.lower(), args.hidden_units, args.learning_rate)
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args,  model, linear_fit, fn
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (
+            raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, linear_fit, fn
