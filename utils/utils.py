@@ -4,6 +4,9 @@ import wandb
 
 from sklearn.linear_model import LinearRegression
 from functools import partial
+
+from torch import nn as nn
+
 from datasets.dataset import *
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
@@ -42,6 +45,8 @@ def parse_args():
     parser.add_argument("--generalisation_task", "-g", default="interpolation", type=str, help="Select from baseline, "
                                                                                                "interpolation or "
                                                                                                "extrapolation.")
+    parser.add_argument("--nonlinearity", "-nl", default="relu", type=str, help="Select from relu, leaky_relu, gelu, "
+                                                                                "sigmoid, tanh.")
     args = parser.parse_args()
 
     return args
@@ -114,13 +119,13 @@ def setup():
     args = parse_args()
     wandb.init(project="generalisation",
                entity="inwaves",
-               config={"model_type":            args.model_type,
-                       "hidden_units":          args.hidden_units,
-                       "lr":                    args.learning_rate,
-                       "dataset":               args.dataset,
-                       "generalisation_task":   args.generalisation_task,
-                       "adjust_data_linearly":  args.adjust_data_linearly,
-                       "normalise":             args.normalise})
+               config={"model_type":           args.model_type,
+                       "hidden_units":         args.hidden_units,
+                       "lr":                   args.learning_rate,
+                       "dataset":              args.dataset,
+                       "generalisation_task":  args.generalisation_task,
+                       "adjust_data_linearly": args.adjust_data_linearly,
+                       "normalise":            args.normalise})
 
     # Set up the data.
     (raw_x_train, raw_y_train, raw_x_test, raw_y_test), fn = select_dataset(args)
@@ -154,14 +159,45 @@ def setup():
 
     # Set up the model.
     if args.model_type == "ASIShallowRelu":
-        model = AsiShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+        model = AsiShallowNetwork(n=args.hidden_units,
+                                  input_dim=1,
+                                  output_dim=1,
+                                  lr=args.learning_rate,
+                                  nonlinearity_type=args.nonlinearity_type).to(device).float()
     elif args.model_type == "ShallowRelu":
-        model = ShallowNetwork(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+        model = ShallowNetwork(n=args.hidden_units,
+                               input_dim=1,
+                               output_dim=1,
+                               lr=args.learning_rate,
+                               nonlinearity_type=args.nonlinearity_type).to(device).float()
     elif args.model_type == "PlainTorchAsiShallowRelu":
-        model = PlainTorchAsiShallowRelu(args.hidden_units, 1, 1).to(device).float()
+        model = PlainTorchAsiShallowRelu(n=args.hidden_units,
+                                         input_dim=1,
+                                         output_dim=1,
+                                         nonlinearity_type=args.nonlinearity_type).to(device).float()
     elif args.model_type == "MLP":
-        model = MLP(args.hidden_units, 1, 1, lr=args.learning_rate).to(device).float()
+        model = MLP(n=args.hidden_units,
+                    input_dim=1,
+                    output_dim=1,
+                    lr=args.learning_rate,
+                    nonlinearity_type=args.nonlinearity_type).to(device).float()
     else:
         model = None
 
-    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (raw_x_train, raw_y_train, raw_x_test, raw_y_test), args,  model, linear_fit, fn
+    return train_dataloader, test_dataloader, (x_train, y_train, x_test, y_test), (
+    raw_x_train, raw_y_train, raw_x_test, raw_y_test), args, model, linear_fit, fn
+
+
+def parse_nonlinearity(nonlinearity_type):
+    if nonlinearity_type == "relu":
+        return nn.ReLU()
+    elif nonlinearity_type == "leaky_relu":
+        return nn.LeakyReLU(0.2)
+    elif nonlinearity_type == "gelu":
+        return nn.GELU()
+    elif nonlinearity_type == "elu":
+        return nn.ELU()
+    elif nonlinearity_type == "sigmoid":
+        return nn.Sigmoid()
+    elif nonlinearity_type == "tanh":
+        return nn.Tanh()

@@ -4,6 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
+from utils.utils import parse_nonlinearity
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
@@ -12,22 +14,24 @@ class MLP(pl.LightningModule):
                  n,
                  input_dim,
                  output_dim,
-                 lr=1e-1) -> None:
+                 lr=1e-1,
+                 nonlinearity_type="relu") -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
+        self.nonlinearity = parse_nonlinearity(nonlinearity_type)
         self.hidden = nn.Sequential(
             nn.Linear(input_dim, n),
-            nn.ReLU(),
+            self.nonlinearity,
             nn.Linear(n, 2 * n),
-            nn.ReLU(),
+            self.nonlinearity,
             nn.Linear(2 * n, 3 * n),
-            nn.ReLU(),
+            self.nonlinearity,
             nn.Linear(3 * n, 2 * n),
-            nn.ReLU(),
+            self.nonlinearity,
             nn.Linear(2 * n, n),
-            nn.ReLU(),
+            self.nonlinearity,
         )
         self.out = nn.Linear(n, output_dim)
 
