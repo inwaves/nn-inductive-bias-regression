@@ -10,7 +10,8 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.maths import linear, normalise_data
-from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
+from utils.utils import calculate_spline_vs_model_error, setup
+from utils.parsers import parse_bool
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.

@@ -5,7 +5,7 @@ import seaborn as sns
 import numpy as np
 import wandb
 
-from utils.utils import parse_bool
+from utils.parsers import parse_bool
 
 
 def plot_data_vs_predictions(x_train, y_train, x_test, y_test,  y_all_pred, grid, g_star_preds, fn_y, args):
