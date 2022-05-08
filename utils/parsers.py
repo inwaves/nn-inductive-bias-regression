@@ -44,7 +44,7 @@ def parse_args():
                                                                                        "ShallowRelu, MLP.")
     parser.add_argument("--dataset", "-d", default="sine", type=str, help="Select from constant, linear, sine, "
                                                                           "parabola, chebyshev_polynomial, "
-                                                                          "polynomial_spline.")
+                                                                          "polynomial_spline, random, square.")
     parser.add_argument("--generalisation_task", "-g", default="interpolation", type=str, help="Select from baseline, "
                                                                                                "interpolation or "
                                                                                                "extrapolation.")
