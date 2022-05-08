@@ -96,6 +96,7 @@ def setup():
     wandb.init(project="generalisation",
                entity="inwaves",
                config={"model_type":           args.model_type,
+                       "nonlinearity":         args.nonlinearity,
                        "hidden_units":         args.hidden_units,
                        "lr":                   args.learning_rate,
                        "dataset":              args.dataset,
