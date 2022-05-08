@@ -14,12 +14,12 @@ class MLP(pl.LightningModule):
                  input_dim,
                  output_dim,
                  lr=1e-1,
-                 nonlinearity_type="relu") -> None:
+                 nonlinearity="relu") -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
-        self.nonlinearity = parse_nonlinearity(nonlinearity_type)
+        self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.hidden = nn.Sequential(
             nn.Linear(input_dim, n),
             self.nonlinearity,

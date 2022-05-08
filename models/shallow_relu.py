@@ -14,14 +14,14 @@ class ShallowNetwork(pl.LightningModule):
                  input_dim,
                  output_dim,
                  lr=1e-3,
-                 nonlinearity_type="relu") -> None:
+                 nonlinearity="relu") -> None:
         super().__init__()
 
         self.save_hyperparameters()
 
         self.lr = lr
         self.hidden = nn.Linear(input_dim, n)
-        self.nonlinearity = parse_nonlinearity(nonlinearity_type)
+        self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.out = nn.Linear(n, output_dim, bias=False)
 
     def forward(self, x):
@@ -60,7 +60,7 @@ class AsiShallowNetwork(pl.LightningModule):
                  input_dim,
                  output_dim,
                  lr=1e-3,
-                 nonlinearity_type="relu") -> None:
+                 nonlinearity="relu") -> None:
         super().__init__()
 
         self.save_hyperparameters()
@@ -82,7 +82,7 @@ class AsiShallowNetwork(pl.LightningModule):
         self.hidden1 = self.hidden1.to(device)
         self.hidden2 = self.hidden2.to(device)
 
-        self.nonlinearity = parse_nonlinearity(nonlinearity_type)
+        self.nonlinearity = parse_nonlinearity(nonlinearity)
 
         # Initialise output layers with uniform weights.
         self.out1 = nn.Linear(n, output_dim, bias=False)
@@ -132,14 +132,14 @@ class PlainTorchAsiShallowRelu(nn.Module):
                  n,
                  input_dim,
                  output_dim,
-                 nonlinearity_type) -> None:
+                 nonlinearity) -> None:
         super().__init__()
 
         self.hidden1 = nn.Linear(input_dim, n)
         self.hidden2 = nn.Linear(input_dim, n)
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
-        self.nonlinearity = parse_nonlinearity(nonlinearity_type)
+        self.nonlinearity = parse_nonlinearity(nonlinearity)
 
         self.out1 = nn.Linear(n, output_dim, bias=False)
         self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data

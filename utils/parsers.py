@@ -3,18 +3,18 @@ import argparse
 from torch import nn as nn
 
 
-def parse_nonlinearity(nonlinearity_type):
-    if nonlinearity_type == "relu":
+def parse_nonlinearity(nonlinearity):
+    if nonlinearity == "relu":
         return nn.ReLU()
-    elif nonlinearity_type == "leaky_relu":
+    elif nonlinearity == "leaky_relu":
         return nn.LeakyReLU(0.2)
-    elif nonlinearity_type == "gelu":
+    elif nonlinearity == "gelu":
         return nn.GELU()
-    elif nonlinearity_type == "elu":
+    elif nonlinearity == "elu":
         return nn.ELU()
-    elif nonlinearity_type == "sigmoid":
+    elif nonlinearity == "sigmoid":
         return nn.Sigmoid()
-    elif nonlinearity_type == "tanh":
+    elif nonlinearity == "tanh":
         return nn.Tanh()
 
 
