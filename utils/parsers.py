@@ -36,8 +36,8 @@ def parse_args():
     parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
     parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
-    parser.add_argument("--num_samples", "-s", default=7, type=int,
-                        help="Number of points in the training dataset.")
+    parser.add_argument("--num_datapoints", "-nd", default=10, type=int,
+                        help="Number of points in the (training+test) datasets. The ratio is always 70:30.")
     parser.add_argument("--learning_rate", "-lr", default=1e-4, type=float,
                         help="Learning rate of the optimiser.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
