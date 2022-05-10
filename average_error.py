@@ -1,10 +1,9 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.linear_model import LinearRegression
 
-num_runs = 1
+num_runs = 3
 categories = ["sine", "square", "parabola", "polynomial_spline", "chebyshev_polynomial", "constant", "linear"]
 
 
@@ -31,14 +30,16 @@ def loglogplot(x, average_errors, category):
 
 
 if __name__ == '__main__':
-    x = np.array([10, 100, 1000])
+    x = np.array([10, 100, 500, 1000, 5000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
 
     lines = np.array([line.replace("\n", "").split(",")[1:] for line in lines], dtype=np.float32)
     for category in categories:
-        average_errors = [np.mean(lines[:num_runs, 1]), np.mean(lines[num_runs:2*num_runs, 1]), np.mean(lines[2*num_runs:3*num_runs, 1])]
+        average_errors = []
+        for i, _ in enumerate(x):
+            average_errors.append(np.mean(lines[i*num_runs: (i+1)*num_runs, 1]))
         print(f"{category} average errors: {average_errors}")
         loglogplot(x, average_errors, category)
         lines = lines[len(x)*num_runs:]
