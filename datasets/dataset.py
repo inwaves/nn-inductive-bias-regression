@@ -1,7 +1,7 @@
 from utils.maths import *
 
 
-def generate_random_dataset(task_type="baseline"):
+def generate_random_dataset(task_type="baseline", num_datapoints=10):
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
         x_train = np.array([0.00626232, 0.03851067, 0.15995237, 0.24668581, 0.36837388,
@@ -31,7 +31,7 @@ def generate_random_dataset(task_type="baseline"):
     return x_train, y_train, x_test, y_test
 
 
-def generate_constant_dataset(task_type="baseline"):
+def generate_constant_dataset(task_type="baseline", num_datapoints=10):
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
         x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -49,7 +49,7 @@ def generate_constant_dataset(task_type="baseline"):
     return x_train, y_train, x_test, y_test
 
 
-def generate_linear_dataset(task_type="baseline"):
+def generate_linear_dataset(task_type="baseline", num_datapoints=10):
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
         x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -82,8 +82,10 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
                 5 * np.pi / 3,
                 2 * np.pi
         ])
+        additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
+                                         endpoint=False).astype(np.float16)
+        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
         x_test = np.array([])
-        y_train, y_test = sin(x_train), np.array([])
     elif task_type == "interpolation":
         x_train = np.array([
                 0,
@@ -99,7 +101,18 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
                 np.pi,
                 4 * np.pi / 3,
         ])
-        y_train, y_test = sin(x_train), sin(x_test)
+        additional_x_train = np.concatenate(
+                (np.linspace(np.min(x_train), np.min(x_test),
+                             int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
+                             endpoint=False).astype(np.float16),
+                 np.linspace(np.max(x_test), np.max(x_train),
+                             int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
+                             endpoint=False).astype(np.float16))
+        )
+        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
+                                        endpoint=False).astype(np.float16)
+        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
     elif task_type == "extrapolation":
         x_train = np.array([
                 0,
@@ -115,12 +128,21 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
                 5 * np.pi / 3,
                 2 * np.pi
         ])
-        y_train, y_test = sin(x_train), sin(x_test)
 
+        additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
+                                         int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(np.float16)
+        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
+                                        endpoint=False).astype(np.float16)
+        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+
+    y_train, y_test = sin(x_train), sin(x_test)
+
+    print(f"Datasets: {x_train}, {y_train}, {x_test}, {y_test}")
     return x_train, y_train, x_test, y_test
 
 
-def generate_square_dataset(task_type="baseline"):
+def generate_square_dataset(task_type="baseline", num_datapoints=10):
     """Generate data points for a square 'bump' (_---_)."""
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
@@ -145,7 +167,7 @@ def generate_square_dataset(task_type="baseline"):
     return x_train, y_train, x_test, y_test
 
 
-def generate_polynomial_spline_dataset(task_type="baseline"):
+def generate_polynomial_spline_dataset(task_type="baseline", num_datapoints=10):
     """Generate data points for a polynomial spline."""
 
     x_train, y_train, x_test, y_test = None, None, None, None
@@ -171,7 +193,7 @@ def generate_polynomial_spline_dataset(task_type="baseline"):
     return x_train, y_train, x_test, y_test
 
 
-def generate_chebyshev_dataset(task_type="baseline"):
+def generate_chebyshev_dataset(task_type="baseline", num_datapoints=10):
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
@@ -196,7 +218,7 @@ def generate_chebyshev_dataset(task_type="baseline"):
     return x_train, y_train, x_test, y_test
 
 
-def generate_parabola_dataset(task_type="baseline"):
+def generate_parabola_dataset(task_type="baseline", num_datapoints=10):
     """Generate data points for the parabola."""
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":

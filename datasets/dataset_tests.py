@@ -123,4 +123,4 @@ def generate_parabola_extrapolation_unit_test():
 
 
 if __name__ == "__main__":
-    generate_chebyshev_baseline_unit_test()
+    generate_sine_extrapolation_unit_test()
