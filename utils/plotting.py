@@ -20,12 +20,12 @@ def plot_data_vs_predictions(x_train, y_train, x_test, y_test, y_all_pred, grid,
     fig.add_trace(go.Scatter(x=grid, y=fn_y, mode='lines', name='ground truth'))
     wandb.log({"plot": fig})
 
-    if not os.path.exists("images"):
-        os.mkdir("images")
+    if not os.path.exists("plots/fit/"):
+        os.makedirs("plots/fit/")
 
     normalised = "normalised" if parse_bool(args.normalise) else "unnormalised"
     adjusted = "adjusted" if parse_bool(args.adjust_data_linearly) else "unadjusted"
-    fig.write_image(f"images/{args.dataset}_{args.generalisation_task}_n={args.hidden_units}_"
+    fig.write_image(f"plots/fit/{args.dataset}_{args.generalisation_task}_n={args.hidden_units}_"
                     f"{normalised}_{adjusted}.png")
 
 
