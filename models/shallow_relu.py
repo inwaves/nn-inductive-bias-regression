@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
-from utils.parsers import parse_nonlinearity
+from utils.parsers import parse_nonlinearity, parse_optimiser
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -14,12 +14,14 @@ class ShallowNetwork(pl.LightningModule):
                  input_dim,
                  output_dim,
                  lr=1e-3,
-                 nonlinearity="relu") -> None:
+                 nonlinearity="relu",
+                 optimiser="sgd") -> None:
         super().__init__()
 
         self.save_hyperparameters()
 
         self.lr = lr
+        self.optimiser = optimiser
         self.hidden = nn.Linear(input_dim, n)
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.out = nn.Linear(n, output_dim, bias=False)
@@ -46,7 +48,7 @@ class ShallowNetwork(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
+        optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
         return {
                 "optimizer": optimizer,
                 # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5,
@@ -60,11 +62,13 @@ class AsiShallowNetwork(pl.LightningModule):
                  input_dim,
                  output_dim,
                  lr=1e-3,
-                 nonlinearity="relu") -> None:
+                 nonlinearity="relu",
+                 optimiser="sgd") -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
+        self.optimiser = optimiser
 
         # Initialise hidden layers with uniform weights.
         self.hidden1 = nn.Linear(input_dim, n)
@@ -119,7 +123,7 @@ class AsiShallowNetwork(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
+        optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
         return {
                 "optimizer": optimizer,
                 # "monitor": "train_loss",
