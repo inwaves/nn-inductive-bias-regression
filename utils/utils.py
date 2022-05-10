@@ -49,43 +49,43 @@ def select_dataset(args):
     # TODO: Add a unit test for this.
     """Select the dataset to use."""
     if args.dataset == "linear" and args.generalisation_task == "baseline":
-        return generate_linear_baseline(), linear
+        return generate_linear_dataset(), linear
     elif args.dataset == "linear" and args.generalisation_task == "interpolation":
         return generate_linear_interpolation(), linear
     if args.dataset == "linear" and args.generalisation_task == "extrapolation":
         return generate_linear_extrapolation(), linear
     elif args.dataset == "constant" and args.generalisation_task == "baseline":
-        return generate_constant_baseline(), constant
+        return generate_constant_dataset(), constant
     elif args.dataset == "constant" and args.generalisation_task == "interpolation":
         return generate_constant_interpolation(), constant
     elif args.dataset == "constant" and args.generalisation_task == "extrapolation":
         return generate_constant_extrapolation(), constant
     elif args.dataset == "sine" and args.generalisation_task == "baseline":
-        return generate_sine_baseline(), sin
+        return generate_sine_dataset(), sin
     elif args.dataset == "sine" and args.generalisation_task == "interpolation":
         return generate_sine_interpolation(), sin
     elif args.dataset == "sine" and args.generalisation_task == "extrapolation":
         return generate_sine_extrapolation(), sin
     elif args.dataset == "parabola" and args.generalisation_task == "baseline":
-        return generate_parabola_baseline(), parabola
+        return generate_parabola_dataset(), parabola
     elif args.dataset == "parabola" and args.generalisation_task == "interpolation":
         return generate_parabola_interpolation(), parabola
     elif args.dataset == "parabola" and args.generalisation_task == "extrapolation":
         return generate_parabola_extrapolation(), parabola
     elif args.dataset == "square" and args.generalisation_task == "baseline":
-        return generate_square_baseline(), square
+        return generate_square_dataset(), square
     elif args.dataset == "square" and args.generalisation_task == "interpolation":
         return generate_square_interpolation(), square
     elif args.dataset == "square" and args.generalisation_task == "extrapolation":
         return generate_square_extrapolation(), square
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "baseline":
-        return generate_polynomial_spline_baseline(), polynomial_spline
+        return generate_polynomial_spline_dataset(), polynomial_spline
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "interpolation":
         return generate_polynomial_spline_interpolation(), polynomial_spline
     elif args.dataset == "polynomial_spline" and args.generalisation_task == "extrapolation":
         return generate_polynomial_spline_extrapolation(), polynomial_spline
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "baseline":
-        return generate_chebyshev_baseline(), partial(chebyshev_polynomial, n=4)
+        return generate_chebyshev_dataset(), partial(chebyshev_polynomial, n=4)
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "interpolation":
         return generate_chebyshev_interpolation(), partial(chebyshev_polynomial, n=4)
     elif args.dataset == "chebyshev_polynomial" and args.generalisation_task == "extrapolation":
