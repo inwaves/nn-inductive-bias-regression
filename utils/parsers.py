@@ -1,6 +1,17 @@
 import argparse
+from functools import partial
 
 from torch import nn as nn
+import torch
+
+
+def parse_optimiser(optimiser):
+    if optimiser == "sgd":
+        return torch.optim.SGD
+    elif optimiser == "adam":
+        return torch.optim.Adam
+    elif optimiser == "momentum":
+        return partial(torch.optim.SGD, momentum=0.9)
 
 
 def parse_nonlinearity(nonlinearity):
@@ -50,6 +61,7 @@ def parse_args():
                                                                                                "extrapolation.")
     parser.add_argument("--nonlinearity", "-nl", default="relu", type=str, help="Select from relu, leaky_relu, gelu, "
                                                                                 "elu, sigmoid, tanh.")
+    parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
     args = parser.parse_args()
 
     return args
