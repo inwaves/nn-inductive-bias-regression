@@ -20,23 +20,19 @@ class MLP(pl.LightningModule):
         self.save_hyperparameters()
         self.lr = lr
         self.nonlinearity = parse_nonlinearity(nonlinearity)
+        self.input = nn.Linear(input_dim, int(2/7*n))
         self.hidden = nn.Sequential(
-            nn.Linear(input_dim, n),
+            nn.Linear(int(2/7 * n), int(3/7 * n)),
             self.nonlinearity,
-            nn.Linear(n, 2 * n),
-            self.nonlinearity,
-            nn.Linear(2 * n, 3 * n),
-            self.nonlinearity,
-            nn.Linear(3 * n, 2 * n),
-            self.nonlinearity,
-            nn.Linear(2 * n, n),
+            nn.Linear(int(3/7 * n), int(2/7 * n)),
             self.nonlinearity,
         )
-        self.out = nn.Linear(n, output_dim)
+        self.output = nn.Linear(int(2 / 7 * n), output_dim)
 
     def forward(self, x):
         x = x.to(device)
-        return self.out(self.hidden(x)).to(device)
+        x = self.nonlinearity(self.input(x))
+        return self.output(self.hidden(x)).to(device)
 
     def training_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
