@@ -8,7 +8,7 @@ import wandb
 from utils.parsers import parse_bool
 
 
-def plot_data_vs_predictions(x_train, y_train, x_test, y_test,  y_all_pred, grid, g_star_preds, fn_y, args):
+def plot_data_vs_predictions(x_train, y_train, x_test, y_test, y_all_pred, grid, g_star_preds, fn_y, args):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=x_train, y=y_train, mode='markers', name='training_data'))
 
