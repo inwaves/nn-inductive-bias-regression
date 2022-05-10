@@ -74,7 +74,8 @@ if __name__ == '__main__':
 
     # ...generate a grid with more datapoints
     grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
-    da_grid = DataAdjuster(grid, None)
+    fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
+    da_grid = DataAdjuster(grid, fn_y, da_train.x_min, da_train.x_max)
     if parse_bool(args.normalise):
         da_grid.normalise()
 
@@ -88,9 +89,6 @@ if __name__ == '__main__':
         f.write(f"{args.dataset}-{args.generalisation_task}, {str(args.hidden_units)}, {str(error)}\n")
 
     wandb.summary["nn_vs_solution_error"] = error
-
-    # Apply ground truth function to the inputs on the grid.
-    fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
 
     if parse_bool(args.adjust_data_linearly):
         intercept, slope = da_train.linear_regressor.intercept_, da_train.linear_regressor.coef_[0]
