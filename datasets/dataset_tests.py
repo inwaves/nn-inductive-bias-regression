@@ -48,7 +48,7 @@ def generate_linear_extrapolation_unit_test():
 
 
 def generate_sine_baseline_unit_test():
-    x_tr, y_tr, x_te, y_te = generate_sine_dataset()
+    x_tr, y_tr, x_te, y_te = generate_sine_dataset(num_datapoints=50, skew="tail")
     plot_raw_data(x_tr, y_tr, x_te, y_te)
 
 
@@ -123,4 +123,4 @@ def generate_parabola_extrapolation_unit_test():
 
 
 if __name__ == "__main__":
-    generate_sine_extrapolation_unit_test()
+    generate_sine_baseline_unit_test()
