@@ -132,6 +132,10 @@ class AsiShallowNetwork(pl.LightningModule):
                                                                                 factor=0.5,
                                                                                 patience=10,
                                                                                 verbose=True),
+                        "interval": "step",
+                        "frequency": 1,
+                        # "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
+                        #                                                         T_max=100000),
                         "monitor":   "train_loss",
                 }}
 
