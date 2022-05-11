@@ -32,17 +32,17 @@
 set -x #echo on
 start=$(date +%s)
 
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=momentum --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
 end=$(date +%s)
 
