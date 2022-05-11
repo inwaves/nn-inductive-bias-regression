@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J one-experiment
+#SBATCH -J mlp-on-square
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-GPU
 #! How many whole nodes should be allocated?
@@ -31,4 +31,4 @@
 #/bin/bash
 set -x # echo on
 
-for i in {1..1}; do python3 1d_regression.py --hidden_units=10 --learning_rate=0.01 --optimiser=sgd --nonlinearity=gelu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu --tag=nonlinearity_bug; done
+for i in {1..1}; do python3 1d_regression.py --hidden_units=155 --learning_rate=0.01 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=MLP --tag=mlp_on_square; done
