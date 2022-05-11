@@ -127,15 +127,14 @@ class AsiShallowNetwork(pl.LightningModule):
         return {
                 "optimizer":    optimizer,
                 "lr_scheduler": {
-                        "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
-                                                                                mode="min",
-                                                                                factor=0.5,
-                                                                                patience=10,
-                                                                                verbose=True),
-                        "interval": "step",
-                        "frequency": 1,
-                        # "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
-                        #                                                         T_max=100000),
+                        # "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
+                        #                                                         mode="min",
+                        #                                                         factor=0.5,
+                        #                                                         patience=10,
+                        #                                                         verbose=True),
+                        # "interval": "step",
+                        # "frequency": 1,
+                        "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100),
                         "monitor":   "train_loss",
                 }}
 
