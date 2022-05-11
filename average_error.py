@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["sine", "square", "parabola", "polynomial_spline", "chebyshev_polynomial", "constant", "linear"]
+categories = ["sine", "square", "parabola"]
 
 
 def loglogplot(x, average_errors, category):

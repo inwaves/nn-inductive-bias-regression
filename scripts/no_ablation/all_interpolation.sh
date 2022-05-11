@@ -6,7 +6,7 @@
 #! Name of the job:
 #SBATCH -J all-interpolation-generalisation-experiments
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL3-GPU
+#SBATCH -A KRUEGER-SL2-GPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
@@ -16,7 +16,7 @@
 #! Note that the job submission script will enforce no more than 3 cpus per GPU.
 #SBATCH --gres=gpu:1
 #! How much wallclock time will be required?
-#SBATCH --time=02:00:00
+#SBATCH --time=05:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=FAIL
 #! Uncomment this to prevent the job from being requeued (e.g. if
