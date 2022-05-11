@@ -64,5 +64,5 @@ def parse_args():
     parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
     parser.add_argument("--tag", "-t", default="untagged", type=str, help="Add a tag for this experiment.")
     args = parser.parse_args()
-
+    # print(f"Nonlinearity is: {args.nonlinearity}")
     return args
