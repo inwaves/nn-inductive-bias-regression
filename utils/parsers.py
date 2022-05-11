@@ -62,6 +62,7 @@ def parse_args():
     parser.add_argument("--nonlinearity", "-nl", default="relu", type=str, help="Select from relu, leaky_relu, gelu, "
                                                                                 "elu, sigmoid, tanh.")
     parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
+    parser.add_argument("--tag", "-t", default="sine-baseline", type=str, help="Add a tag for this experiment.")
     args = parser.parse_args()
 
     return args

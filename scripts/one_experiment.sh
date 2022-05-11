@@ -31,4 +31,7 @@
 #/bin/bash
 set -x # echo on
 
-for i in {1..1}; do python3 1d_regression.py --hidden_units=1000 --learning_rate=0.0001 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu; done
+for i in {1..10}; do python3 1d_regression.py --hidden_units=10 --learning_rate=0.01 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu --tag=square_lr; done
+for i in {1..10}; do python3 1d_regression.py --hidden_units=10 --learning_rate=0.1 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu --tag=square_lr; done
+for i in {1..10}; do python3 1d_regression.py --hidden_units=100 --learning_rate=0.01 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu --tag=square_lr; done
+for i in {1..10}; do python3 1d_regression.py --hidden_units=100 --learning_rate=0.001 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=square --num_datapoints=10 --model=AsiShallowRelu --tag=square_lr; done

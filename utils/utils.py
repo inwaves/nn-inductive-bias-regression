@@ -81,7 +81,8 @@ def setup():
                        "adjust_data_linearly": args.adjust_data_linearly,
                        "normalise":            args.normalise,
                        "num_datapoints":       args.num_datapoints,
-                       "optimiser":            args.optimiser, })
+                       "optimiser":            args.optimiser,
+                       "internal_tag":         args.tag, })
 
     # Set up the data.
     (x_train, y_train, x_test, y_test), fn = select_dataset(args)
