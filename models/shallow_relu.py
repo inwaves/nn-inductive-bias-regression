@@ -104,7 +104,7 @@ class AsiShallowNetwork(pl.LightningModule):
         path2 = self.out2(self.nonlinearity(self.hidden2(x))).to(device)
 
         return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (
-                    torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
+                torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
 
     def training_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
@@ -125,10 +125,15 @@ class AsiShallowNetwork(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
         return {
-                "optimizer": optimizer,
-                # "monitor": "train_loss",
-                # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=2),
-        }
+                "optimizer":    optimizer,
+                "lr_scheduler": {
+                        "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
+                                                                                mode="min",
+                                                                                factor=0.5,
+                                                                                patience=10,
+                                                                                verbose=True),
+                        "monitor":   "train_loss",
+                }}
 
 
 class PlainTorchAsiShallowRelu(nn.Module):
@@ -156,4 +161,4 @@ class PlainTorchAsiShallowRelu(nn.Module):
         path1 = self.out1(self.nonlinearity(self.hidden1(x)))
         path2 = self.out2(self.nonlinearity(self.hidden2(x)))
         return (torch.sqrt(torch.tensor([2]).to(device)) / 2) * path1 + (
-                    torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
+                torch.sqrt(torch.tensor([2]).to(device)) / 2) * path2
