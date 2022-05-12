@@ -14,6 +14,10 @@ from utils.data_adjuster import DataAdjuster
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def compute_val_loss(model):
+    
+
+
 def select_model(model_type, hidden_units, learning_rate, optimiser):
     if model_type == "asishallowrelu":
         model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser).to(device).float()

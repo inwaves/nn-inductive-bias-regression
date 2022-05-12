@@ -114,6 +114,12 @@ class AsiShallowNetwork(pl.LightningModule):
         self.log("train_loss", loss)
         return loss
 
+    def validation_step(self, batch, batch_idx):
+        val_loss = compute_val_loss(self)
+
+        self.log("val_loss", val_loss)
+        return val_loss
+
     def test_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
