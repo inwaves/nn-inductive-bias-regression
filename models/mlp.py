@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
-from utils.parsers import parse_nonlinearity, parse_optimiser
+from utils.parsers import parse_nonlinearity, parse_optimiser, parse_schedule
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -15,12 +15,14 @@ class MLP(pl.LightningModule):
                  output_dim,
                  lr=1e-1,
                  nonlinearity="relu",
-                 optimiser="sgd") -> None:
+                 optimiser=None,
+                 schedule=None) -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
-        self.optimiser = optimiser
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = schedule
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.input = nn.Linear(input_dim, int(2/7*n))
         self.hidden = nn.Sequential(
@@ -53,7 +55,13 @@ class MLP(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
-        return {
-            "optimizer": optimizer,
-        }
+        if self.lr_schedule is not None:
+            return {
+                    "optimizer":    self.optimiser,
+                    "lr_scheduler": {
+                            "scheduler": self.lr_schedule,
+                            "interval":  "epoch",
+                            "frequency": 100,
+                            "monitor":   "train_loss",
+                    }}
+        return {"optimizer": self.optimiser}

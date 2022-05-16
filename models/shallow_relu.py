@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
-from utils.parsers import parse_nonlinearity, parse_optimiser
+from utils.parsers import parse_nonlinearity, parse_optimiser, parse_schedule
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -15,13 +15,15 @@ class ShallowNetwork(pl.LightningModule):
                  output_dim,
                  lr=1e-3,
                  nonlinearity="relu",
-                 optimiser="sgd") -> None:
+                 optimiser=None,
+                 schedule=None) -> None:
         super().__init__()
 
         self.save_hyperparameters()
 
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = schedule
         self.lr = lr
-        self.optimiser = optimiser
         self.hidden = nn.Linear(input_dim, n)
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.out = nn.Linear(n, output_dim, bias=False)
@@ -48,12 +50,16 @@ class ShallowNetwork(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
-        return {
-                "optimizer": optimizer,
-                # "lr_scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.5,
-                # patience=2),
-        }
+        if self.schedule is not None:
+            return {
+                    "optimizer":    self.optimiser,
+                    "lr_scheduler": {
+                            "scheduler": self.schedule,
+                            "interval":  "epoch",
+                            "frequency": 100,
+                            "monitor":   "train_loss",
+                    }}
+        return {"optimizer": self.optimiser}
 
 
 class AsiShallowNetwork(pl.LightningModule):
@@ -63,12 +69,14 @@ class AsiShallowNetwork(pl.LightningModule):
                  output_dim,
                  lr=1e-3,
                  nonlinearity="relu",
-                 optimiser="sgd") -> None:
+                 optimiser=None,
+                 schedule=None) -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
-        self.optimiser = optimiser
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = schedule
 
         # Initialise hidden layers with uniform weights.
         self.hidden1 = nn.Linear(input_dim, n)
@@ -123,20 +131,16 @@ class AsiShallowNetwork(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        optimizer = parse_optimiser(self.optimiser)(self.parameters(), lr=self.lr)
-        return {
-                "optimizer":    optimizer,
-                "lr_scheduler": {
-                        # "scheduler": torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
-                        #                                                         mode="min",
-                        #                                                         factor=0.5,
-                        #                                                         patience=10,
-                        #                                                         verbose=True),
-                        # "interval": "step",
-                        # "frequency": 1,
-                        "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100),
-                        "monitor":   "train_loss",
-                }}
+        if self.schedule is not None:
+            return {
+                    "optimizer":    self.optimiser,
+                    "lr_scheduler": {
+                            "scheduler": self.schedule,
+                            "interval": "epoch",
+                            "frequency": 100,
+                            "monitor":   "train_loss",
+                    }}
+        return {"optimizer":    self.optimiser}
 
 
 class PlainTorchAsiShallowRelu(nn.Module):
