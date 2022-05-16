@@ -3,6 +3,8 @@ import time
 import numpy as np
 import pytorch_lightning as pl
 import torch
+from pytorch_lightning.callbacks import LearningRateMonitor
+
 import wandb
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
@@ -26,20 +28,21 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, da_train, da_test, args, model, fn = setup()
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+    lr_monitor = LearningRateMonitor(logging_interval='step')
     wandb_logger = WandbLogger(project="generalisation")
 
     # This control flow is needed to be able to run this script
     # on either CPU (locally) or GPU (on a cluster).
     if device == "cuda":
         trainer = pl.Trainer(max_epochs=-1,
-                             callbacks=[early_stopping_callback],
+                             callbacks=[early_stopping_callback, lr_monitor],
                              accelerator="gpu",
                              devices=1,
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
         trainer = pl.Trainer(max_epochs=-1,
-                             callbacks=[early_stopping_callback],
+                             callbacks=[early_stopping_callback, lr_monitor],
                              accelerator="cpu",
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )

@@ -5,7 +5,23 @@ from torch import nn as nn
 import torch
 
 
+def parse_schedule(scheduler, optimiser):
+    scheduler = scheduler.lower()
+    if scheduler == "cosine":
+        return torch.optim.lr_scheduler.CosineAnnealingLR(optimiser, T_max=100)
+    elif scheduler == "plateau":
+        return torch.optim.lr_scheduler.ReduceLROnPlateau(optimiser,
+                                                          mode="min",
+                                                          factor=0.9,
+                                                          patience=100,
+                                                          threshold=1e-4,
+                                                          threshold_mode="abs",
+                                                          verbose=True)
+    return None
+
+
 def parse_optimiser(optimiser):
+    optimiser = optimiser.lower()
     if optimiser == "sgd":
         return torch.optim.SGD
     elif optimiser == "adam":
@@ -15,6 +31,7 @@ def parse_optimiser(optimiser):
 
 
 def parse_nonlinearity(nonlinearity):
+    nonlinearity = nonlinearity.lower()
     if nonlinearity == "relu":
         return nn.ReLU()
     elif nonlinearity == "leaky_relu":
@@ -63,6 +80,7 @@ def parse_args():
                                                                                 "elu, sigmoid, tanh.")
     parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
     parser.add_argument("--tag", "-t", default="untagged", type=str, help="Add a tag for this experiment.")
+    parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
     args = parser.parse_args()
-    # print(f"Nonlinearity is: {args.nonlinearity}")
+
     return args
