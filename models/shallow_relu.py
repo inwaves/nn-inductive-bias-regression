@@ -16,17 +16,18 @@ class ShallowNetwork(pl.LightningModule):
                  lr=1e-3,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule=None) -> None:
+                 schedule="none") -> None:
         super().__init__()
 
         self.save_hyperparameters()
 
-        self.optimiser = optimiser(self.parameters(), lr=self.lr)
-        self.schedule = schedule
         self.lr = lr
         self.hidden = nn.Linear(input_dim, n)
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.out = nn.Linear(n, output_dim, bias=False)
+
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = parse_schedule(schedule, self.optimiser)
 
     def forward(self, x):
         x = x.to(device)
@@ -70,13 +71,11 @@ class AsiShallowNetwork(pl.LightningModule):
                  lr=1e-3,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule=None) -> None:
+                 schedule="none") -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
-        self.optimiser = optimiser(self.parameters(), lr=self.lr)
-        self.schedule = schedule
 
         # Initialise hidden layers with uniform weights.
         self.hidden1 = nn.Linear(input_dim, n)
@@ -104,6 +103,9 @@ class AsiShallowNetwork(pl.LightningModule):
         self.out2 = nn.Linear(n, output_dim, bias=False)
         self.out2.weight.data.uniform_(-1, 1)
         self.out2.weight.data = -self.out1.weight.data
+
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = parse_schedule(schedule, self.optimiser)
 
     def forward(self, x):
         x = x.to(device)

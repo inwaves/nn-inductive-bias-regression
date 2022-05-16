@@ -16,7 +16,6 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def select_model(model_type, hidden_units, learning_rate, optimiser, schedule):
     optimiser = parse_optimiser(optimiser)
-    schedule = parse_schedule(schedule, optimiser)
     model_type = model_type.lower()
     if model_type == "asishallowrelu":
         model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()

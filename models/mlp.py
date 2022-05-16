@@ -16,13 +16,11 @@ class MLP(pl.LightningModule):
                  lr=1e-1,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule=None) -> None:
+                 schedule="none") -> None:
         super().__init__()
 
         self.save_hyperparameters()
         self.lr = lr
-        self.optimiser = optimiser(self.parameters(), lr=self.lr)
-        self.schedule = schedule
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.input = nn.Linear(input_dim, int(2/7*n))
         self.hidden = nn.Sequential(
@@ -32,6 +30,8 @@ class MLP(pl.LightningModule):
             self.nonlinearity,
         )
         self.output = nn.Linear(int(2 / 7 * n), output_dim)
+        self.optimiser = optimiser(self.parameters(), lr=self.lr)
+        self.schedule = parse_schedule(schedule, self.optimiser)
 
     def forward(self, x):
         x = x.to(device)
