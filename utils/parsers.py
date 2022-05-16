@@ -81,6 +81,8 @@ def parse_args():
     parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
     parser.add_argument("--tag", "-t", default="untagged", type=str, help="Add a tag for this experiment.")
     parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
+    parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
+    parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
     args = parser.parse_args()
 
     return args

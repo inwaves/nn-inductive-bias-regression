@@ -31,17 +31,22 @@ if __name__ == '__main__':
     lr_monitor = LearningRateMonitor(logging_interval='step')
     wandb_logger = WandbLogger(project="generalisation")
 
+    if parse_bool(args.early_stopping):
+        max_epochs = -1
+    else:
+        max_epochs = args.num_epochs
+
     # This control flow is needed to be able to run this script
     # on either CPU (locally) or GPU (on a cluster).
     if device == "cuda":
-        trainer = pl.Trainer(max_epochs=-1,
+        trainer = pl.Trainer(max_epochs=max_epochs,
                              callbacks=[early_stopping_callback, lr_monitor],
                              accelerator="gpu",
                              devices=1,
                              logger=wandb_logger,
                              log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=-1,
+        trainer = pl.Trainer(max_epochs=max_epochs,
                              callbacks=[early_stopping_callback, lr_monitor],
                              accelerator="cpu",
                              logger=wandb_logger,
