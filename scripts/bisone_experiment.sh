@@ -14,7 +14,7 @@
 #SBATCH --ntasks=1
 #! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
 #! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #! How much wallclock time will be required?
 #SBATCH --time=24:00:00
 #! What types of email messages do you wish to receive?
