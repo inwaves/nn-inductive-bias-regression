@@ -106,6 +106,7 @@ class AsiShallowNetwork(pl.LightningModule):
 
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
+        print(f"In ASI RELU the schedule is: {self.schedule}")
 
     def forward(self, x):
         x = x.to(device)
