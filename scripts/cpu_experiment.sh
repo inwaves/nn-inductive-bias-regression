@@ -22,6 +22,9 @@
 
 #SBATCH --output=slurm-out/%x.%j.out
 
+
+#! Do not change:
+#SBATCH -p skylake
 #/bin/bash
 set -x # echo on
 
