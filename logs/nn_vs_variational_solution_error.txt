@@ -838,3 +838,4 @@ square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plate
 square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100, 0.0620756006072548
 square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100, 0.06060043641646156
 square-baseline-10dp-ASIShallowRelu-sgd-relu, 1000000, 0.0483335228828907
+sine-baseline-10dp-AsiShallowRelu-sgd-relu, 1000, 0.011695693954622912
