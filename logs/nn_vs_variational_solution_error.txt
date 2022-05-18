@@ -811,3 +811,14 @@ square-baseline-10dp-sgd-relu, 50000, 0.04455118086580342
 square-baseline-10dp-sgd-relu, 100000, 0.04290906408060825
 square-baseline-10dp-sgd-relu, 500000, 0.04496772407474001
 square-baseline-10dp-sgd-relu, 100000, 0.043242907423684106
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu, 1000, 0.026015934311003536
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu, 1000, 0.024818627865066126
+square-baseline-10dp-ASIShallowRelu-sgd-relu, 10000, 0.10881506038901745
+square-baseline-10dp-ASIShallowRelu-sgd-relu, 10000, 0.11551728904992686
+square-baseline-10dp-ASIShallowRelu-sgd-relu, 10000, 0.1142813746256575
+sine-baseline-10dp-ASIShallowRelu-sgd-relu, 10, 0.08215900520231963
+square-baseline-10dp-ASIShallowRelu-sgd-relu, 100000, 0.04124480652128394
+sine-baseline-10dp-ASIShallowRelu-sgd-relu, 100, 0.04222813276369456
+sine-baseline-10dp-ASIShallowRelu-sgd-relu, 500, 0.02568676736559605
+square-baseline-10dp-ASIShallowRelu-sgd-relu, 100000, 0.0442022324873008
+sine-baseline-10dp-ASIShallowRelu-sgd-relu, 1000, 0.012604769657144632
