@@ -106,8 +106,11 @@ if __name__ == '__main__':
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
+        early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
+        n_epochs = f"{max_epochs}epochs"
+        lrs = f"{args.lr_schedule}_schedule"
         f.write(f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
-                f"{args.nonlinearity}, {str(args.hidden_units)}, {str(error)}\n")
+                f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, {str(error)}\n")
 
     wandb.summary["nn_vs_solution_error"] = error
 
