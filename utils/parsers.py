@@ -84,6 +84,7 @@ def parse_args():
     parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
     parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
     parser.add_argument("--grid_resolution", "-gr", default=100, type=int, help="How many data points in the grid?")
+    parser.add_argument("--val_frequency", "-va", default=1000, type=int, help="How often to compute validation error.")
     args = parser.parse_args()
 
     return args

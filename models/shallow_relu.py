@@ -8,10 +8,33 @@ import pytorch_lightning as pl
 
 from datasets.dataset import glue_dataset_portions
 from utils.data_adjuster import DataAdjuster
-from utils.parsers import parse_bool, parse_nonlinearity, parse_optimiser, parse_schedule
+from utils.parsers import parse_bool, parse_nonlinearity, parse_schedule
 from utils.maths import mean_squared_error
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def initialise_grid(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution):
+    # Using raw data...
+    adjust_data = parse_bool(adjust_data_linearly)
+    normalise = parse_bool(normalise)
+    if adjust_data:
+        da_train.unadjust()
+        da_test.unadjust()
+    if normalise:
+        da_train.unnormalise()
+        da_test.unnormalise()
+    raw_x_all, raw_y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
+
+    # ...generate a grid with more datapoints
+    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), grid_resolution)
+    fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
+    da_grid = DataAdjuster(grid, fn_y, da_train.x_min, da_train.x_max)
+    if adjust_data:
+        da_grid.adjust()
+    if normalise:
+        da_grid.normalise()
+    return da_grid
 
 
 class ShallowNetwork(pl.LightningModule):
@@ -21,6 +44,7 @@ class ShallowNetwork(pl.LightningModule):
                  fn,
                  adjust_data_linearly,
                  normalise,
+                 grid_resolution,
                  n,
                  input_dim,
                  output_dim,
@@ -30,14 +54,11 @@ class ShallowNetwork(pl.LightningModule):
                  schedule="none") -> None:
         super().__init__()
 
-        self.da_train = da_train
-        self.da_test = da_test
+        self.da_grid = initialise_grid(copy.copy(da_train), copy.copy(da_test), fn,
+                                       adjust_data_linearly, normalise, grid_resolution)
 
         self.save_hyperparameters()
 
-        self.fn = fn
-        self.adjust_data_linearly = adjust_data_linearly
-        self.normalise = normalise
         self.lr = lr
         self.hidden = nn.Linear(input_dim, n)
         self.nonlinearity = parse_nonlinearity(nonlinearity)
@@ -97,11 +118,11 @@ class AsiShallowNetwork(pl.LightningModule):
                  schedule="none") -> None:
         super().__init__()
 
-        self.da_grid, self.fn_y = self.initialise_grid(copy.copy(da_train), copy.copy(da_test), fn, adjust_data_linearly, normalise, grid_resolution)
+        self.da_grid = initialise_grid(copy.copy(da_train), copy.copy(da_test), fn,
+                                       adjust_data_linearly, normalise, grid_resolution)
 
         self.save_hyperparameters()
         self.lr = lr
-        self.k=1000
 
         # Initialise hidden layers with uniform weights.
         self.hidden1 = nn.Linear(input_dim, n)
@@ -134,24 +155,6 @@ class AsiShallowNetwork(pl.LightningModule):
         self.schedule = parse_schedule(schedule, self.optimiser)
         print(f"In ASI RELU the schedule is: {self.schedule}")
 
-    def initialise_grid(self, da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution):
-        # Using raw data...
-        if parse_bool(adjust_data_linearly):
-            da_train.unadjust()
-            da_test.unadjust()
-        if parse_bool(normalise):
-            da_train.unnormalise()
-            da_test.unnormalise()
-        raw_x_all, raw_y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
-
-        # ...generate a grid with more datapoints
-        grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), grid_resolution)
-        fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
-        da_grid = DataAdjuster(grid, fn_y, da_train.x_min, da_train.x_max)
-        if parse_bool(normalise):
-            da_grid.normalise()
-        return da_grid, fn_y
-
     def forward(self, x):
         x = x.to(device)
 
@@ -170,13 +173,10 @@ class AsiShallowNetwork(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        if self.current_epoch % self.k != 0:
-            return
-
         model_predictions = self.forward(torch.tensor(self.da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
-        val_loss = mean_squared_error(self.fn_y, model_predictions)
-        self.log("val_loss", val_loss)
-        return val_loss
+        val_error = mean_squared_error(self.da_grid.y, model_predictions)
+        self.log("val_error", val_error)
+        return val_error
 
     def test_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
