@@ -874,3 +874,16 @@ sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_
 sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.5595798238634967
 sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.33474485735471987
 sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.016740055342852337
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.19110688828434524
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 1000, 0.17541114090389195
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 1000, 0.17582656489355736
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 1000, 0.17637943450064855
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06994304304560592
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06514963600718901
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06752636058662734
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.1919119828571356
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.19296081326696116
+square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.19130906061468989
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100000, 0.06567494344999775
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100000, 0.061679438515867026
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100000, 0.06376493735400751
