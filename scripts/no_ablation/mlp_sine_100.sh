@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J mlp-on-square
+#SBATCH -J mlp-sine-10
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-GPU
 #! How many whole nodes should be allocated?
@@ -16,7 +16,7 @@
 #! Note that the job submission script will enforce no more than 3 cpus per GPU.
 #SBATCH --gres=gpu:1
 #! How much wallclock time will be required?
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=FAIL
 #! Uncomment this to prevent the job from being requeued (e.g. if
@@ -29,6 +29,17 @@
 #! Do not change:
 #SBATCH -p ampere
 #/bin/bash
-set -x # echo on
+set -x #echo on
+start=$(date +%s)
+num_iter=1
 
-for i in {1..1}; do python3 1d_regression.py --grid_resolution=100 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=10 --model=MLP --hidden_units=50 --learning_rate=0.01; done
+for ((i=1;i<=num_iter;i++))
+do
+  python3 1d_regression.py --tag=mlp-sine-100 --early_stopping=True --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=MLP --hidden_units=100 --learning_rate=0.001 --adjust_data_linearly=True
+done
+
+end=$(date +%s)
+
+runtime=$((end-start))
+
+echo $runtime
