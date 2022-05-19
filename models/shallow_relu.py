@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
+from scipy.interpolate import CubicSpline
 
 from utils.model_utils import initialise_grid
 from utils.parsers import parse_nonlinearity, parse_schedule
@@ -29,7 +30,10 @@ class ShallowNetwork(pl.LightningModule):
                  schedule="none") -> None:
         super().__init__()
 
-        self.da_grid = initialise_grid(copy.copy(da_train), copy.copy(da_test), fn,
+        da_train = copy.copy(da_train)
+        da_test = copy.copy(da_test)
+        self.spline = CubicSpline(da_train.x, da_train.y)
+        self.da_grid = initialise_grid(da_train, da_test, fn,
                                        adjust_data_linearly, normalise, grid_resolution)
 
         # This saves all the hparams in the logger.
@@ -58,9 +62,17 @@ class ShallowNetwork(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         model_predictions = self.forward(torch.tensor(self.da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
-        val_error = mean_squared_error(self.da_grid.y, model_predictions)
-        self.log("val_error", val_error)
-        return val_error
+
+        # Compute validation error (model vs. ground truth).
+        validation_error = mean_squared_error(self.da_grid.y, model_predictions)
+        self.log("validation_error", validation_error)
+
+        # Compute variational error (model vs. cubic spline).
+        spline_predictions = self.spline(self.da_grid.x)
+        variational_error = mean_squared_error(spline_predictions, model_predictions)
+        self.log("variational_error", variational_error)
+
+        return validation_error
 
     def configure_optimizers(self):
         if self.schedule is not None:
@@ -92,7 +104,10 @@ class AsiShallowNetwork(pl.LightningModule):
                  schedule="none") -> None:
         super().__init__()
 
-        self.da_grid = initialise_grid(copy.copy(da_train), copy.copy(da_test), fn,
+        da_train = copy.copy(da_train)
+        da_test = copy.copy(da_test)
+        self.spline = CubicSpline(da_train.x, da_train.y)
+        self.da_grid = initialise_grid(da_train, da_test, fn,
                                        adjust_data_linearly, normalise, grid_resolution)
 
         self.save_hyperparameters()
@@ -148,8 +163,15 @@ class AsiShallowNetwork(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         model_predictions = self.forward(torch.tensor(self.da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
+
+        # Compute validation error (model vs. ground truth).
         val_error = mean_squared_error(self.da_grid.y, model_predictions)
-        self.log("val_error", val_error)
+        self.log("validation_error", val_error)
+
+        # Compute variational error (model vs. cubic spline).
+        spline_predictions = self.spline(self.da_grid.x)
+        variational_error = mean_squared_error(spline_predictions, model_predictions)
+        self.log("variational_error", variational_error)
         return val_error
 
     def configure_optimizers(self):

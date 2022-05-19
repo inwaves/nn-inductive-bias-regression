@@ -115,19 +115,18 @@ if __name__ == '__main__':
     if parse_bool(args.normalise):
         da_grid.normalise()
 
-    # Calculate the difference between g* and the NN function on the grid.
+    # Calculate the final variational error as the difference
+    # between g* and the model on the grid.
     spline_predictions = spline(da_grid.x)
     model_predictions = model(torch.tensor(da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
     variational_error = mean_squared_error(spline_predictions, model_predictions)
 
-    # Log locally, so I can actually plot these values later...
+    # Also log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
-
-        f.write(f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
+        f.write(
+                f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
                 f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, "
                 f"{str(variational_error)}\n")
-
-    wandb.summary["nn_vs_solution_error"] = variational_error
 
     if parse_bool(args.adjust_data_linearly):
         intercept, slope = da_train.linear_regressor.intercept_, da_train.linear_regressor.coef_[0]
