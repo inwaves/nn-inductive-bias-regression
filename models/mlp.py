@@ -1,8 +1,12 @@
+import copy
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pytorch_lightning as pl
 
+from utils.model_utils import initialise_grid
+from utils.maths import mean_squared_error
 from utils.parsers import parse_nonlinearity, parse_optimiser, parse_schedule
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -12,6 +16,10 @@ class MLP(pl.LightningModule):
     def __init__(self,
                  da_train,
                  da_test,
+                 fn,
+                 adjust_data_linearly,
+                 normalise,
+                 grid_resolution,
                  n,
                  input_dim,
                  output_dim,
@@ -21,8 +29,8 @@ class MLP(pl.LightningModule):
                  schedule="none") -> None:
         super().__init__()
 
-        self.da_train = da_train
-        self.da_test = da_test
+        self.da_grid = initialise_grid(copy.copy(da_train), copy.copy(da_test), fn,
+                                       adjust_data_linearly, normalise, grid_resolution)
 
         self.save_hyperparameters()
         self.lr = lr
@@ -51,6 +59,12 @@ class MLP(pl.LightningModule):
         self.log("train_loss", loss)
         return loss
 
+    def validation_step(self, batch, batch_idx):
+        model_predictions = self.forward(torch.tensor(self.da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
+        val_error = mean_squared_error(self.da_grid.y, model_predictions)
+        self.log("val_error", val_error)
+        return val_error
+
     def test_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
@@ -60,7 +74,7 @@ class MLP(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        if self.lr_schedule is not None:
+        if self.schedule is not None:
             return {
                     "optimizer":    self.optimiser,
                     "lr_scheduler": {

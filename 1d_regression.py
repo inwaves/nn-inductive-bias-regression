@@ -12,7 +12,7 @@ from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 
-from utils.data_adjuster import DataAdjuster
+from utils.adjust_data import DataAdjuster
 from utils.maths import linear, mean_squared_error
 from utils.utils import parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
@@ -118,7 +118,8 @@ if __name__ == '__main__':
         n_epochs = f"{max_epochs}epochs"
         lrs = f"{args.lr_schedule}_schedule"
         f.write(f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
-                f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, {str(variational_error)}\n")
+                f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, "
+                f"{str(variational_error)}\n")
 
     wandb.summary["nn_vs_solution_error"] = variational_error
 

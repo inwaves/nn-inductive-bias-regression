@@ -1,66 +1,14 @@
 import torch
 import wandb
 
-from sklearn.linear_model import LinearRegression
-from functools import partial
-
+import utils.adjust_data
 from datasets.dataset import *
-from models.mlp import MLP
-from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
-from utils.parsers import parse_args, parse_bool, parse_optimiser
-from utils.data_adjuster import DataAdjuster
+from utils.parsers import parse_args, parse_bool
+from utils.adjust_data import DataAdjuster
+from utils.selectors import select_dataset, select_model
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-
-
-def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units, learning_rate, optimiser, schedule):
-    optimiser = parse_optimiser(optimiser)
-    model_type = model_type.lower()
-    if model_type == "asishallowrelu":
-        model = AsiShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    elif model_type == "shallowrelu":
-        model = ShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    elif model_type == "plaintorchasishallowrelu":
-        model = PlainTorchAsiShallowRelu(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, "relu").to(device).float()
-    elif model_type == "mlp":
-        model = MLP(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    else:
-        print(f"Error: model type {model_type} not supported.")
-        model = None
-    return model
-
-
-def adjust_data_linearly(x_train, y_train):
-    """Fit a linear regression model."""
-
-    linear_regressor = LinearRegression().fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
-    linreg_pred = linear_regressor.predict(x_train.reshape(-1, 1)).reshape(-1)
-    residual = y_train - linreg_pred
-
-    return residual, linear_regressor
-
-
-def select_dataset(args):
-    """Select the dataset to use."""
-    if args.dataset == "linear":
-        return generate_linear_dataset(args.generalisation_task, args.num_datapoints), linear
-    elif args.dataset == "constant":
-        return generate_constant_dataset(args.generalisation_task, args.num_datapoints), constant
-    elif args.dataset == "sine":
-        return generate_sine_dataset(args.generalisation_task, args.num_datapoints), sin
-    elif args.dataset == "parabola":
-        return generate_parabola_dataset(args.generalisation_task, args.num_datapoints), parabola
-    elif args.dataset == "square":
-        return generate_square_dataset(args.generalisation_task, args.num_datapoints), square
-    elif args.dataset == "polynomial_spline":
-        return generate_polynomial_spline_dataset(args.generalisation_task, args.num_datapoints), polynomial_spline
-    elif args.dataset == "chebyshev_polynomial":
-        return generate_chebyshev_dataset(args.generalisation_task, args.num_datapoints), partial(chebyshev_polynomial,
-                                                                                                  n=4)
-    # This isn't fully built out yet, commenting out, so it doesn't break the code.
-    # elif args.dataset == "random":
-    #     return generate_random_dataset(args.generalisation_task, args.num_datapoints), random
 
 
 def setup():
