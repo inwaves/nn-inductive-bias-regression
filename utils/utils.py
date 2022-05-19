@@ -41,14 +41,13 @@ def adjust_data_linearly(x_train, y_train):
     return residual, linear_regressor
 
 
-def calculate_spline_vs_model_error(variational_predictions, network_predictions):
-    """Calculate the mean square error between the two predictions."""
+def mean_squared_error(targets, network_predictions):
+    """Calculate the mean square error between  target variable and predictions."""
 
-    return np.sqrt(np.mean((network_predictions.reshape(variational_predictions.shape) - variational_predictions) ** 2))
+    return np.sqrt(np.mean((network_predictions.reshape(targets.shape) - targets) ** 2))
 
 
 def select_dataset(args):
-    # TODO: Add a unit test for this.
     """Select the dataset to use."""
     if args.dataset == "linear":
         return generate_linear_dataset(args.generalisation_task, args.num_datapoints), linear

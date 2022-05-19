@@ -14,7 +14,7 @@ from datasets.dataset import glue_dataset_portions
 
 from utils.data_adjuster import DataAdjuster
 from utils.maths import linear
-from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
+from utils.utils import mean_squared_error, parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     # Calculate the difference between g* and the NN function on the grid.
     spline_predictions = spline(da_grid.x)
     model_predictions = model(torch.tensor(da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
-    error = calculate_spline_vs_model_error(spline_predictions, model_predictions)
+    error = mean_squared_error(spline_predictions, model_predictions)
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
