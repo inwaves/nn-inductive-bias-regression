@@ -1,73 +1,14 @@
 import torch
 import wandb
 
-from sklearn.linear_model import LinearRegression
-from functools import partial
-
+import utils.adjust_data
 from datasets.dataset import *
-from models.mlp import MLP
-from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
-from utils.parsers import parse_args, parse_bool, parse_optimiser, parse_schedule
-from utils.data_adjuster import DataAdjuster
+from utils.parsers import parse_args, parse_bool
+from utils.adjust_data import DataAdjuster
+from utils.selectors import select_dataset, select_model
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-
-
-def select_model(model_type, hidden_units, learning_rate, optimiser, schedule):
-    optimiser = parse_optimiser(optimiser)
-    model_type = model_type.lower()
-    if model_type == "asishallowrelu":
-        model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    elif model_type == "shallowrelu":
-        model = ShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    elif model_type == "plaintorchasishallowrelu":
-        model = PlainTorchAsiShallowRelu(hidden_units, 1, 1, "relu").to(device).float()
-    elif model_type == "mlp":
-        model = MLP(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
-    else:
-        print(f"Error: model type {model_type} not supported.")
-        model = None
-    return model
-
-
-def adjust_data_linearly(x_train, y_train):
-    """Fit a linear regression model."""
-
-    linear_regressor = LinearRegression().fit(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
-    linreg_pred = linear_regressor.predict(x_train.reshape(-1, 1)).reshape(-1)
-    residual = y_train - linreg_pred
-
-    return residual, linear_regressor
-
-
-def calculate_spline_vs_model_error(variational_predictions, network_predictions):
-    """Calculate the mean square error between the two predictions."""
-
-    return np.sqrt(np.mean((network_predictions.reshape(variational_predictions.shape) - variational_predictions) ** 2))
-
-
-def select_dataset(args):
-    # TODO: Add a unit test for this.
-    """Select the dataset to use."""
-    if args.dataset == "linear":
-        return generate_linear_dataset(args.generalisation_task, args.num_datapoints), linear
-    elif args.dataset == "constant":
-        return generate_constant_dataset(args.generalisation_task, args.num_datapoints), constant
-    elif args.dataset == "sine":
-        return generate_sine_dataset(args.generalisation_task, args.num_datapoints), sin
-    elif args.dataset == "parabola":
-        return generate_parabola_dataset(args.generalisation_task, args.num_datapoints), parabola
-    elif args.dataset == "square":
-        return generate_square_dataset(args.generalisation_task, args.num_datapoints), square
-    elif args.dataset == "polynomial_spline":
-        return generate_polynomial_spline_dataset(args.generalisation_task, args.num_datapoints), polynomial_spline
-    elif args.dataset == "chebyshev_polynomial":
-        return generate_chebyshev_dataset(args.generalisation_task, args.num_datapoints), partial(chebyshev_polynomial,
-                                                                                                  n=4)
-    # This isn't fully built out yet, commenting out, so it doesn't break the code.
-    # elif args.dataset == "random":
-    #     return generate_random_dataset(args.generalisation_task, args.num_datapoints), random
 
 
 def setup():
@@ -111,6 +52,6 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(da_test.x) > 0 else None
 
     # Set up the model.
-    model = select_model(args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
+    model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution, args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn

@@ -61,7 +61,7 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
-    parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
     parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--num_datapoints", "-nd", default=10, type=int,
@@ -83,6 +83,8 @@ def parse_args():
     parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
     parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
     parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
+    parser.add_argument("--grid_resolution", "-gr", default=100, type=int, help="How many data points in the grid?")
+    parser.add_argument("--val_frequency", "-va", default=1000, type=int, help="How often to compute validation error.")
     args = parser.parse_args()
 
     return args
