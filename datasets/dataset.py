@@ -37,7 +37,7 @@ def generate_constant_dataset(task_type="baseline", num_datapoints=10, x_test_si
         x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([0, 1, 2, 3, 7, 8, 9])
@@ -50,20 +50,20 @@ def generate_constant_dataset(task_type="baseline", num_datapoints=10, x_test_si
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([0, 1, 2, 3, 4, 5, 6])
         x_test = np.array([7, 8, 9])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train, y_test = constant(x_train), constant(x_test)
     return x_train, y_train, x_test, y_test
@@ -75,7 +75,7 @@ def generate_linear_dataset(task_type="baseline", num_datapoints=10, x_test_size
         x_train = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([0, 1, 2, 3, 7, 8, 9])
@@ -88,20 +88,20 @@ def generate_linear_dataset(task_type="baseline", num_datapoints=10, x_test_size
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([0, 1, 2, 3, 4, 5, 6])
         x_test = np.array([7, 8, 9])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train, y_test = linear(x_train), linear(x_test)
 
@@ -125,7 +125,7 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
         ])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([
@@ -150,10 +150,10 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([
                 0,
@@ -173,10 +173,10 @@ def generate_sine_dataset(task_type="baseline", num_datapoints=10, x_test_size=0
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False)\
             .astype(np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train, y_test = sin(x_train), sin(x_test)
 
@@ -190,7 +190,7 @@ def generate_square_dataset(task_type="baseline", num_datapoints=10, x_test_size
         x_train = np.array([i for i in range(0, 10)])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([0, 1, 2, 3, 7, 8, 9])
@@ -203,20 +203,20 @@ def generate_square_dataset(task_type="baseline", num_datapoints=10, x_test_size
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([0, 1, 2, 3, 4, 5, 6])
         x_test = np.array([7, 8, 9])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train = np.array([square(el) for el in x_train])
     y_test = np.array([square(el) for el in x_test])
@@ -229,10 +229,10 @@ def generate_polynomial_spline_dataset(task_type="baseline", num_datapoints=10, 
 
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
-        x_train = np.array([-2, -1.75, -1.5, -1.25, -1, 0, 1, 1.25, 1.5, 1.75, 2])
+        x_train = np.array([-2, -1.75, -1.5, -1.25, -1, 1, 1.25, 1.5, 1.75, 2])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([-2, -1.75, -1.5, -1.25, 1.5, 1.75, 2, ])
@@ -245,10 +245,10 @@ def generate_polynomial_spline_dataset(task_type="baseline", num_datapoints=10, 
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
 
     elif task_type == "extrapolation":
         x_train = np.array([-2, -1.75, -1.5, -1.25, -1, 1, 1.25])
@@ -256,10 +256,10 @@ def generate_polynomial_spline_dataset(task_type="baseline", num_datapoints=10, 
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train = np.array([polynomial_spline(el) for el in x_train])
     y_test = np.array([polynomial_spline(el) for el in x_test])
@@ -271,10 +271,10 @@ def generate_chebyshev_dataset(task_type="baseline", num_datapoints=10, x_test_s
     """Generate data points for the 4th Chebyshev polynomial (16x^4 - 12x^2 + 1)."""
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
-        x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1])
+        x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8, 1])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
     elif task_type == "interpolation":
         x_train = np.array([-1, -0.8, -0.6, -0.4, 0.4, 0.6, 0.8, 1])
@@ -287,20 +287,20 @@ def generate_chebyshev_dataset(task_type="baseline", num_datapoints=10, x_test_s
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4])
         x_test = np.array([0.6, 0.8, 1])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
 
     y_train = np.array([chebyshev_polynomial(el, 4) for el in x_train]).reshape(1, -1).squeeze()
     y_test = np.array([chebyshev_polynomial(el, 4) for el in x_test]).reshape(1, -1).squeeze()
@@ -312,11 +312,12 @@ def generate_parabola_dataset(task_type="baseline", num_datapoints=10, x_test_si
     """Generate data points for the parabola."""
     x_train, y_train, x_test, y_test = None, None, None, None
     if task_type == "baseline":
-        x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
+        x_train = np.array([-5, -4, -3, -2, -1, 1, 2, 3, 4, 5])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train), num_datapoints - len(x_train),
                                          endpoint=False).astype(np.float16)
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         x_test = np.array([])
+        print(type(x_train), type(x_test))
     elif task_type == "interpolation":
         x_train = np.array([-5, -4, -3, -2, 2, 3, 4, 5])
         x_test = np.array([-1, 0, 1])
@@ -328,20 +329,20 @@ def generate_parabola_dataset(task_type="baseline", num_datapoints=10, x_test_si
                              int(((1 - x_test_size) * num_datapoints - len(x_train)) // 2),
                              endpoint=False).astype(np.float16))
         )
-        x_train = sorted(np.unique(np.append(x_train, additional_x_train)))
+        x_train = np.array(sorted(np.unique(np.append(x_train, additional_x_train))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique(np.append(x_test, additional_x_test)))
+        x_test = np.array(sorted(np.unique(np.append(x_test, additional_x_test))))
     elif task_type == "extrapolation":
         x_train = np.array([-5, -4, -3, -2, -1, 0, 1, 2])
         x_test = np.array([3, 4, 5])
         additional_x_train = np.linspace(np.min(x_train), np.max(x_train),
                                          int((1 - x_test_size) * num_datapoints - len(x_train)), endpoint=False).astype(
             np.float16)
-        x_train = sorted(np.unique((np.append(x_train, additional_x_train))))
+        x_train = np.array(sorted(np.unique((np.append(x_train, additional_x_train)))))
         additional_x_test = np.linspace(np.min(x_test), np.max(x_test), int(x_test_size * num_datapoints - len(x_test)),
                                         endpoint=False).astype(np.float16)
-        x_test = sorted(np.unique((np.append(x_test, additional_x_test))))
+        x_test = np.array(sorted(np.unique((np.append(x_test, additional_x_test)))))
     y_train, y_test = parabola(x_train), parabola(x_test)
 
     return x_train, y_train, x_test, y_test

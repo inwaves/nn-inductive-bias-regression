@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J sine-optimiser-ablation
+#SBATCH -J mlp-on-square
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-GPU
 #! How many whole nodes should be allocated?
@@ -14,7 +14,7 @@
 #SBATCH --ntasks=1
 #! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
 #! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #! How much wallclock time will be required?
 #SBATCH --time=24:00:00
 #! What types of email messages do you wish to receive?
@@ -29,13 +29,6 @@
 #! Do not change:
 #SBATCH -p ampere
 #/bin/bash
-set -x #echo on
-start=$(date +%s)
+set -x # echo on
 
-python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-optimiser-ablation --optimiser=adam --nonlinearity=relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-
-end=$(date +%s)
-
-runtime=$((end-start))
+for i in {1..1}; do python3 1d_regression.py --early_stopping=False --num_epochs=50000 --lr_schedule=cosine --optimiser=sgd --nonlinearity=relu --generalisation_task=interpolation --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=100 --model=AsiShallowRelu --hidden_units=1000 --learning_rate=0.001; done

@@ -3,6 +3,8 @@ import time
 import numpy as np
 import pytorch_lightning as pl
 import torch
+from pytorch_lightning.callbacks import LearningRateMonitor
+
 import wandb
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
@@ -12,7 +14,7 @@ from datasets.dataset import glue_dataset_portions
 
 from utils.data_adjuster import DataAdjuster
 from utils.maths import linear
-from utils.utils import calculate_spline_vs_model_error, parse_bool, setup
+from utils.utils import mean_squared_error, parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
@@ -26,23 +28,40 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, da_train, da_test, args, model, fn = setup()
 
     early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+    lr_monitor = LearningRateMonitor(logging_interval='step')
     wandb_logger = WandbLogger(project="generalisation")
 
+    max_epochs = args.num_epochs
+    if parse_bool(args.early_stopping):
     # This control flow is needed to be able to run this script
     # on either CPU (locally) or GPU (on a cluster).
-    if device == "cuda":
-        trainer = pl.Trainer(max_epochs=-1,
-                             callbacks=[early_stopping_callback],
-                             accelerator="gpu",
-                             devices=1,
-                             logger=wandb_logger,
-                             log_every_n_steps=args.log_every_k_steps, )
+        if device == "cuda":
+            trainer = pl.Trainer(max_epochs=-1,
+                                 callbacks=[early_stopping_callback, lr_monitor],
+                                 accelerator="gpu",
+                                 devices=1,
+                                 logger=wandb_logger,
+                                 log_every_n_steps=args.log_every_k_steps, )
+        else:
+            trainer = pl.Trainer(max_epochs=-1,
+                                 callbacks=[early_stopping_callback, lr_monitor],
+                                 accelerator="cpu",
+                                 logger=wandb_logger,
+                                 log_every_n_steps=args.log_every_k_steps, )
     else:
-        trainer = pl.Trainer(max_epochs=-1,
-                             callbacks=[early_stopping_callback],
-                             accelerator="cpu",
-                             logger=wandb_logger,
-                             log_every_n_steps=args.log_every_k_steps, )
+        if device == "cuda":
+            trainer = pl.Trainer(max_epochs=max_epochs,
+                                 callbacks=[lr_monitor],
+                                 accelerator="gpu",
+                                 devices=1,
+                                 logger=wandb_logger,
+                                 log_every_n_steps=args.log_every_k_steps, )
+        else:
+            trainer = pl.Trainer(max_epochs=max_epochs,
+                                 callbacks=[lr_monitor],
+                                 accelerator="cpu",
+                                 logger=wandb_logger,
+                                 log_every_n_steps=args.log_every_k_steps, )
 
     # Model is fit to the normalised, linearly adjusted data.
     tic = time.time()
@@ -83,11 +102,15 @@ if __name__ == '__main__':
     # Calculate the difference between g* and the NN function on the grid.
     spline_predictions = spline(da_grid.x)
     model_predictions = model(torch.tensor(da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
-    error = calculate_spline_vs_model_error(spline_predictions, model_predictions)
+    error = mean_squared_error(spline_predictions, model_predictions)
 
     # Log locally, so I can actually plot these values later...
     with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
-        f.write(f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.optimiser}-{args.nonlinearity}, {str(args.hidden_units)}, {str(error)}\n")
+        early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
+        n_epochs = f"{max_epochs}epochs"
+        lrs = f"{args.lr_schedule}_schedule"
+        f.write(f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
+                f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, {str(error)}\n")
 
     wandb.summary["nn_vs_solution_error"] = error
 

@@ -8,25 +8,23 @@ from datasets.dataset import *
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
-from utils.parsers import parse_args, parse_bool
+from utils.parsers import parse_args, parse_bool, parse_optimiser, parse_schedule
 from utils.data_adjuster import DataAdjuster
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-def compute_val_loss(model):
-    
-
-
-def select_model(model_type, hidden_units, learning_rate, optimiser):
+def select_model(model_type, hidden_units, learning_rate, optimiser, schedule):
+    optimiser = parse_optimiser(optimiser)
+    model_type = model_type.lower()
     if model_type == "asishallowrelu":
-        model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser).to(device).float()
+        model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     elif model_type == "shallowrelu":
-        model = ShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser).to(device).float()
+        model = ShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     elif model_type == "plaintorchasishallowrelu":
-        model = PlainTorchAsiShallowRelu(hidden_units, 1, 1, optimiser=optimiser).to(device).float()
+        model = PlainTorchAsiShallowRelu(hidden_units, 1, 1, "relu").to(device).float()
     elif model_type == "mlp":
-        model = MLP(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser).to(device).float()
+        model = MLP(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     else:
         print(f"Error: model type {model_type} not supported.")
         model = None
@@ -43,14 +41,13 @@ def adjust_data_linearly(x_train, y_train):
     return residual, linear_regressor
 
 
-def calculate_spline_vs_model_error(variational_predictions, network_predictions):
-    """Calculate the mean square error between the two predictions."""
+def mean_squared_error(targets, network_predictions):
+    """Calculate the mean square error between  target variable and predictions."""
 
-    return np.sqrt(np.mean((network_predictions.reshape(variational_predictions.shape) - variational_predictions) ** 2))
+    return np.sqrt(np.mean((network_predictions.reshape(targets.shape) - targets) ** 2))
 
 
 def select_dataset(args):
-    # TODO: Add a unit test for this.
     """Select the dataset to use."""
     if args.dataset == "linear":
         return generate_linear_dataset(args.generalisation_task, args.num_datapoints), linear
@@ -67,7 +64,7 @@ def select_dataset(args):
     elif args.dataset == "chebyshev_polynomial":
         return generate_chebyshev_dataset(args.generalisation_task, args.num_datapoints), partial(chebyshev_polynomial,
                                                                                                   n=4)
-    # This isn't fully built out yet, commenting out so it doesn't break the code.
+    # This isn't fully built out yet, commenting out, so it doesn't break the code.
     # elif args.dataset == "random":
     #     return generate_random_dataset(args.generalisation_task, args.num_datapoints), random
 
@@ -86,7 +83,8 @@ def setup():
                        "normalise":            args.normalise,
                        "num_datapoints":       args.num_datapoints,
                        "optimiser":            args.optimiser,
-                       "internal_tag":         args.tag, })
+                       "internal_tag":         args.tag,
+                       "lr_schedule":          args.lr_schedule, })
 
     # Set up the data.
     (x_train, y_train, x_test, y_test), fn = select_dataset(args)
@@ -112,6 +110,6 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(da_test.x) > 0 else None
 
     # Set up the model.
-    model = select_model(args.model_type.lower(), args.hidden_units, args.learning_rate, args.optimiser)
+    model = select_model(args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn

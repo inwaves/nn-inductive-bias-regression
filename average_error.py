@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["sine", "square", "parabola"]
+categories = ["square"]
 
 
 def loglogplot(x, average_errors, category):
@@ -30,7 +30,7 @@ def loglogplot(x, average_errors, category):
 
 
 if __name__ == '__main__':
-    x = np.array([10, 100, 500, 1000, 5000])
+    x = np.array([10, 100, 1000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
