@@ -6,17 +6,14 @@
 #! Name of the job:
 #SBATCH -J square-500k
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL2-GPU
+#SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
 #! Note probably this should not exceed the total number of GPUs in use.
 #SBATCH --ntasks=1
-#! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
-#! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
 #! How much wallclock time will be required?
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=FAIL
 #! Uncomment this to prevent the job from being requeued (e.g. if
@@ -27,11 +24,11 @@
 
 
 #! Do not change:
-#SBATCH -p ampere
+#SBATCH -p icelake
 #/bin/bash
 set -x #echo on
 start=$(date +%s)
-num_iter=3
+num_iter=1
 
 for ((i=1;i<=num_iter;i++))
 do

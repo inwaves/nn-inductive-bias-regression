@@ -14,7 +14,7 @@ def loglogplot(x, average_errors, category):
     reg = LinearRegression().fit(X, ys)
     print(f"Regression score: {reg.score(X, ys)}")
 
-    Xline = np.linspace(10, 5120, 1000).reshape(-1, 1)
+    Xline = np.linspace(np.min(x), (np.max(x)), 1000).reshape(-1, 1)
     plt.figure()
     plt.title(f"Error for {category} as network scales")
     plt.loglog(x, average_errors, "-o")
@@ -30,7 +30,7 @@ def loglogplot(x, average_errors, category):
 
 
 if __name__ == '__main__':
-    x = np.array([10, 100, 1000])
+    x = np.array([10000, 50000, 100000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
