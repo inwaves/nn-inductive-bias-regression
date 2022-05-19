@@ -89,7 +89,7 @@ class MLP(pl.LightningModule):
             return {
                     "optimizer":    self.optimiser,
                     "lr_scheduler": {
-                            "scheduler": self.lr_schedule,
+                            "scheduler": self.schedule,
                             "interval":  "epoch",
                             "frequency": 100,
                             "monitor":   "train_loss",
