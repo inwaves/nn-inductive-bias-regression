@@ -25,24 +25,26 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 if __name__ == '__main__':
+    # Wrap up any hanging logger.
+    wandb.finish()
+    wandb_logger = WandbLogger(project="generalisation")
+
     train_dataloader, test_dataloader, da_train, da_test, args, model, fn = setup()
 
-    early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
-    lr_monitor_callback = LearningRateMonitor(logging_interval='step')
-
+    # Building strings for logging.
     early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
     n_epochs = f"{args.num_epochs}epochs"
     lrs = f"{args.lr_schedule}_schedule"
     dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_{args.model_type}_{args.optimiser}_" + \
               f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
+
+    # Trainer callbacks.
+    early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+    lr_monitor_callback = LearningRateMonitor(logging_interval='step')
     checkpointing_callback = ModelCheckpoint(dirpath=dirpath,
                                              filename="{epoch}-{train_loss:.3f}-{val_error:.3f}",
                                              every_n_epochs=args.val_frequency,
                                              save_top_k=-1)
-
-    # Wrap up any hanging logger.
-    wandb.finish()
-    wandb_logger = WandbLogger(project="generalisation")
 
     if parse_bool(args.early_stopping):
         # This control flow is needed to be able to run this script
