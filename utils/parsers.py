@@ -61,7 +61,7 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
-    parser.add_argument("--log_every_k_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
     parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--num_datapoints", "-nd", default=10, type=int,

@@ -56,13 +56,11 @@ class ShallowNetwork(pl.LightningModule):
 
         return loss
 
-    def test_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
-        out = self.forward(idx)
-
-        loss = F.mse_loss(out, targets)
-        self.log("test_loss", loss)
-        return loss
+    def validation_step(self, batch, batch_idx):
+        model_predictions = self.forward(torch.tensor(self.da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
+        val_error = mean_squared_error(self.da_grid.y, model_predictions)
+        self.log("val_error", val_error)
+        return val_error
 
     def configure_optimizers(self):
         if self.schedule is not None:
@@ -153,14 +151,6 @@ class AsiShallowNetwork(pl.LightningModule):
         val_error = mean_squared_error(self.da_grid.y, model_predictions)
         self.log("val_error", val_error)
         return val_error
-
-    def test_step(self, batch, batch_idx):
-        idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
-        out = self.forward(idx)
-
-        loss = F.mse_loss(out, targets)
-        self.log("test_loss", loss)
-        return loss
 
     def configure_optimizers(self):
         if self.schedule is not None:
