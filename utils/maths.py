@@ -45,3 +45,9 @@ def normalise_data(x, minval=None, maxval=None):
     x = ((2 * (x - minval)) / (maxval - minval)) - 1
 
     return x, minval, maxval
+
+
+def mean_squared_error(targets, model_preds):
+    """Calculate the mean squared error between a target variable and model predictions."""
+
+    return np.sqrt(np.mean((model_preds.reshape(targets.shape) - targets) ** 2))

@@ -83,6 +83,7 @@ def parse_args():
     parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
     parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
     parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
+    parser.add_argument("--grid_resolution", "-gr", default=100, type=int, help="How many data points in the grid?")
     args = parser.parse_args()
 
     return args

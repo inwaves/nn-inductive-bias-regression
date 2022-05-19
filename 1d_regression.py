@@ -13,8 +13,8 @@ from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 
 from utils.data_adjuster import DataAdjuster
-from utils.maths import linear
-from utils.utils import mean_squared_error, parse_bool, setup
+from utils.maths import linear, mean_squared_error
+from utils.utils import parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
 # Initialisation.
@@ -33,8 +33,10 @@ if __name__ == '__main__':
 
     max_epochs = args.num_epochs
     if parse_bool(args.early_stopping):
-    # This control flow is needed to be able to run this script
-    # on either CPU (locally) or GPU (on a cluster).
+        # This control flow is needed to be able to run this script
+        # on either CPU (locally) or GPU (on a cluster).
+
+        # TODO: Fix this, DRY
         if device == "cuda":
             trainer = pl.Trainer(max_epochs=-1,
                                  callbacks=[early_stopping_callback, lr_monitor],
@@ -65,7 +67,10 @@ if __name__ == '__main__':
 
     # Model is fit to the normalised, linearly adjusted data.
     tic = time.time()
-    trainer.fit(model, train_dataloader)
+    trainer.fit(model,
+                train_dataloader=train_dataloader,
+                val_dataloaders=[train_dataloader])
+
     toc = time.time()
     print(f"Training took {toc - tic:.2f} seconds.")
 
@@ -77,12 +82,6 @@ if __name__ == '__main__':
     # ...fit the cubic spline.
     spline = CubicSpline(da_train.x, da_train.y)
 
-    x_all, y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
-    all_data = torch.tensor(x_all).float().unsqueeze(1)
-
-    # ...find NN predictions
-    y_all_pred = model(all_data).cpu().detach().numpy()  # Using the training and test datapoints.
-
     # Using raw data...
     if parse_bool(args.adjust_data_linearly):
         da_train.unadjust()
@@ -93,7 +92,7 @@ if __name__ == '__main__':
     raw_x_all, raw_y_all = glue_dataset_portions(da_train.x, da_train.y, da_test.x, da_test.y)
 
     # ...generate a grid with more datapoints
-    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), 100)
+    grid = np.linspace(np.min(raw_x_all), np.max(raw_x_all), args.grid_resolution)
     fn_y = np.array([fn(el) for el in grid]).reshape(1, -1).squeeze()
     da_grid = DataAdjuster(grid, fn_y, da_train.x_min, da_train.x_max)
     if parse_bool(args.normalise):

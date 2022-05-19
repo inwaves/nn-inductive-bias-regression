@@ -8,23 +8,23 @@ from datasets.dataset import *
 from models.mlp import MLP
 from models.shallow_relu import AsiShallowNetwork, ShallowNetwork, PlainTorchAsiShallowRelu
 from utils.custom_dataloader import CustomDataLoader
-from utils.parsers import parse_args, parse_bool, parse_optimiser, parse_schedule
+from utils.parsers import parse_args, parse_bool, parse_optimiser
 from utils.data_adjuster import DataAdjuster
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-def select_model(model_type, hidden_units, learning_rate, optimiser, schedule):
+def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units, learning_rate, optimiser, schedule):
     optimiser = parse_optimiser(optimiser)
     model_type = model_type.lower()
     if model_type == "asishallowrelu":
-        model = AsiShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        model = AsiShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     elif model_type == "shallowrelu":
-        model = ShallowNetwork(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        model = ShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     elif model_type == "plaintorchasishallowrelu":
-        model = PlainTorchAsiShallowRelu(hidden_units, 1, 1, "relu").to(device).float()
+        model = PlainTorchAsiShallowRelu(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, "relu").to(device).float()
     elif model_type == "mlp":
-        model = MLP(hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        model = MLP(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     else:
         print(f"Error: model type {model_type} not supported.")
         model = None
@@ -39,12 +39,6 @@ def adjust_data_linearly(x_train, y_train):
     residual = y_train - linreg_pred
 
     return residual, linear_regressor
-
-
-def mean_squared_error(targets, network_predictions):
-    """Calculate the mean square error between  target variable and predictions."""
-
-    return np.sqrt(np.mean((network_predictions.reshape(targets.shape) - targets) ** 2))
 
 
 def select_dataset(args):
@@ -110,6 +104,6 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(da_test.x) > 0 else None
 
     # Set up the model.
-    model = select_model(args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
+    model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution, args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn

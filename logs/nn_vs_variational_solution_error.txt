@@ -839,3 +839,11 @@ square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plate
 square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 100, 0.06060043641646156
 square-baseline-10dp-ASIShallowRelu-sgd-relu, 1000000, 0.0483335228828907
 sine-baseline-10dp-AsiShallowRelu-sgd-relu, 1000, 0.011695693954622912
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.149238664657025
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.6618535505968082
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.5837832060927882
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.8486050918563028
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.8319808472890458
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.5595798238634967
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.33474485735471987
+sine-interpolation-100dp-AsiShallowRelu-sgd-relu-earlystopping-10000epochs-none_schedule-cpu, 1000, 0.016740055342852337

@@ -10,6 +10,8 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 class MLP(pl.LightningModule):
     def __init__(self,
+                 da_train,
+                 da_test,
                  n,
                  input_dim,
                  output_dim,
@@ -18,6 +20,9 @@ class MLP(pl.LightningModule):
                  optimiser=None,
                  schedule="none") -> None:
         super().__init__()
+
+        self.da_train = da_train
+        self.da_test = da_test
 
         self.save_hyperparameters()
         self.lr = lr
