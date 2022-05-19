@@ -31,4 +31,4 @@
 #/bin/bash
 set -x # echo on
 
-for i in {1..1}; do python3 1d_regression.py --grid_resolution=100 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=10 --model=MLP --hidden_units=50 --learning_rate=0.01; done
+for i in {1..1}; do python3 1d_regression.py --grid_resolution=100 --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=10 --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01; done
