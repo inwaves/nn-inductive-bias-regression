@@ -21,7 +21,7 @@ class ShallowNetwork(pl.LightningModule):
                  adjust_data_linearly,
                  normalise,
                  grid_resolution,
-                 n,
+                 hidden_units,
                  input_dim,
                  output_dim,
                  lr=1e-3,
@@ -40,9 +40,9 @@ class ShallowNetwork(pl.LightningModule):
         self.save_hyperparameters()
 
         self.lr = lr
-        self.hidden = nn.Linear(input_dim, n)
+        self.hidden = nn.Linear(input_dim, hidden_units)
         self.nonlinearity = parse_nonlinearity(nonlinearity)
-        self.out = nn.Linear(n, output_dim, bias=False)
+        self.out = nn.Linear(hidden_units, output_dim, bias=False)
 
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
@@ -95,13 +95,14 @@ class AsiShallowNetwork(pl.LightningModule):
                  adjust_data_linearly,
                  normalise,
                  grid_resolution,
-                 n,
+                 hidden_units,
                  input_dim,
                  output_dim,
                  lr=1e-3,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule="none") -> None:
+                 schedule="none",
+                 init="uniform") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -114,15 +115,22 @@ class AsiShallowNetwork(pl.LightningModule):
         self.lr = lr
 
         # Initialise hidden layers with uniform weights.
-        self.hidden1 = nn.Linear(input_dim, n)
-        self.hidden1.weight.data.uniform_(-1, 1)
-        self.hidden1.bias.data.uniform_(-2, 2)
+        self.hidden1 = nn.Linear(input_dim, hidden_units)
+        self.hidden2 = nn.Linear(input_dim, hidden_units)
+
+        if init.lower() == "uniform":
+            self.hidden1.weight.data.uniform_(-1, 1)
+            self.hidden1.bias.data.uniform_(-2, 2)
+            self.hidden2.weight.data.uniform_(-1, 1)
+            self.hidden2.bias.data.uniform_(-2, 2)
+        elif init.lower() == "normal":
+            self.hidden1.weight.data.normal_(0, 1)
+            self.hidden1.bias.data.normal_(0, 1)
+            self.hidden2.weight.data.normal_(0, 1)
+            self.hidden2.bias.data.normal_(0, 1)
+
         self.hidden1.bias.data = self.hidden1.bias.data.to(device)
         self.hidden1.weight.data = self.hidden1.weight.data.to(device)
-
-        self.hidden2 = nn.Linear(input_dim, n)
-        self.hidden2.weight.data.uniform_(-1, 1)
-        self.hidden2.bias.data.uniform_(-2, 2)
         self.hidden2.weight.data = self.hidden1.weight.data
         self.hidden2.bias.data = self.hidden1.bias.data
 
@@ -131,12 +139,12 @@ class AsiShallowNetwork(pl.LightningModule):
 
         self.nonlinearity = parse_nonlinearity(nonlinearity)
 
-        # Initialise output layers with uniform weights.
-        self.out1 = nn.Linear(n, output_dim, bias=False)
+        # Initialse output layers with uniform weights.
+        self.out1 = nn.Linear(hidden_units, output_dim, bias=False)
         self.out1.weight.data.uniform_(-1, 1)
-        self.out1.weight.data = torch.sqrt(torch.tensor(1 / n).to(device)) * self.out1.weight.data.to(device)
+        self.out1.weight.data = torch.sqrt(torch.tensor(1 / hidden_units).to(device)) * self.out1.weight.data.to(device)
 
-        self.out2 = nn.Linear(n, output_dim, bias=False)
+        self.out2 = nn.Linear(hidden_units, output_dim, bias=False)
         self.out2.weight.data.uniform_(-1, 1)
         self.out2.weight.data = -self.out1.weight.data
 

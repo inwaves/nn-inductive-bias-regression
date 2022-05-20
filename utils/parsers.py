@@ -60,30 +60,32 @@ def parse_args():
     """Parses command-line arguments corresponding to experiment parameters."""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
-    parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
     parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
-    parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
-    parser.add_argument("--num_datapoints", "-nd", default=10, type=int,
-                        help="Number of points in the (training+test) datasets. The ratio is always 70:30.")
-    parser.add_argument("--learning_rate", "-lr", default=1e-4, type=float,
-                        help="Learning rate of the optimiser.")
-    parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
-                                                                                       "ShallowRelu, MLP.")
     parser.add_argument("--dataset", "-d", default="sine", type=str, help="Select from constant, linear, sine, "
                                                                           "parabola, chebyshev_polynomial, "
                                                                           "polynomial_spline, random, square.")
+    parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
     parser.add_argument("--generalisation_task", "-g", default="interpolation", type=str, help="Select from baseline, "
                                                                                                "interpolation or "
                                                                                                "extrapolation.")
+    parser.add_argument("--grid_resolution", "-gr", default=100, type=int, help="How many data points in the grid?")
+    parser.add_argument("--hidden_units", "-n", default=100, type=int, help="Number of hidden units (n).")
+    parser.add_argument("--init", "-i", default="uniform", type=str, help="Uniform or normal initialisation of "
+                                                                          "params.")
+    parser.add_argument("--learning_rate", "-lr", default=1e-4, type=float,
+                        help="Learning rate of the optimiser.")
+    parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
+    parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
+                                                                                       "ShallowRelu, MLP.")
+    parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--nonlinearity", "-nl", default="relu", type=str, help="Select from relu, leaky_relu, gelu, "
                                                                                 "elu, sigmoid, tanh.")
+    parser.add_argument("--num_datapoints", "-nd", default=10, type=int,
+                        help="Number of points in the (training+test) datasets. The ratio is always 70:30.")
+    parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
     parser.add_argument("--optimiser", "-o", default="sgd", type=str, help="Select from SGD, Adam, momentum")
     parser.add_argument("--tag", "-t", default="untagged", type=str, help="Add a tag for this experiment.")
-    parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
-    parser.add_argument("--num_epochs", "-ne", default=10000, type=int, help="Number of epochs to run for.")
-    parser.add_argument("--early_stopping", "-es", default="True", type=str, help="Use early stopping?")
-    parser.add_argument("--grid_resolution", "-gr", default=100, type=int, help="How many data points in the grid?")
     parser.add_argument("--val_frequency", "-va", default=1000, type=int, help="How often to compute validation error.")
     args = parser.parse_args()
 

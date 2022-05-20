@@ -13,17 +13,57 @@ from utils.parsers import parse_optimiser
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units, learning_rate, optimiser, schedule):
+def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units,
+                 learning_rate, optimiser, schedule, init):
     optimiser = parse_optimiser(optimiser)
     model_type = model_type.lower()
     if model_type == "asishallowrelu":
-        model = AsiShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        model = AsiShallowNetwork(da_train=da_train,
+                                  da_test=da_test,
+                                  fn=fn,
+                                  adjust_data_linearly=adjust_data_linearly,
+                                  normalise=normalise,
+                                  grid_resolution=grid_resolution,
+                                  hidden_units=hidden_units,
+                                  input_dim=1,
+                                  output_dim=1,
+                                  lr=learning_rate,
+                                  optimiser=optimiser,
+                                  schedule=schedule,
+                                  init=init
+                                  ).to(device).float()
     elif model_type == "shallowrelu":
-        model = ShallowNetwork(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        pass
     elif model_type == "plaintorchasishallowrelu":
-        model = PlainTorchAsiShallowRelu(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, "relu").to(device).float()
+        model = ShallowNetwork(da_train=da_train,
+                               da_test=da_test,
+                               fn=fn,
+                               adjust_data_linearly=adjust_data_linearly,
+                               normalise=normalise,
+                               grid_resolution=grid_resolution,
+                               hidden_units=hidden_units,
+                               input_dim=1,
+                               output_dim=1,
+                               lr=learning_rate,
+                               optimiser=optimiser,
+                               schedule=schedule,
+                               init=init
+                               ).to(device).float()
+        model = PlainTorchAsiShallowRelu(n=hidden_units,
+                                         input_dim=1,
+                                         output_dim=1,
+                                         nonlinearity="relu").to(device).float()
     elif model_type == "mlp":
-        model = MLP(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, hidden_units, 1, 1, lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+        model = MLP(da_train=da_train,
+                    da_test=da_test,
+                    fn=fn,
+                    adjust_data_linearly=adjust_data_linearly,
+                    normalise=normalise,
+                    grid_resolution=grid_resolution,
+                    hidden_units=hidden_units,
+                    input_dim=1,
+                    output_dim=1,
+                    lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
     else:
         print(f"Error: model type {model_type} not supported.")
         model = None

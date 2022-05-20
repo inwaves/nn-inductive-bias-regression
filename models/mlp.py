@@ -21,7 +21,7 @@ class MLP(pl.LightningModule):
                  adjust_data_linearly,
                  normalise,
                  grid_resolution,
-                 n,
+                 hidden_units,
                  input_dim,
                  output_dim,
                  lr=1e-1,
@@ -39,14 +39,14 @@ class MLP(pl.LightningModule):
         self.save_hyperparameters()
         self.lr = lr
         self.nonlinearity = parse_nonlinearity(nonlinearity)
-        self.input = nn.Linear(input_dim, int(2/7*n))
+        self.input = nn.Linear(input_dim, int(2 / 7 * hidden_units))
         self.hidden = nn.Sequential(
-            nn.Linear(int(2/7 * n), int(3/7 * n)),
+            nn.Linear(int(2 / 7 * hidden_units), int(3 / 7 * hidden_units)),
             self.nonlinearity,
-            nn.Linear(int(3/7 * n), int(2/7 * n)),
+            nn.Linear(int(3 / 7 * hidden_units), int(2 / 7 * hidden_units)),
             self.nonlinearity,
         )
-        self.output = nn.Linear(int(2 / 7 * n), output_dim)
+        self.output = nn.Linear(int(2 / 7 * hidden_units), output_dim)
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
 

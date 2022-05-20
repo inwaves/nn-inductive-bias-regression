@@ -52,6 +52,8 @@ def setup():
     test_dataloader = custom_dataloader.test_dataloader() if len(da_test.x) > 0 else None
 
     # Set up the model.
-    model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution, args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule)
+    model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution,
+                         args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule,
+                         args.init)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn
