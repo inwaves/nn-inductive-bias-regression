@@ -25,6 +25,8 @@
 
 #SBATCH --output=slurm-out/%x.%j.out
 
+. /etc/profile.d/modules.sh                # Leave this line (enables the module command)
+module load python/3.6 cuda/11.2 cudnn/8.1_cuda-11.2
 
 #! Do not change:
 #SBATCH -p ampere
