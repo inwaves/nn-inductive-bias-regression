@@ -56,7 +56,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./experiments/scripts/train-maze-II.sh"
+application="./sq-10.sh"
 options=""
 
 #! Work directory (i.e. where the job will run):
@@ -77,17 +77,4 @@ CMD="$application $options"
 #! Choose this for a MPI code using OpenMPI:
 #CMD="mpirun -npernode $mpi_tasks_per_node -np $np $application $options"
 
-set -x #echo on
-start=$(date +%s)
-num_iter=1
-
-for ((i=1;i<=num_iter;i++))
-do
-  python3 1d_regression.py --tag=sq-10 --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.25 --adjust_data_linearly=True
-done
-
-end=$(date +%s)
-
-runtime=$((end-start))
-
-echo $runtime
+eval $CMD
