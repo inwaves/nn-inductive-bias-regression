@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J pa-no-es-10
+#SBATCH -J pa-no-es-500
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
@@ -32,7 +32,7 @@ num_iter=1
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --tag=pa-no-es-10 --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --tag=pa-no-es-500 --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.01 --adjust_data_linearly=True
 done
 
 end=$(date +%s)
