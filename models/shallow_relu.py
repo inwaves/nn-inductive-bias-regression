@@ -89,15 +89,15 @@ class ShallowNetwork(pl.LightningModule):
 
 class AsiShallowNetwork(pl.LightningModule):
     def __init__(self,
-                 da_train,
-                 da_test,
-                 fn,
-                 adjust_data_linearly,
-                 normalise,
-                 grid_resolution,
-                 n,
-                 input_dim,
-                 output_dim,
+                 da_train=None,
+                 da_test=None,
+                 fn=None,
+                 adjust_data_linearly=None,
+                 normalise=None,
+                 grid_resolution=None,
+                 n=10,
+                 input_dim=1,
+                 output_dim=1,
                  lr=1e-3,
                  nonlinearity="relu",
                  optimiser=None,
@@ -106,9 +106,9 @@ class AsiShallowNetwork(pl.LightningModule):
 
         da_train = copy.copy(da_train)
         da_test = copy.copy(da_test)
-        self.spline = CubicSpline(da_train.x, da_train.y)
+        self.spline = CubicSpline(da_train.x, da_train.y) if da_train is not None else None
         self.da_grid = initialise_grid(da_train, da_test, fn,
-                                       adjust_data_linearly, normalise, grid_resolution)
+                                       adjust_data_linearly, normalise, grid_resolution) if da_train is not None else None
 
         self.save_hyperparameters()
         self.lr = lr

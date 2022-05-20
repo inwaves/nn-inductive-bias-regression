@@ -33,7 +33,7 @@ def loglogplot(x, average_errors, standard_deviations, category):
 if __name__ == '__main__':
     x = np.array([10, 40, 160, 640, 10240])
 
-    with open("logs/baseline_errors.txt", "r") as f:
+    with open("data/baseline_errors.txt", "r") as f:
         lines = f.readlines()
 
     lines = np.array([line.replace("\n", "").split(",")[1:] for line in lines], dtype=np.float32)

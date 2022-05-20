@@ -125,7 +125,7 @@ if __name__ == '__main__':
     variational_error = mean_squared_error(spline_predictions, model_predictions)
 
     # Also log locally, so I can actually plot these values later...
-    with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
+    with open("data/nn_vs_variational_solution_error.txt", "a") as f:
         f.write(
                 f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
                 f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, "
