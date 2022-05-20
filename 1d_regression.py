@@ -1,17 +1,17 @@
 import time
+import copy
 
 import numpy as np
 import pytorch_lightning as pl
 import torch
-from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
-
 import wandb
+
+from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
-
 from scipy.interpolate import CubicSpline
-from datasets.dataset import glue_dataset_portions
 
+from datasets.dataset import glue_dataset_portions
 from utils.adjust_data import DataAdjuster
 from utils.maths import linear, mean_squared_error
 from utils.utils import parse_bool, setup
@@ -97,7 +97,8 @@ if __name__ == '__main__':
 
     # Using adjusted data...
     # ...fit the cubic spline.
-    spline = CubicSpline(da_train.x, da_train.y)
+    x_tr, y_tr, x_te, y_te = copy.copy(da_train.x), copy.copy(da_train.y), copy.copy(da_test.x), copy.copy(da_test.y)
+    spline = CubicSpline(x_tr, y_tr)
 
     # Using raw data...
     if parse_bool(args.adjust_data_linearly):
@@ -114,6 +115,8 @@ if __name__ == '__main__':
     da_grid = DataAdjuster(grid, fn_y, da_train.x_min, da_train.x_max)
     if parse_bool(args.normalise):
         da_grid.normalise()
+    if parse_bool(args.adjust_data_linearly):
+        da_grid.adjust()
 
     # Calculate the final variational error as the difference
     # between g* and the model on the grid.
@@ -138,6 +141,11 @@ if __name__ == '__main__':
 
     # Plot the predictions in the original, non-adjusted, non-normalised space.
 
-    plot = plot_data_vs_predictions(da_train.x, da_train.y, da_test.x, da_test.y,
-                                    unadjusted_nn_preds, grid,
-                                    unadjusted_spline_preds, fn_y, args)
+    plot_data_vs_predictions(da_train.x, da_train.y, da_test.x, da_test.y,
+                                 unadjusted_nn_preds, grid,
+                                 unadjusted_spline_preds, fn_y, args, "original_space")
+
+    # Plot the predictions in the adjusted, normalised space.
+    plot_data_vs_predictions(x_tr, y_tr, x_te, y_te,
+                                 model_predictions, da_grid.x,
+                                 spline_predictions, da_grid.y, args, "adjusted_space")
