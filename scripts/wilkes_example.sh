@@ -1,6 +1,7 @@
 #!/bin/bash
 #!
 #! Example SLURM job script for Wilkes3 (AMD EPYC 7763, ConnectX-6, A100)
+#! Last updated: Fri 30 Jul 11:07:58 BST 2021
 #!
 
 #!#############################################################
@@ -9,27 +10,24 @@
 
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J sq-10
+#SBATCH -J gpujob
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL3-GPU
+#SBATCH -A CHANGEME-GPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
 #! Note probably this should not exceed the total number of GPUs in use.
-#SBATCH --ntasks=1
+#SBATCH --ntasks=4
 #! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
-#! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
+#! Note that the job submission script will enforce no more than 32 cpus per GPU.
+#SBATCH --gres=gpu:4
 #! How much wallclock time will be required?
-#SBATCH --time=1:00:00
+#SBATCH --time=02:00:00
 #! What types of email messages do you wish to receive?
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=NONE
 #! Uncomment this to prevent the job from being requeued (e.g. if
 #! interrupted by node failure or system downtime):
 ##SBATCH --no-requeue
-
-#SBATCH --output=slurm-out/%x.%j.out
-
 
 #! Do not change:
 #SBATCH -p ampere
@@ -56,7 +54,9 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./experiments/scripts/train-maze-II.sh"
+application=""
+
+#! Run options for the application:
 options=""
 
 #! Work directory (i.e. where the job will run):
@@ -65,7 +65,7 @@ workdir="$SLURM_SUBMIT_DIR"  # The value of SLURM_SUBMIT_DIR sets workdir to the
 
 #! Are you using OpenMP (NB this is unrelated to OpenMPI)? If so increase this
 #! safe value to no more than 128:
-export OMP_NUM_THREADS=32
+export OMP_NUM_THREADS=1
 
 #! Number of MPI tasks to be started by the application per node and in total (do not change):
 np=$[${numnodes}*${mpi_tasks_per_node}]
@@ -77,17 +77,3 @@ CMD="$application $options"
 #! Choose this for a MPI code using OpenMPI:
 #CMD="mpirun -npernode $mpi_tasks_per_node -np $np $application $options"
 
-set -x #echo on
-start=$(date +%s)
-num_iter=1
-
-for ((i=1;i<=num_iter;i++))
-do
-  python3 1d_regression.py --tag=sq-10 --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.25 --adjust_data_linearly=True
-done
-
-end=$(date +%s)
-
-runtime=$((end-start))
-
-echo $runtime
