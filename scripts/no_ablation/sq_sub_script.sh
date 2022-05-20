@@ -29,7 +29,7 @@
 
 
 #! Do not change:
-#SBATCH -p ampere
+#SBATCH -p icelake
 
 #! sbatch directives end here (put any additional directives above this line)
 
