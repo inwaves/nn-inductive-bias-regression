@@ -32,7 +32,7 @@ num_iter=3
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --tag=sq-40 --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --adjust_data_linearly=True --hidden_units=40 --learning_rate=0.25
+  python3 1d_regression.py --tag=sq-40 --dataset=square --generalisation_task=baseline --model=ShallowRelu --adjust_data_linearly=True --hidden_units=40 --learning_rate=0.25
 done
 
 end=$(date +%s)
