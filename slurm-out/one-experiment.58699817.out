@@ -1,26 +1,0 @@
-Global seed set to 1337
-wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
-wandb: Tracking run with wandb version 0.12.14
-wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220411_142755-1sk0w7yt
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run neat-donkey-66
-wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
-wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1sk0w7yt
-Traceback (most recent call last):
-  File "1d_regression.py", line 21, in <module>
-    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
-  File "/home/ata36/generalisation-claims/utils/utils.py", line 94, in setup
-    print(f"Data inside the setup is on device: {x_train.device}")
-AttributeError: 'numpy.ndarray' object has no attribute 'device'
-Traceback (most recent call last):
-  File "1d_regression.py", line 21, in <module>
-    train_dataloader, test_dataloader, x_train, y_train, x_test, y_test, args, model = setup()
-  File "/home/ata36/generalisation-claims/utils/utils.py", line 94, in setup
-    print(f"Data inside the setup is on device: {x_train.device}")
-AttributeError: 'numpy.ndarray' object has no attribute 'device'
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb:                                                                                
-wandb: Synced neat-donkey-66: https://wandb.ai/inwaves/generalisation/runs/1sk0w7yt
-wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20220411_142755-1sk0w7yt/logs
-

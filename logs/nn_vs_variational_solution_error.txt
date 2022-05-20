@@ -899,3 +899,12 @@ square-baseline-50dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plate
 sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 100, 0.04097087644079463
 sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 50, 0.03148518777815208
 sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 150, 0.03361250689481045
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 150, 0.03960132467711737
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 100, 0.03620277191375377
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 100, 0.03794350316580073
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 50, 0.0961322763457987
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 50, 0.05849521393238622
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 150, 0.03611189488271953
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 100, 0.28241443624658863
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 150, 0.04459701566556669
+sine-baseline-10dp-MLP-sgd-relu-earlystopping-10000epochs-plateau_schedule-cuda, 50, 0.03439624663171218

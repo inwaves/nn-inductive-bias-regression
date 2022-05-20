@@ -1,74 +1,0 @@
-Global seed set to 1337
-wandb: Currently logged in as: inwaves (use `wandb login --relogin` to force relogin)
-wandb: wandb version 0.12.14 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.12.12
-wandb: Run data is saved locally in /home/ata36/generalisation-claims/wandb/run-20220411_083850-1jixv30v
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run woven-bird-56
-wandb: ⭐️ View project at https://wandb.ai/inwaves/generalisation
-wandb: 🚀 View run at https://wandb.ai/inwaves/generalisation/runs/1jixv30v
-/home/ata36/pytorch-env/lib/python3.6/site-packages/torch/cuda/__init__.py:143: UserWarning: 
-NVIDIA A100-SXM4-80GB with CUDA capability sm_80 is not compatible with the current PyTorch installation.
-The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
-If you want to use the NVIDIA A100-SXM4-80GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
-
-  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
-GPU available: True, used: True
-TPU available: False, using: 0 TPU cores
-IPU available: False, using: 0 IPUs
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/loggers/wandb.py:342: UserWarning: There is a wandb run already in progress and newly created instances of `WandbLogger` will reuse this run. If this is not desired, call `wandb.finish()` before instantiating `WandbLogger`.
-  "There is a wandb run already in progress and newly created instances of `WandbLogger` will reuse"
-Set SLURM handle signals.
-
-  | Name    | Type   | Params
------------------------------------
-0 | hidden1 | Linear | 20    
-1 | hidden2 | Linear | 20    
-2 | relu    | ReLU   | 0     
-3 | out1    | Linear | 10    
-4 | out2    | Linear | 10    
------------------------------------
-60        Trainable params
-0         Non-trainable params
-60        Total params
-0.000     Total estimated model params size (MB)
-Traceback (most recent call last):
-  File "1d_regression.py", line 31, in <module>
-    trainer.fit(model, train_dataloader)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 741, in fit
-    self._fit_impl, model, train_dataloaders, val_dataloaders, datamodule, ckpt_path
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 685, in _call_and_handle_interrupt
-    return trainer_fn(*args, **kwargs)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 777, in _fit_impl
-    self._run(model, ckpt_path=ckpt_path)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 1199, in _run
-    self._dispatch()
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 1279, in _dispatch
-    self.training_type_plugin.start_training(self)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/plugins/training_type/training_type_plugin.py", line 202, in start_training
-    self._results = trainer.run_stage()
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 1289, in run_stage
-    return self._run_train()
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py", line 1319, in _run_train
-    self.fit_loop.run()
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/loops/base.py", line 140, in run
-    self.on_run_start(*args, **kwargs)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/loops/fit_loop.py", line 197, in on_run_start
-    self.trainer.reset_train_val_dataloaders(self.trainer.lightning_module)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/data_loading.py", line 595, in reset_train_val_dataloaders
-    self.reset_train_dataloader(model=model)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/trainer/data_loading.py", line 391, in reset_train_dataloader
-    if has_len_all_ranks(self.train_dataloader, self.training_type_plugin, module)
-  File "/home/ata36/pytorch-env/lib/python3.6/site-packages/pytorch_lightning/utilities/data.py", line 117, in has_len_all_ranks
-    if total_length == 0:
-RuntimeError: CUDA error: no kernel image is available for execution on the device
-CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: \ 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: | 0.001 MB of 0.001 MB uploaded (0.000 MB deduped)wandb: / 0.001 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: - 0.003 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: \ 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: | 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: / 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: - 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: \ 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: | 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: / 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb:                                                                                
-wandb: Synced woven-bird-56: https://wandb.ai/inwaves/generalisation/runs/1jixv30v
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20220411_083850-1jixv30v/logs
-

@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "check_cuda.py", line 1, in <module>
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-NameError: name 'torch' is not defined
