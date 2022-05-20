@@ -9,19 +9,16 @@
 
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J sq-10
+#SBATCH -J square-exp
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL3-GPU
+#SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
 #! Note probably this should not exceed the total number of GPUs in use.
 #SBATCH --ntasks=1
-#! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
-#! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
 #! How much wallclock time will be required?
-#SBATCH --time=1:00:00
+#SBATCH --time=36:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=ALL
 #! Uncomment this to prevent the job from being requeued (e.g. if
@@ -56,7 +53,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./scripts/no_ablation/sq-10.sh"
+application="./scripts/no_ablation/square_var_10240.sh"
 options=""
 
 #! Work directory (i.e. where the job will run):
