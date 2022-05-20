@@ -4,7 +4,7 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J sq-40
+#SBATCH -J relu-sq40
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
@@ -32,7 +32,7 @@ num_iter=3
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --tag=sq-40 --dataset=square --generalisation_task=baseline --model=ShallowRelu --adjust_data_linearly=True --hidden_units=40 --learning_rate=0.25
+  python3 1d_regression.py --tag=relu-sq40 --dataset=square --generalisation_task=baseline --model=ShallowRelu --adjust_data_linearly=True --hidden_units=40 --learning_rate=0.25
 done
 
 end=$(date +%s)
