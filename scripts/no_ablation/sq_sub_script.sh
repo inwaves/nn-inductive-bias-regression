@@ -77,4 +77,5 @@ CMD="$application $options"
 #! Choose this for a MPI code using OpenMPI:
 #CMD="mpirun -npernode $mpi_tasks_per_node -np $np $application $options"
 
+chmod +x $application
 eval $CMD
