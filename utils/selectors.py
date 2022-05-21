@@ -76,7 +76,11 @@ def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_re
                     hidden_units=hidden_units,
                     input_dim=1,
                     output_dim=1,
-                    lr=learning_rate, optimiser=optimiser, schedule=schedule).to(device).float()
+                    lr=learning_rate,
+                    optimiser=optimiser,
+                    schedule=schedule,
+                    init=init
+                    ).to(device).float()
     else:
         print(f"Error: model type {model_type} not supported.")
         model = None

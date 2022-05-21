@@ -27,7 +27,8 @@ class MLP(pl.LightningModule):
                  lr=1e-1,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule="none") -> None:
+                 schedule="none",
+                 init="uniform") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -46,6 +47,14 @@ class MLP(pl.LightningModule):
             nn.Linear(int(3 / 7 * hidden_units), int(2 / 7 * hidden_units)),
             self.nonlinearity,
         )
+
+        if init.lower() == "uniform":
+            self.hidden.weight.data.uniform_(-1, 1)
+            self.hidden.bias.data.uniform_(-2, 2)
+        elif init.lower() == "normal":
+            self.hidden.weight.data.normal_(0, 1)
+            self.hidden.bias.data.normal_(0, 1)
+
         self.output = nn.Linear(int(2 / 7 * hidden_units), output_dim)
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
