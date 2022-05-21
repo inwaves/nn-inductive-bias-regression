@@ -28,8 +28,8 @@
 #/bin/bash
 set -x # echo on
 
-for i in {1..1}; do python3 1d_regression.py --tag=cpu_experiment --early_stopping=False --num_epochs=50000 --lr_schedule=cosine --optimiser=sgd --nonlinearity=relu --generalisation_task=interpolation --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=100 --model=AsiShallowRelu --hidden_units=1000 --learning_rate=0.001; done
-  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+for i in {1..1}; do python3 1d_regression.py --tag=cpu_experiment --early_stopping=False --num_epochs=50000 --lr_schedule=cosine --optimiser=sgd --nonlinearity=relu --generalisation_task=interpolation --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=100 --model_type=AsiShallowRelu --hidden_units=1000 --learning_rate=0.001; done
+  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=100000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
