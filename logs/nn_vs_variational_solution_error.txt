@@ -1003,3 +1003,15 @@ parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-pla
 parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06841016455123322
 parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06496272758155268
 parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10000, 0.06206744802790324
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 1.1098029762080162
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 0.8996178485742291
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 1.3570888912976398
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 2.0006013912248553
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 1.3578683634075497
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 10, 0.8989542212281155
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 6.512395276263194
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 0.1520392820330108
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 0.43109369622641136
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 0.44121306454041387
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 0.25921984183796387
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-plateau_schedule-cpu, 500, 0.24026613122597412
