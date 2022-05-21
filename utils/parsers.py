@@ -78,6 +78,7 @@ def parse_args():
     parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
                                                                                        "ShallowRelu, MLP.")
+    parser.add_argument("--model_checkpoint", "-mc", default="False", type=str, help="Should checkpoint model?")
     parser.add_argument("--normalise", default="True", type=str, help="Normalise the data?")
     parser.add_argument("--nonlinearity", "-nl", default="relu", type=str, help="Select from relu, leaky_relu, gelu, "
                                                                                 "elu, sigmoid, tanh.")
