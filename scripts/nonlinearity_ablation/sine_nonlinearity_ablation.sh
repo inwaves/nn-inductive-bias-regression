@@ -32,25 +32,25 @@
 set -x #echo on
 start=$(date +%s)
 
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=gelu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=elu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=tanh --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=leaky_relu --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+python3 1d_regression.py --dataset=sine --tag=sine-nonlinearity-ablation --nonlinearity=sigmoid --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
 
 end=$(date +%s)
 

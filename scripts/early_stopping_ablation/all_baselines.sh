@@ -35,65 +35,65 @@ num_iter=3
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=sine --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=square --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=parabola --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=polynomial_spline --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=chebyshev_polynomial --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=constant --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False
-  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=500 --learning_rate=0.002 --adjust_data_linearly=True
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False
+  python3 1d_regression.py --early_stopping=False --num_epochs=500000 --lr_schedule=plateau --dataset=linear --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=5000 --learning_rate=0.0002 --adjust_data_linearly=False
 done
 
 end=$(date +%s)

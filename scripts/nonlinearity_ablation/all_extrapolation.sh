@@ -32,33 +32,33 @@
 set -x #echo on
 start=$(date +%s)
 
-for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=sine --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=square --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=parabola --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=polynomial_spline --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
-for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=True; done
+for i in {1..1}; do python3 1d_regression.py --dataset=chebyshev_polynomial --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=True; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False; done
-for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False; done
-for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=constant --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False; done
 
-for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False; done
-for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False; done
-for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=10 --learning_rate=0.1 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01 --adjust_data_linearly=False; done
+for i in {1..1}; do python3 1d_regression.py --dataset=linear --nonlinearity=gelu --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False; done
 
 end=$(date +%s)
 
