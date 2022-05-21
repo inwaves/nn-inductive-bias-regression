@@ -53,7 +53,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./scripts/no_ablation/square_var_10240.sh"
+application="./scripts/no_ablation/square_var_10.sh"
 options=""
 
 #! Work directory (i.e. where the job will run):
