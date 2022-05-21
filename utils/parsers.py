@@ -12,7 +12,7 @@ def parse_schedule(scheduler, optimiser):
     elif scheduler == "plateau":
         return torch.optim.lr_scheduler.ReduceLROnPlateau(optimiser,
                                                           mode="min",
-                                                          factor=0.9,
+                                                          factor=0.5,
                                                           patience=100,
                                                           threshold=1e-4,
                                                           threshold_mode="abs",
