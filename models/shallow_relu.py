@@ -27,7 +27,8 @@ class ShallowNetwork(pl.LightningModule):
                  lr=1e-3,
                  nonlinearity="relu",
                  optimiser=None,
-                 schedule="none") -> None:
+                 schedule="none",
+                 init="uniform") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -41,6 +42,14 @@ class ShallowNetwork(pl.LightningModule):
 
         self.lr = lr
         self.hidden = nn.Linear(input_dim, hidden_units)
+
+        if init.lower() == "uniform":
+            self.hidden.weight.data.uniform_(-1, 1)
+            self.hidden.bias.data.uniform_(-2, 2)
+        elif init.lower() == "normal":
+            self.hidden.weight.data.normal_(0, 1)
+            self.hidden.bias.data.normal_(0, 1)
+            
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.out = nn.Linear(hidden_units, output_dim, bias=False)
 

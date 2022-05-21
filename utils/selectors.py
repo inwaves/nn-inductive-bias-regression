@@ -33,7 +33,20 @@ def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_re
                                   init=init
                                   ).to(device).float()
     elif model_type == "shallowrelu":
-        pass
+        model = ShallowNetwork(da_train=da_train,
+                                  da_test=da_test,
+                                  fn=fn,
+                                  adjust_data_linearly=adjust_data_linearly,
+                                  normalise=normalise,
+                                  grid_resolution=grid_resolution,
+                                  hidden_units=hidden_units,
+                                  input_dim=1,
+                                  output_dim=1,
+                                  lr=learning_rate,
+                                  optimiser=optimiser,
+                                  schedule=schedule,
+                                  init=init
+                                  ).to(device).float()
     elif model_type == "plaintorchasishallowrelu":
         model = ShallowNetwork(da_train=da_train,
                                da_test=da_test,
