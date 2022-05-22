@@ -53,7 +53,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./scripts/normal_initialisation/sin_var_10.sh"
+application="./scripts/normal_initialisation/$1.sh"
 options=""
 
 #! Work directory (i.e. where the job will run):
