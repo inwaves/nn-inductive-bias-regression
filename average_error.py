@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
-num_runs = 3
-categories = ["square"]
+num_runs = 1
+categories = ["chebyshev"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category):
@@ -31,7 +31,8 @@ def loglogplot(x, average_errors, standard_deviations, category):
 
 
 if __name__ == '__main__':
-    x = np.array([10, 40, 160, 640, 10240])
+    # x = np.array([10, 40, 160, 640, 10240])
+    x = np.array([10, 100, 500, 5000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
