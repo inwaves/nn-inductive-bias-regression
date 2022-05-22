@@ -5,6 +5,7 @@ for val in $filenames;
 do
     for ((i=0; i<$1; i++));
     do
-    sbatch ./scripts/normal_initialisation/normal_sub.sh $val;
+      sbatch ./scripts/uniform_initialisation/uniform_sub.sh $val 2 1
+      sbatch ./scripts/uniform_initialisation/uniform_sub.sh $val 1 5;
     done
 done
