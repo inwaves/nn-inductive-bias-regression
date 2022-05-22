@@ -111,7 +111,11 @@ class AsiShallowNetwork(pl.LightningModule):
                  nonlinearity="relu",
                  optimiser=None,
                  schedule="none",
-                 init="uniform") -> None:
+                 init="uniform",
+                 a_w=1,
+                 a_b=2,
+                 mu=0,
+                 sigma=1) -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -128,15 +132,15 @@ class AsiShallowNetwork(pl.LightningModule):
         self.hidden2 = nn.Linear(input_dim, hidden_units)
 
         if init.lower() == "uniform":
-            self.hidden1.weight.data.uniform_(-1, 1)
-            self.hidden1.bias.data.uniform_(-2, 2)
-            self.hidden2.weight.data.uniform_(-1, 1)
-            self.hidden2.bias.data.uniform_(-2, 2)
+            self.hidden1.weight.data.uniform_(-a_w, a_w)
+            self.hidden1.bias.data.uniform_(-a_b, a_b)
+            self.hidden2.weight.data.uniform_(-a_w, a_w)
+            self.hidden2.bias.data.uniform_(-a_b, a_b)
         elif init.lower() == "normal":
-            self.hidden1.weight.data.normal_(0, 1)
-            self.hidden1.bias.data.normal_(0, 1)
-            self.hidden2.weight.data.normal_(0, 1)
-            self.hidden2.bias.data.normal_(0, 1)
+            self.hidden1.weight.data.normal_(mu, sigma)
+            self.hidden1.bias.data.normal_(mu, sigma)
+            self.hidden2.weight.data.normal_(mu, sigma)
+            self.hidden2.bias.data.normal_(mu, sigma)
 
         self.hidden1.bias.data = self.hidden1.bias.data.to(device)
         self.hidden1.weight.data = self.hidden1.weight.data.to(device)

@@ -54,6 +54,6 @@ def setup():
     # Set up the model.
     model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution,
                          args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule,
-                         args.init)
+                         args.init, args.a_w, args.a_b)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn

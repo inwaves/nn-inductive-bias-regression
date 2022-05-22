@@ -60,7 +60,9 @@ def parse_args():
     """Parses command-line arguments corresponding to experiment parameters."""
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("--a_b", "-ab", default=2, type=int, help="Network biases are sampled from U(-a_b, a_b)")
     parser.add_argument("--adjust_data_linearly", "-a", default="True", type=str, help="Adjust the data linearly?")
+    parser.add_argument("--a_w", "-aw", default=1, type=int, help="Network weights are sampled from U(-a_w, a_w)")
     parser.add_argument("--dataset", "-d", default="sine", type=str, help="Select from constant, linear, sine, "
                                                                           "parabola, chebyshev_polynomial, "
                                                                           "polynomial_spline, random, square.")

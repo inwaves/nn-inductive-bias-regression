@@ -14,7 +14,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units,
-                 learning_rate, optimiser, schedule, init):
+                 learning_rate, optimiser, schedule, init, a_w, a_b):
     optimiser = parse_optimiser(optimiser)
     model_type = model_type.lower()
     if model_type == "asishallowrelu":
@@ -30,7 +30,9 @@ def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_re
                                   lr=learning_rate,
                                   optimiser=optimiser,
                                   schedule=schedule,
-                                  init=init
+                                  init=init,
+                                  a_w=a_w,
+                                  a_b=a_b
                                   ).to(device).float()
     elif model_type == "shallowrelu":
         model = ShallowNetwork(da_train=da_train,
