@@ -1,3 +1,4 @@
+import os.path
 import time
 import copy
 
@@ -36,8 +37,11 @@ if __name__ == '__main__':
     early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
     n_epochs = f"{max_epochs}epochs"
     lrs = f"{args.lr_schedule}_schedule"
-    dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_{args.model_type}_{args.optimiser}_" + \
-              f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
+    dirpath = f"ckpts/{wandb.run.name}/"
+    model.ckpt_path = dirpath
+
+    if not os.path.exists(dirpath):
+        os.makedirs(dirpath)
 
     # Trainer callbacks.
     callbacks = [LearningRateMonitor(logging_interval='step'),]

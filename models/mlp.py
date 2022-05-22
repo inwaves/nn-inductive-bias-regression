@@ -58,6 +58,7 @@ class MLP(pl.LightningModule):
         self.output = nn.Linear(int(2 / 7 * hidden_units), output_dim)
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
+        self.ckpt_path = None
 
     def forward(self, x):
         x = x.to(device)

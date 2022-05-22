@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import pytorch_lightning as pl
 from scipy.interpolate import CubicSpline
 
-from utils.model_utils import initialise_grid
+from utils.model_utils import initialise_grid, prep_predictions
 from utils.parsers import parse_nonlinearity, parse_schedule
 from utils.maths import mean_squared_error
 
@@ -55,6 +55,7 @@ class ShallowNetwork(pl.LightningModule):
 
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
+        self.ckpt_path = None
 
     def forward(self, x):
         x = x.to(device)
@@ -148,7 +149,7 @@ class AsiShallowNetwork(pl.LightningModule):
 
         self.nonlinearity = parse_nonlinearity(nonlinearity)
 
-        # Initialse output layers with uniform weights.
+        # Initialise output layers with uniform weights.
         self.out1 = nn.Linear(hidden_units, output_dim, bias=False)
         self.out1.weight.data.uniform_(-1, 1)
         self.out1.weight.data = torch.sqrt(torch.tensor(1 / hidden_units).to(device)) * self.out1.weight.data.to(device)
@@ -159,7 +160,7 @@ class AsiShallowNetwork(pl.LightningModule):
 
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
-        print(f"In ASI RELU the schedule is: {self.schedule}")
+        self.ckpt_path = None
 
     def forward(self, x):
         x = x.to(device)
@@ -189,6 +190,16 @@ class AsiShallowNetwork(pl.LightningModule):
         spline_predictions = self.spline(self.da_grid.x)
         variational_error = mean_squared_error(spline_predictions, model_predictions)
         self.log("variational_error", variational_error)
+
+        grid, unadjusted_model_preds, unadjusted_spline_preds, fn_y = prep_predictions(da_grid=self.da_grid,
+                                                                                       da_train=self.hparams["da_train"],
+                                                                                       model_preds=model_predictions,
+                                                                                       spline_preds=spline_predictions,
+                                                                                       adjust_data_linearly=self.hparams["adjust_data_linearly"],
+                                                                                       normalise=self.hparams["normalise"])
+        with open(f"{self.ckpt_path}epoch={self.current_epoch}.csv", "a+") as out:
+            for x, model_pred, spline_pred, y in zip(grid, unadjusted_model_preds, unadjusted_spline_preds, fn_y):
+                out.write(f"{x},{model_pred},{spline_pred},{y}\n")
         return val_error
 
     def configure_optimizers(self):
