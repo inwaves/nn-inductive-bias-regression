@@ -9,7 +9,7 @@
 
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J pa-exp
+#SBATCH -J sq-cos-noes
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
