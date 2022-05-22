@@ -13,7 +13,7 @@
 #SBATCH -J cpujob
 #! Which project should be charged:
 #SBATCH -A CHANGEME
-#SBATCH -p icelake
+#SBATCH -p icelake-himem
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total? (<= nodes*76)

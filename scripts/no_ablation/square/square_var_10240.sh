@@ -24,7 +24,7 @@
 
 
 #! Do not change:
-#SBATCH -p icelake
+#SBATCH -p icelake-himem
 #/bin/bash
 set -x #echo on
 start=$(date +%s)
