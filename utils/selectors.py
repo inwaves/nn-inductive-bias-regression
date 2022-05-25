@@ -14,7 +14,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_resolution, model_type, hidden_units,
-                 learning_rate, optimiser, schedule, init, a_w, a_b):
+                 learning_rate, optimiser, schedule, init, a_w, a_b, loss):
     optimiser = parse_optimiser(optimiser)
     model_type = model_type.lower()
     if model_type == "asishallowrelu":
@@ -32,23 +32,25 @@ def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_re
                                   schedule=schedule,
                                   init=init,
                                   a_w=a_w,
-                                  a_b=a_b
+                                  a_b=a_b,
+                                  loss=loss
                                   ).to(device).float()
     elif model_type == "shallowrelu":
         model = ShallowNetwork(da_train=da_train,
-                                  da_test=da_test,
-                                  fn=fn,
-                                  adjust_data_linearly=adjust_data_linearly,
-                                  normalise=normalise,
-                                  grid_resolution=grid_resolution,
-                                  hidden_units=hidden_units,
-                                  input_dim=1,
-                                  output_dim=1,
-                                  lr=learning_rate,
-                                  optimiser=optimiser,
-                                  schedule=schedule,
-                                  init=init
-                                  ).to(device).float()
+                               da_test=da_test,
+                               fn=fn,
+                               adjust_data_linearly=adjust_data_linearly,
+                               normalise=normalise,
+                               grid_resolution=grid_resolution,
+                               hidden_units=hidden_units,
+                               input_dim=1,
+                               output_dim=1,
+                               lr=learning_rate,
+                               optimiser=optimiser,
+                               schedule=schedule,
+                               init=init,
+                               loss=loss
+                               ).to(device).float()
     elif model_type == "plaintorchasishallowrelu":
         model = ShallowNetwork(da_train=da_train,
                                da_test=da_test,
@@ -62,7 +64,8 @@ def select_model(da_train, da_test, fn, adjust_data_linearly, normalise, grid_re
                                lr=learning_rate,
                                optimiser=optimiser,
                                schedule=schedule,
-                               init=init
+                               init=init,
+                               loss=loss
                                ).to(device).float()
         model = PlainTorchAsiShallowRelu(n=hidden_units,
                                          input_dim=1,

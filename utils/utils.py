@@ -26,7 +26,9 @@ def setup():
                        "num_datapoints":       args.num_datapoints,
                        "optimiser":            args.optimiser,
                        "internal_tag":         args.tag,
-                       "lr_schedule":          args.lr_schedule, })
+                       "lr_schedule":          args.lr_schedule,
+                       "early_stopping":       args.early_stopping,
+                       "loss":                 args.loss,})
 
     # Set up the data.
     (x_train, y_train, x_test, y_test), fn = select_dataset(args)
@@ -54,6 +56,6 @@ def setup():
     # Set up the model.
     model = select_model(da_train, da_test, fn, args.adjust_data_linearly, args.normalise, args.grid_resolution,
                          args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule,
-                         args.init, args.a_w, args.a_b)
+                         args.init, args.a_w, args.a_b, args.loss)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn

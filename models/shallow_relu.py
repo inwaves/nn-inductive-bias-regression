@@ -7,7 +7,7 @@ import pytorch_lightning as pl
 from scipy.interpolate import CubicSpline
 
 from utils.model_utils import initialise_grid
-from utils.parsers import parse_nonlinearity, parse_schedule
+from utils.parsers import parse_loss_fn, parse_nonlinearity, parse_schedule
 from utils.maths import mean_squared_error
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -28,7 +28,12 @@ class ShallowNetwork(pl.LightningModule):
                  nonlinearity="relu",
                  optimiser=None,
                  schedule="none",
-                 init="uniform") -> None:
+                 init="uniform",
+                 a_w=1,
+                 a_b=2,
+                 mu=0,
+                 sigma=1,
+                 loss="mse") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -44,14 +49,15 @@ class ShallowNetwork(pl.LightningModule):
         self.hidden = nn.Linear(input_dim, hidden_units)
 
         if init.lower() == "uniform":
-            self.hidden.weight.data.uniform_(-1, 1)
-            self.hidden.bias.data.uniform_(-2, 2)
+            self.hidden.weight.data.uniform_(-a_w, a_w)
+            self.hidden.bias.data.uniform_(-a_b, a_b)
         elif init.lower() == "normal":
-            self.hidden.weight.data.normal_(0, 1)
-            self.hidden.bias.data.normal_(0, 1)
-            
-        self.nonlinearity = parse_nonlinearity(nonlinearity)
+            self.hidden.weight.data.normal_(mu, sigma)
+            self.hidden.bias.data.normal_(mu, sigma)
         self.out = nn.Linear(hidden_units, output_dim, bias=False)
+
+        self.nonlinearity = parse_nonlinearity(nonlinearity)
+        self.loss_fn = parse_loss_fn(loss)
 
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
         self.schedule = parse_schedule(schedule, self.optimiser)
@@ -64,7 +70,7 @@ class ShallowNetwork(pl.LightningModule):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
-        loss = F.mse_loss(out, targets)
+        loss = self.loss_fn(out, targets)
         self.log("train_loss", loss)
 
         return loss
@@ -115,7 +121,8 @@ class AsiShallowNetwork(pl.LightningModule):
                  a_w=1,
                  a_b=2,
                  mu=0,
-                 sigma=1) -> None:
+                 sigma=1,
+                 loss="mse") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -151,6 +158,7 @@ class AsiShallowNetwork(pl.LightningModule):
         self.hidden2 = self.hidden2.to(device)
 
         self.nonlinearity = parse_nonlinearity(nonlinearity)
+        self.loss_fn = parse_loss_fn(loss)
 
         # Initialse output layers with uniform weights.
         self.out1 = nn.Linear(hidden_units, output_dim, bias=False)
@@ -178,7 +186,7 @@ class AsiShallowNetwork(pl.LightningModule):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
-        loss = F.mse_loss(out, targets)
+        loss = self.loss_fn(out, targets)
         self.log("train_loss", loss)
         return loss
 

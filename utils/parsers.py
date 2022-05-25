@@ -2,6 +2,7 @@ import argparse
 from functools import partial
 
 from torch import nn as nn
+import torch.nn.functional as F
 import torch
 
 
@@ -28,6 +29,20 @@ def parse_optimiser(optimiser):
         return torch.optim.Adam
     elif optimiser == "momentum":
         return partial(torch.optim.SGD, momentum=0.9)
+    print("Optimiser parsing error, optimiser is none.")
+    return None
+
+
+def parse_loss_fn(loss):
+    loss = loss.lower()
+    if loss == "mse":
+        return F.mse_loss
+    elif loss == "mae":
+        return F.l1_loss
+    elif loss == "huber":
+        return F.huber_loss
+    print("Loss function parsing error, loss is none.")
+    return None
 
 
 def parse_nonlinearity(nonlinearity):
@@ -77,7 +92,8 @@ def parse_args():
     parser.add_argument("--learning_rate", "-lr", default=1e-4, type=float,
                         help="Learning rate of the optimiser.")
     parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
-    parser.add_argument("--log_every_k_steps", "-l", default=1, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--loss", "-lo", default="mse", type=str, help="Select from MSE, MAE, Huber.")
+    parser.add_argument("--log_every_n_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
                                                                                        "ShallowRelu, MLP.")
     parser.add_argument("--model_checkpoint", "-mc", default="False", type=str, help="Should checkpoint model?")

@@ -58,7 +58,7 @@ if __name__ == '__main__':
                          accelerator="gpu" if device == "cuda" else "cpu",
                          devices=1 if device == "cuda" else None,
                          logger=wandb_logger,
-                         log_every_n_steps=args.log_every_k_steps,
+                         log_every_n_steps=args.log_every_n_steps,
                          check_val_every_n_epoch=args.val_frequency)
 
     # Model is fit to the normalised, linearly adjusted data.

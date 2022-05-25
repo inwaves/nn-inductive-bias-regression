@@ -8,7 +8,7 @@ from scipy.interpolate import CubicSpline
 
 from utils.model_utils import initialise_grid
 from utils.maths import mean_squared_error
-from utils.parsers import parse_nonlinearity, parse_optimiser, parse_schedule
+from utils.parsers import parse_loss_fn, parse_nonlinearity, parse_optimiser, parse_schedule
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -28,7 +28,12 @@ class MLP(pl.LightningModule):
                  nonlinearity="relu",
                  optimiser=None,
                  schedule="none",
-                 init="uniform") -> None:
+                 init="uniform",
+                 a_w=1,
+                 a_b=2,
+                 mu=0,
+                 sigma=1,
+                 loss="mse") -> None:
         super().__init__()
 
         da_train = copy.copy(da_train)
@@ -40,6 +45,7 @@ class MLP(pl.LightningModule):
         self.save_hyperparameters()
         self.lr = lr
         self.nonlinearity = parse_nonlinearity(nonlinearity)
+        self.loss_fn = parse_loss_fn(loss)
         self.input = nn.Linear(input_dim, int(2 / 7 * hidden_units))
         self.hidden = nn.Sequential(
             nn.Linear(int(2 / 7 * hidden_units), int(3 / 7 * hidden_units)),
@@ -49,11 +55,11 @@ class MLP(pl.LightningModule):
         )
 
         if init.lower() == "uniform":
-            self.hidden.weight.data.uniform_(-1, 1)
-            self.hidden.bias.data.uniform_(-2, 2)
+            self.hidden.weight.data.uniform_(-a_w, a_w)
+            self.hidden.bias.data.uniform_(-a_b, a_b)
         elif init.lower() == "normal":
-            self.hidden.weight.data.normal_(0, 1)
-            self.hidden.bias.data.normal_(0, 1)
+            self.hidden.weight.data.normal_(mu, sigma)
+            self.hidden.bias.data.normal_(mu, sigma)
 
         self.output = nn.Linear(int(2 / 7 * hidden_units), output_dim)
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
@@ -68,7 +74,7 @@ class MLP(pl.LightningModule):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)
         out = self.forward(idx)
 
-        loss = F.mse_loss(out, targets)
+        loss = self.loss_fn(out, targets)
         self.log("train_loss", loss)
         return loss
 
