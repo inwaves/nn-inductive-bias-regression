@@ -1,4 +1,4 @@
-filenames="square_var_10.sh square_var_160.sh square_var_640.sh square_var_2560.sh square_var_10240.sh square_var_50k.sh"
+filenames="square_var_10.sh square_var_100.sh square_var_500.sh square_var_1k.sh square_var_5k.sh square_var_10k.sh"
 
 
 for val in $filenames;

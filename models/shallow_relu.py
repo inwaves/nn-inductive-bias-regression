@@ -8,7 +8,7 @@ from scipy.interpolate import CubicSpline
 
 from utils.model_utils import initialise_grid
 from utils.parsers import parse_loss_fn, parse_nonlinearity, parse_schedule
-from utils.maths import mean_squared_error
+from utils.maths import infinity_norm_error, mean_squared_error
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -84,7 +84,7 @@ class ShallowNetwork(pl.LightningModule):
 
         # Compute variational error (model vs. cubic spline).
         spline_predictions = self.spline(self.da_grid.x)
-        variational_error = mean_squared_error(spline_predictions, model_predictions)
+        variational_error = infinity_norm_error(spline_predictions, model_predictions)
         self.log("variational_error", variational_error)
 
         return validation_error
@@ -199,7 +199,7 @@ class AsiShallowNetwork(pl.LightningModule):
 
         # Compute variational error (model vs. cubic spline).
         spline_predictions = self.spline(self.da_grid.x)
-        variational_error = mean_squared_error(spline_predictions, model_predictions)
+        variational_error = infinity_norm_error(spline_predictions, model_predictions)
         self.log("variational_error", variational_error)
         return val_error
 

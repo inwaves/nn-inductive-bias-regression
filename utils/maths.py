@@ -47,7 +47,12 @@ def normalise_data(x, minval=None, maxval=None):
     return x, minval, maxval
 
 
-def mean_squared_error(targets, model_preds):
+def mean_squared_error(targets, predictions):
     """Calculate the mean squared error between a target variable and model predictions."""
 
-    return np.sqrt(np.mean((model_preds.reshape(targets.shape) - targets) ** 2))
+    return np.sqrt(np.mean((predictions.reshape(targets.shape) - targets) ** 2))
+
+
+def infinity_norm_error(targets, predictions):
+
+    return np.max(np.abs(predictions.reshape(targets.shape) - targets))

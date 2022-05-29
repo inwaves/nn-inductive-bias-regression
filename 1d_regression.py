@@ -27,7 +27,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 if __name__ == '__main__':
     # Wrap up any hanging logger.
     wandb.finish()
-    wandb_logger = WandbLogger(project="generalisation")
+    wandb_logger = WandbLogger(project="gen2")
 
     train_dataloader, test_dataloader, da_train, da_test, args, model, fn = setup()
     max_epochs = args.num_epochs

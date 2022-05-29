@@ -1,7 +1,6 @@
 import torch
 import wandb
 
-import utils.adjust_data
 from datasets.dataset import *
 from utils.custom_dataloader import CustomDataLoader
 from utils.parsers import parse_args, parse_bool
@@ -13,7 +12,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def setup():
     args = parse_args()
-    wandb.init(project="generalisation",
+    wandb.init(project="gen2",
                entity="inwaves",
                config={"model_type":           args.model_type,
                        "nonlinearity_type":    args.nonlinearity,
