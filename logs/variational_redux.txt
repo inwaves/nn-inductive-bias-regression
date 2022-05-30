@@ -74,3 +74,7 @@ sine-no-es-1k-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs
 sq5000-square-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-none_schedule-cpu, 5000, 0.13192775890692526
 relu-sq100-square-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-none_schedule-cpu, 100, 0.06074787747489704
 parabola-es-5000-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 5000, 0.44559977218881675
+parabola-es-5000-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 5000, 0.7183437065807149
+parabola-es-10k-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 10000, 0.05854934106342603
+parabola-es-10k-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 10000, 0.058845405227773886
+parabola-es-10k-parabola-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 10000, 0.058633425090082854
