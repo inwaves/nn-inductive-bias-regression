@@ -14,6 +14,7 @@ from scipy.interpolate import CubicSpline
 from datasets.dataset import glue_dataset_portions
 from utils.adjust_data import DataAdjuster
 from utils.maths import linear, mean_squared_error
+from utils.parsers import parse_schedule
 from utils.utils import parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -40,7 +41,10 @@ if __name__ == '__main__':
               f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
 
     # Trainer callbacks.
-    callbacks = [LearningRateMonitor(logging_interval='step'),]
+    callbacks = []
+    if parse_schedule(args.lr_schedule, None) is not None:
+        callbacks.append(LearningRateMonitor())
+
     if parse_bool(args.early_stopping):
         early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
         callbacks.append(early_stopping_callback)
@@ -103,9 +107,9 @@ if __name__ == '__main__':
     variational_error = mean_squared_error(spline_predictions, model_predictions)
 
     # Also log locally, so I can actually plot these values later...
-    with open("logs/nn_vs_variational_solution_error.txt", "a") as f:
+    with open("logs/variational_redux.txt", "a") as f:
         f.write(
-                f"{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
+                f"{args.tag}-{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
                 f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, "
                 f"{str(variational_error)}\n")
 
