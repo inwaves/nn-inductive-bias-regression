@@ -1,4 +1,4 @@
-filenames="mlp-10.sh mlp-50.sh mlp-100.sh mlp-150.sh"
+filenames="mlp-10.sh mlp-100.sh mlp-150.sh mlp-500.sh"
 
 for val in $filenames;
 do

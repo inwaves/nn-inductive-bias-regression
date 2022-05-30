@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["chebyshev", "linear_adjusted", "parabola", "piecewise_polynomial", "sine", "square"]
+categories = ["chebyshev", "linear_adjusted", "parabola", "piecewise_polynomial", "sine", "square",
+              "constant_unadjusted", "linear_unadjusted"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category):
