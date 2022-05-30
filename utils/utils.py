@@ -1,5 +1,6 @@
 import torch
 import wandb
+from pytorch_lightning.callbacks import EarlyStopping, LearningRateMonitor, ModelCheckpoint
 
 from datasets.dataset import *
 from utils.custom_dataloader import CustomDataLoader
@@ -57,4 +58,31 @@ def setup():
                          args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule,
                          args.init, args.a_w, args.a_b, args.loss)
 
-    return train_dataloader, test_dataloader, da_train, da_test, args, model, fn
+    # Building strings for logging.
+    max_epochs = args.num_epochs
+    early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
+    n_epochs = f"{max_epochs}epochs"
+    lrs = f"{args.lr_schedule}_schedule"
+    dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_{args.model_type}_{args.optimiser}_" + \
+              f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
+
+    # Trainer callbacks.
+    callbacks = []
+    if args.lr_schedule.lower() != "none":
+        callbacks.append(LearningRateMonitor())
+
+    if parse_bool(args.early_stopping):
+        early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
+        callbacks.append(early_stopping_callback)
+        max_epochs = -1  # Run indefinitely until early stopping kicks in.
+
+    if parse_bool(args.model_checkpoint):
+        checkpointing_callback = ModelCheckpoint(dirpath=dirpath,
+                                                 filename="{epoch}-{train_loss:.3f}-{val_error:.3f}",
+                                                 every_n_epochs=args.val_frequency,
+                                                 save_top_k=-1)
+        callbacks.append(checkpointing_callback)
+
+    return train_dataloader, test_dataloader, da_train, da_test, args, model, fn, callbacks, dirpath, \
+           early_stopping, max_epochs
+

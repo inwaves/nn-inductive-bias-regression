@@ -6,15 +6,12 @@ import pytorch_lightning as pl
 import torch
 import wandb
 
-from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
-from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
 from scipy.interpolate import CubicSpline
 
 from datasets.dataset import glue_dataset_portions
 from utils.adjust_data import DataAdjuster
 from utils.maths import linear, mean_squared_error
-from utils.parsers import parse_schedule
 from utils.utils import parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -30,32 +27,8 @@ if __name__ == '__main__':
     wandb.finish()
     wandb_logger = WandbLogger(project="gen2")
 
-    train_dataloader, test_dataloader, da_train, da_test, args, model, fn = setup()
-    max_epochs = args.num_epochs
-
-    # Building strings for logging.
-    early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
-    n_epochs = f"{max_epochs}epochs"
-    lrs = f"{args.lr_schedule}_schedule"
-    dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_{args.model_type}_{args.optimiser}_" + \
-              f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
-
-    # Trainer callbacks.
-    callbacks = []
-    if parse_schedule(args.lr_schedule, None) is not None:
-        callbacks.append(LearningRateMonitor())
-
-    if parse_bool(args.early_stopping):
-        early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
-        callbacks.append(early_stopping_callback)
-        max_epochs = -1 # Run indefinitely until early stopping kicks in.
-
-    if parse_bool(args.model_checkpoint):
-        checkpointing_callback = ModelCheckpoint(dirpath=dirpath,
-                                                 filename="{epoch}-{train_loss:.3f}-{val_error:.3f}",
-                                                 every_n_epochs=args.val_frequency,
-                                                 save_top_k=-1)
-        callbacks.append(checkpointing_callback)
+    train_dataloader, test_dataloader, da_train, da_test, args, \
+        model, fn, callbacks, dirpath, early_stopping, max_epochs = setup()
 
     trainer = pl.Trainer(max_epochs=max_epochs,
                          callbacks=callbacks,
@@ -109,9 +82,9 @@ if __name__ == '__main__':
     # Also log locally, so I can actually plot these values later...
     with open("logs/variational_redux.txt", "a") as f:
         f.write(
-                f"{args.tag}-{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-{args.optimiser}-"
-                f"{args.nonlinearity}-{early_stopping}-{n_epochs}-{lrs}-{device}, {str(args.hidden_units)}, "
-                f"{str(variational_error)}\n")
+                f"{args.tag}-{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-"
+                f"{args.optimiser}-{args.nonlinearity}-{early_stopping}-{max_epochs}epochs-{args.lr_schedule}_schedule-"
+                f"{device}, {str(args.hidden_units)}, {str(variational_error)}\n")
 
     if parse_bool(args.adjust_data_linearly):
         intercept, slope = da_train.linear_regressor.intercept_, da_train.linear_regressor.coef_[0]
@@ -124,10 +97,10 @@ if __name__ == '__main__':
     # Plot the predictions in the original, non-adjusted, non-normalised space.
 
     plot_data_vs_predictions(da_train.x, da_train.y, da_test.x, da_test.y,
-                                 unadjusted_nn_preds, grid,
-                                 unadjusted_spline_preds, fn_y, args, "original_space")
+                             unadjusted_nn_preds, grid,
+                             unadjusted_spline_preds, fn_y, args, "original_space")
 
     # Plot the predictions in the adjusted, normalised space.
     plot_data_vs_predictions(x_tr, y_tr, x_te, y_te,
-                                 model_predictions, da_grid.x,
-                                 spline_predictions, da_grid.y, args, "adjusted_space")
+                             model_predictions, da_grid.x,
+                             spline_predictions, da_grid.y, args, "adjusted_space")
