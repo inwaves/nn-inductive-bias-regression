@@ -47,19 +47,19 @@ class MLP(pl.LightningModule):
         self.nonlinearity = parse_nonlinearity(nonlinearity)
         self.loss_fn = parse_loss_fn(loss)
         self.input = nn.Linear(input_dim, int(2 / 7 * hidden_units))
-        self.hidden = nn.Sequential(
-            nn.Linear(int(2 / 7 * hidden_units), int(3 / 7 * hidden_units)),
-            self.nonlinearity,
-            nn.Linear(int(3 / 7 * hidden_units), int(2 / 7 * hidden_units)),
-            self.nonlinearity,
-        )
+        self.hidden1 = nn.Linear(int(2 / 7 * hidden_units), int(3 / 7 * hidden_units))
+        self.hidden2 = nn.Linear(int(3 / 7 * hidden_units), int(2 / 7 * hidden_units))
 
         if init.lower() == "uniform":
-            self.hidden.weight.data.uniform_(-a_w, a_w)
-            self.hidden.bias.data.uniform_(-a_b, a_b)
+            self.hidden1.weight.data.uniform_(-a_w, a_w)
+            self.hidden1.bias.data.uniform_(-a_b, a_b)
+            self.hidden2.weight.data.uniform_(-a_w, a_w)
+            self.hidden2.bias.data.uniform_(-a_b, a_b)
         elif init.lower() == "normal":
-            self.hidden.weight.data.normal_(mu, sigma)
-            self.hidden.bias.data.normal_(mu, sigma)
+            self.hidden1.weight.data.normal_(mu, sigma)
+            self.hidden1.bias.data.normal_(mu, sigma)
+            self.hidden2.weight.data.normal_(mu, sigma)
+            self.hidden2.bias.data.normal_(mu, sigma)
 
         self.output = nn.Linear(int(2 / 7 * hidden_units), output_dim)
         self.optimiser = optimiser(self.parameters(), lr=self.lr)
@@ -68,7 +68,9 @@ class MLP(pl.LightningModule):
     def forward(self, x):
         x = x.to(device)
         x = self.nonlinearity(self.input(x))
-        return self.output(self.hidden(x)).to(device)
+        x = self.nonlinearity(self.hidden1(x))
+        x = self.nonlinearity(self.hidden2(x))
+        return self.output(x).to(device)
 
     def training_step(self, batch, batch_idx):
         idx, targets = batch[:, 0].float().unsqueeze(1).to(device), batch[:, 1].float().unsqueeze(1).to(device)

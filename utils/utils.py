@@ -11,24 +11,13 @@ from utils.selectors import select_dataset, select_model
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
+def count_parameters(model):
+    """Solution from https://discuss.pytorch.org/t/how-do-i-check-the-number-of-parameters-of-a-model/4325/9"""
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+
 def setup():
     args = parse_args()
-    wandb.init(project="gen2",
-               entity="inwaves",
-               config={"model_type":           args.model_type,
-                       "nonlinearity_type":    args.nonlinearity,
-                       "hidden_units":         args.hidden_units,
-                       "lr":                   args.learning_rate,
-                       "dataset":              args.dataset,
-                       "generalisation_task":  args.generalisation_task,
-                       "adjust_data_linearly": args.adjust_data_linearly,
-                       "normalise":            args.normalise,
-                       "num_datapoints":       args.num_datapoints,
-                       "optimiser":            args.optimiser,
-                       "internal_tag":         args.tag,
-                       "lr_schedule":          args.lr_schedule,
-                       "early_stopping":       args.early_stopping,
-                       "loss":                 args.loss,})
 
     # Set up the data.
     (x_train, y_train, x_test, y_test), fn = select_dataset(args)
@@ -58,14 +47,6 @@ def setup():
                          args.model_type, args.hidden_units, args.learning_rate, args.optimiser, args.lr_schedule,
                          args.init, args.a_w, args.a_b, args.loss)
 
-    # Building strings for logging.
-    max_epochs = args.num_epochs
-    early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
-    n_epochs = f"{max_epochs}epochs"
-    lrs = f"{args.lr_schedule}_schedule"
-    dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_{args.model_type}_{args.optimiser}_" + \
-              f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
-
     # Trainer callbacks.
     callbacks = []
     if args.lr_schedule.lower() != "none":
@@ -83,6 +64,32 @@ def setup():
                                                  save_top_k=-1)
         callbacks.append(checkpointing_callback)
 
-    return train_dataloader, test_dataloader, da_train, da_test, args, model, fn, callbacks, dirpath, \
-           early_stopping, max_epochs
+    wandb.init(project="gen2",
+               entity="inwaves",
+               config={"model_type":           args.model_type,
+                       "nonlinearity_type":    args.nonlinearity,
+                       "hidden_units":         args.hidden_units,
+                       "lr":                   args.learning_rate,
+                       "dataset":              args.dataset,
+                       "generalisation_task":  args.generalisation_task,
+                       "adjust_data_linearly": args.adjust_data_linearly,
+                       "normalise":            args.normalise,
+                       "num_datapoints":       args.num_datapoints,
+                       "optimiser":            args.optimiser,
+                       "internal_tag":         args.tag,
+                       "lr_schedule":          args.lr_schedule,
+                       "early_stopping":       args.early_stopping,
+                       "loss":                 args.loss,
+                       "num_parameters":       count_parameters(model)})
 
+    # Building strings for logging.
+    max_epochs = args.num_epochs
+    early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
+    n_epochs = f"{max_epochs}epochs"
+    lrs = f"{args.lr_schedule}_schedule"
+    dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_" \
+              f"{args.model_type}_{args.optimiser}_" + \
+              f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
+
+    return train_dataloader, test_dataloader, da_train, da_test, args, model, fn, callbacks, dirpath, \
+        early_stopping, max_epochs

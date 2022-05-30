@@ -1,4 +1,4 @@
-filenames="sq-10.sh sq-100.sh sq-1k.sh sq-10k.sh sq-100k.sh"
+filenames="square-10.sh square-100.sh square-500.sh square-1k.sh square-5k.sh square-10k.sh"
 
 
 for val in $filenames;
