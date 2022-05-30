@@ -1,5 +1,90 @@
-polynomial, 10, 0.3815041967972197
-polynomial, 100, 0.07351155464139884
-polynomial, 500, 0.06396959372695848
-polynomial, 1000, 0.07369472411599669
-polynomial, 10000, 0.018427278575550522
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,1.157266834
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.740485796
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.740124425
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.2779915645
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.2366769758
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.2645726155
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.32094358
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.2615283887
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.2591714585
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.2306311572
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.2422086075
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.2353801883
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-10`0000epochs-plateau_schedule-cpu,10000,0.1736313589
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.1721751135
+chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.1788692938
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,1.61E-15
+linear-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,1.61E-15
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.8996175081
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.5923095821
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,1.358194024
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.3771911466
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.5348455237
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.3656475122
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.1797580021
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.4039527453
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.439841638
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.1954765134
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.1702935803
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.1861678472
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.05630715667
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.05415646818
+parabola-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.05330197001
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,2.132075421
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,2.004808782
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.5856530373
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.2675950731
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.3381971935
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.2095251533
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.1118697731
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.9246670781
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.8665866896
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.09472989415
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.09805110074
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.1688021662
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.02160006498
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.02608024459
+polynomial_spline-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.02481322178
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.08030843853
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.08322024108
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10,0.3831241452
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.03922737442
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.04280669442
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,100,0.03792217331
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.04661105448
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.02207521144
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,500,0.03236057927
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.01119537657
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.01680205987
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,1000,0.01190606118
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.008827880915
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.008043888213
+sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-plateau_schedule-cpu,10000,0.01361953853
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,10,0.255493334
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,10,0.4549761506
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,10,0.172722137
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,100,0.06215227233
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,100,0.06564273864
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,100,0.06111519613
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,500,0.06089005443
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,500,0.06028056504
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,500,0.06017999802
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,1000,0.05727456144
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,1000,0.05958547539
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu,1000,0.05880174921
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu, 10000, 0.02904153147486414
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu, 10000, 0.02598982113934974
+square-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-100000epochs-none_schedule-cpu, 10000, 0.0291423551696934

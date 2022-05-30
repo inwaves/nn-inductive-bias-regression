@@ -1,0 +1,1 @@
+const-unadjusted-10-constant-baseline-10dp-ShallowRelu-sgd-relu-earlystopping--1epochs-plateau_schedule-cpu, 10, 0.008334945836086339

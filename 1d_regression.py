@@ -30,6 +30,7 @@ if __name__ == '__main__':
     train_dataloader, test_dataloader, da_train, da_test, args, \
         model, fn, callbacks, dirpath, early_stopping, max_epochs = setup()
 
+    num_epochs = f"{max_epochs}epochs" if max_epochs != -1 else f"infinite_epochs"
     trainer = pl.Trainer(max_epochs=max_epochs,
                          callbacks=callbacks,
                          accelerator="gpu" if device == "cuda" else "cpu",
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     with open("logs/variational_redux.txt", "a") as f:
         f.write(
                 f"{args.tag}-{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-"
-                f"{args.optimiser}-{args.nonlinearity}-{early_stopping}-{max_epochs}epochs-{args.lr_schedule}_schedule-"
+                f"{args.optimiser}-{args.nonlinearity}-{early_stopping}-{num_epochs}-{args.lr_schedule}_schedule-"
                 f"{device}, {str(args.hidden_units)}, {str(variational_error)}\n")
 
     if parse_bool(args.adjust_data_linearly):
