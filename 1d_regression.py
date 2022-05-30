@@ -81,7 +81,7 @@ if __name__ == '__main__':
     variational_error = mean_squared_error(spline_predictions, model_predictions)
 
     # Also log locally, so I can actually plot these values later...
-    with open("logs/variational_redux.txt", "a") as f:
+    with open(f"logs/{args.model_type}_variational_error.txt", "a+") as f:
         f.write(
                 f"{args.tag}-{args.dataset}-{args.generalisation_task}-{args.num_datapoints}dp-{args.model_type}-"
                 f"{args.optimiser}-{args.nonlinearity}-{early_stopping}-{num_epochs}-{args.lr_schedule}_schedule-"
