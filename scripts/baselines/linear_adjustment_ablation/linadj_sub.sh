@@ -11,7 +11,7 @@
 #! Name of the job:
 #SBATCH -J sin-nolinear-adj
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL2-CPU
+#SBATCH -A KRUEGER-SL2-GPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
@@ -33,7 +33,7 @@
 
 
 #! Do not change:
-#SBATCH -p icelake-himem
+#SBATCH -p ampere
 
 #! sbatch directives end here (put any additional directives above this line)
 

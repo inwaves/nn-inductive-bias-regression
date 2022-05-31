@@ -4,7 +4,7 @@ num_iter=1
 
 for ((i=1;i<=num_iter;i++))
 do
-  python3 1d_regression.py --tag=sq-optimiser-1000 --dataset=sine   --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False --early_stopping=True --num_epochs=100000
+  python3 1d_regression.py --tag=sin-noadj-1000 --dataset=sine   --generalisation_task=baseline --model_type=ASIShallowRelu --hidden_units=1000 --learning_rate=0.001 --adjust_data_linearly=False --early_stopping=True --num_epochs=100000
 done
 
 end=$(date +%s)
