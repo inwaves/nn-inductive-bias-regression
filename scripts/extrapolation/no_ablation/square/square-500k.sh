@@ -4,19 +4,16 @@
 #!
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J mlp-on-square
+#SBATCH -J square-500k
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL2-GPU
+#SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #! How many (MPI) tasks will there be in total?
 #! Note probably this should not exceed the total number of GPUs in use.
 #SBATCH --ntasks=1
-#! Specify the number of GPUs per node (between 1 and 4; must be 4 if nodes>1).
-#! Note that the job submission script will enforce no more than 3 cpus per GPU.
-#SBATCH --gres=gpu:1
 #! How much wallclock time will be required?
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 #! What types of email messages do you wish to receive?
 #SBATCH --mail-type=FAIL
 #! Uncomment this to prevent the job from being requeued (e.g. if
@@ -27,8 +24,19 @@
 
 
 #! Do not change:
-#SBATCH -p ampere
+#SBATCH -p icelake-himem
 #/bin/bash
-set -x # echo on
+set -x #echo on
+start=$(date +%s)
+num_iter=1
 
-for i in {1..1}; do python3 1d_regression.py --optimiser=sgd --nonlinearity=relu --generalisation_task=baseline --normalise=True --adjust_data_linearly=True --dataset=sine --num_datapoints=10 --model_type=ASIShallowRelu --hidden_units=100 --learning_rate=0.01; --optimiser=Adam; done
+for ((i=1;i<=num_iter;i++))
+do
+  python3 1d_regression.py --tag=square-500k --dataset=square --generalisation_task=extrapolation --model_type=ASIShallowRelu --hidden_units=500000 --learning_rate=0.000002 --adjust_data_linearly=True --early_stopping=True --num_epochs=100000
+done
+
+end=$(date +%s)
+
+runtime=$((end-start))
+
+echo $runtime
