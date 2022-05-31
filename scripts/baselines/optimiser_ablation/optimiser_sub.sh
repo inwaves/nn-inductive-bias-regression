@@ -58,7 +58,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 
 #! Full path to application executable:
 application="./scripts/baselines/optimiser_ablation/$1"
-options=""
+options="$2"
 
 #! Work directory (i.e. where the job will run):
 workdir="$SLURM_SUBMIT_DIR"  # The value of SLURM_SUBMIT_DIR sets workdir to the directory
