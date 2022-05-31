@@ -17,6 +17,8 @@
 #! How many (MPI) tasks will there be in total?
 #! Note probably this should not exceed the total number of GPUs in use.
 #SBATCH --ntasks=1
+#SBATCH --gres=gpu:1
+#SBATCH --exclude=cpu-q-319
 #! How much wallclock time will be required?
 #SBATCH --time=36:00:00
 #! What types of email messages do you wish to receive?
@@ -29,7 +31,7 @@
 
 
 #! Do not change:
-#SBATCH -p icelake-himem
+#SBATCH -p ampere
 
 #! sbatch directives end here (put any additional directives above this line)
 
