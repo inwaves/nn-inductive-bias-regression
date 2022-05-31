@@ -25,6 +25,7 @@
 #! interrupted by node failure or system downtime):
 ##SBATCH --no-requeue
 
+#SBATCH --exclude=cpu-q-319
 #SBATCH --output=slurm-out/%x.%j.out
 
 
