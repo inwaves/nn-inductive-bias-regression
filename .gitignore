@@ -1,3 +1,4 @@
+.DS_Store
 *.pyc
 lightning_logs/
 .ipynb_checkpoints/
@@ -6,3 +7,6 @@ lightning_logs/
 models/__pycache__/
 wandb/
 generalisation/
+gen2/
+plots/
+ckpts/
