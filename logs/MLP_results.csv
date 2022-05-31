@@ -1,3 +1,4 @@
+dataset,hidden_units,variational_error,validation_error
 chebyshev_polynomial,10,4.74168836,1.16399817
 chebyshev_polynomial,10,4.741687168,1.163998166
 chebyshev_polynomial,10,4.267519941,1.403820747
