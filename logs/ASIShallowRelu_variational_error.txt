@@ -10,9 +10,9 @@ sq-no-es-500-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-10000
 sq-no-es-1000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 1000, 0.06594563640072729
 sq-no-es-1000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 1000, 0.06302595230172575
 sq-no-es-1000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 1000, 0.06173872551515895
-sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08764379924558217
-sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08772140202726406
-sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08710474714545333
 sq-no-es-5000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 5000, 0.08014580669293705
 sq-no-es-5000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 5000, 0.17129484619687507
 sq-no-es-5000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 5000, 0.11243160885564561
+sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08764379924558217
+sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08772140202726406
+sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08710474714545333

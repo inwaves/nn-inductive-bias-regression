@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["chebyshev", "constant-adjusted", "linear-adjusted", "parabola", "piecewise-polynomial", "sine",
-              "square", "constant-unadjusted", "linear-unadjusted"]
+categories = ["square-no-earlystopping"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category, type):
@@ -44,10 +43,10 @@ if __name__ == '__main__':
         for i, _ in enumerate(x):
             avg_var_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 1]))
             var_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 1]))
-            avg_val_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 2]))
-            val_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 2]))
+            # avg_val_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 2]))
+            # val_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 2]))
         print(f"{category} average var_errs: {avg_var_errs}, val_errs: {avg_val_errs}")
         loglogplot(x, avg_var_errs, var_stdevs, category, "variational")
-        loglogplot(x, avg_val_errs, val_stdevs, category, "validation")
+        # loglogplot(x, avg_val_errs, val_stdevs, category, "validation")
         lines = lines[len(x)*num_runs:]
 
