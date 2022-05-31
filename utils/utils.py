@@ -56,13 +56,8 @@ def setup():
         early_stopping_callback = EarlyStopping(monitor="train_loss", min_delta=1e-8, patience=3)
         callbacks.append(early_stopping_callback)
         max_epochs = -1  # Run indefinitely until early stopping kicks in.
-
-    if parse_bool(args.model_checkpoint):
-        checkpointing_callback = ModelCheckpoint(dirpath=dirpath,
-                                                 filename="{epoch}-{train_loss:.3f}-{val_error:.3f}",
-                                                 every_n_epochs=args.val_frequency,
-                                                 save_top_k=-1)
-        callbacks.append(checkpointing_callback)
+    else:
+        max_epochs = args.num_epochs
 
     wandb.init(project="gen2",
                entity="inwaves",
@@ -83,13 +78,19 @@ def setup():
                        "num_parameters":       count_parameters(model)})
 
     # Building strings for logging.
-    max_epochs = args.num_epochs
     early_stopping = "earlystopping" if parse_bool(args.early_stopping) else "no_earlystopping"
     n_epochs = f"{max_epochs}epochs"
     lrs = f"{args.lr_schedule}_schedule"
     dirpath = f"ckpts/{wandb.run.name}_{args.dataset}-{args.generalisation_task}_{args.num_datapoints}dp_" \
               f"{args.model_type}_{args.optimiser}_" + \
               f"{str(args.hidden_units)}_{args.nonlinearity}_{early_stopping}_{n_epochs}_{lrs}_{device}"
+
+    if parse_bool(args.model_checkpoint):
+        checkpointing_callback = ModelCheckpoint(dirpath=dirpath,
+                                                 filename="{epoch}-{train_loss:.3f}-{val_error:.3f}",
+                                                 every_n_epochs=args.val_frequency,
+                                                 save_top_k=-1)
+        callbacks.append(checkpointing_callback)
 
     return train_dataloader, test_dataloader, da_train, da_test, args, model, fn, callbacks, dirpath, \
         early_stopping, max_epochs

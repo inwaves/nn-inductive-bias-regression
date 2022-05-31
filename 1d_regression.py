@@ -11,7 +11,7 @@ from scipy.interpolate import CubicSpline
 
 from datasets.dataset import glue_dataset_portions
 from utils.adjust_data import DataAdjuster
-from utils.maths import linear, mean_squared_error
+from utils.maths import infinity_norm_error, linear, mean_squared_error
 from utils.utils import parse_bool, setup
 from utils.plotting import plot_data_vs_predictions
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     # between g* and the model on the grid.
     spline_predictions = spline(da_grid.x)
     model_predictions = model(torch.tensor(da_grid.x).float().unsqueeze(1)).cpu().detach().numpy()
-    variational_error = mean_squared_error(spline_predictions, model_predictions)
+    variational_error = infinity_norm_error(spline_predictions, model_predictions)
 
     # Also log locally, so I can actually plot these values later...
     with open(f"logs/{args.model_type}_variational_error.txt", "a+") as f:
