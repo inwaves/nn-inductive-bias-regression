@@ -5,6 +5,6 @@ for val in $filenames;
 do
     for ((i=0; i<$1; i++));
     do
-      sbatch ./scripts/uniform_initialisation/uniform_sub.sh $val $2 $3;
+      sbatch ./scripts/nonlinearity_ablation/nonlinearity_sub.sh $val $2;
     done
 done

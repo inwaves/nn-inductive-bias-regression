@@ -9,7 +9,7 @@
 
 #! sbatch directives begin here ###############################
 #! Name of the job:
-#SBATCH -J sin-exp
+#SBATCH -J sq-moredata
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
 #SBATCH -A KRUEGER-SL2-CPU
 #! How many whole nodes should be allocated?
@@ -53,7 +53,7 @@ module load rhel8/default-amp              # REQUIRED - loads the basic environm
 #! Insert additional module load commands after this line if needed:
 
 #! Full path to application executable:
-application="./scripts/normal_initialisation/$1"
+application="./scripts/more_data_ablation/square/$1"
 options=""
 
 #! Work directory (i.e. where the job will run):
