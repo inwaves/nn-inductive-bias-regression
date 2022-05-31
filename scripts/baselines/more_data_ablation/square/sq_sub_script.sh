@@ -29,7 +29,7 @@
 
 
 #! Do not change:
-#SBATCH -p icelake-himem
+#SBATCH -p icelake
 
 #! sbatch directives end here (put any additional directives above this line)
 
