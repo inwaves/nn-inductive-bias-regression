@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["sine_adam"]
+categories = ["sine_momentum"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category, type):
