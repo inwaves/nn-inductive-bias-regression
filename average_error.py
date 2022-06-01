@@ -17,7 +17,7 @@ def loglogplot(x, average_errors, standard_deviations, category, type):
     Xline = np.linspace(np.min(x), (np.max(x)), 1000).reshape(-1, 1)
     plt.figure()
     plt.xlabel("Number of hidden units")
-    plt.ylabel("Variational error")
+    plt.ylabel(f"{type} error")
     plt.title(f"{type} error for {category} as network scales")
     plt.loglog(x, average_errors, "-o")
     plt.errorbar(x, average_errors, yerr=standard_deviations, fmt="none", capsize=5)
