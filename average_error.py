@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["square-no-earlystopping"]
+categories = ["sine_adam"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category, type):
@@ -16,7 +16,9 @@ def loglogplot(x, average_errors, standard_deviations, category, type):
 
     Xline = np.linspace(np.min(x), (np.max(x)), 1000).reshape(-1, 1)
     plt.figure()
-    plt.title(f"Error for {category} as network scales")
+    plt.xlabel("Number of hidden units")
+    plt.ylabel("Variational error")
+    plt.title(f"{type} error for {category} as network scales")
     plt.loglog(x, average_errors, "-o")
     plt.errorbar(x, average_errors, yerr=standard_deviations, fmt="none", capsize=5)
     plt.loglog(Xline, np.exp(reg.predict(np.log(Xline))))
@@ -31,8 +33,8 @@ def loglogplot(x, average_errors, standard_deviations, category, type):
 
 
 if __name__ == '__main__':
-    # x = np.array([10, 40, 160, 640, 10240])
-    x = np.array([10, 100, 500, 1000, 10000])
+    # x = np.array([10, 100, 150, 500])
+    x = np.array([10, 100, 500, 1000, 5000, 10000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
@@ -43,10 +45,10 @@ if __name__ == '__main__':
         for i, _ in enumerate(x):
             avg_var_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 1]))
             var_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 1]))
-            # avg_val_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 2]))
-            # val_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 2]))
+            avg_val_errs.append(np.mean(lines[i * num_runs: (i + 1) * num_runs, 2]))
+            val_stdevs.append(np.std(lines[i * num_runs: (i + 1) * num_runs, 2]))
         print(f"{category} average var_errs: {avg_var_errs}, val_errs: {avg_val_errs}")
         loglogplot(x, avg_var_errs, var_stdevs, category, "variational")
-        # loglogplot(x, avg_val_errs, val_stdevs, category, "validation")
+        loglogplot(x, avg_val_errs, val_stdevs, category, "validation")
         lines = lines[len(x)*num_runs:]
 
