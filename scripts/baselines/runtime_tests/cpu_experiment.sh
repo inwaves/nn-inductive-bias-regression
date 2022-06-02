@@ -15,7 +15,7 @@
 #! How much wallclock time will be required?
 #SBATCH --time=24:00:00
 #! What types of email messages do you wish to receive?
-#SBATCH --mail-type=FAIL
+#SBATCH --mail-type=NONE
 #! Uncomment this to prevent the job from being requeued (e.g. if
 #! interrupted by node failure or system downtime):
 ##SBATCH --no-requeue

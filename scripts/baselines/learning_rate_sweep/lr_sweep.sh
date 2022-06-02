@@ -1,6 +1,6 @@
 set -x #echo on
 start=$(date +%s)
-num_iter=3
+num_iter=1
 
 for ((i=1;i<=num_iter;i++))
 do

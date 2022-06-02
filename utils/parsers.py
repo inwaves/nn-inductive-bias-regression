@@ -17,7 +17,7 @@ def parse_schedule(scheduler, optimiser):
                                                           patience=100,
                                                           threshold=1e-4,
                                                           threshold_mode="abs",
-                                                          verbose=True)
+                                                          verbose=False)
     return None
 
 
@@ -93,7 +93,7 @@ def parse_args():
                         help="Learning rate of the optimiser.")
     parser.add_argument("--lr_schedule", "-sc", default="none", type=str, help="Select from cosine, plateau or none.")
     parser.add_argument("--loss", "-lo", default="mse", type=str, help="Select from MSE, MAE, Huber.")
-    parser.add_argument("--log_every_n_steps", "-l", default=100, type=int, help="Log the loss every k steps.")
+    parser.add_argument("--log_every_n_steps", "-l", default=500, type=int, help="Log the loss every k steps.")
     parser.add_argument("--model_type", "-m", default="ASIShallowRelu", type=str, help="Select from ASIShallowRelu, "
                                                                                        "ShallowRelu, MLP.")
     parser.add_argument("--model_checkpoint", "-mc", default="False", type=str, help="Should checkpoint model?")
