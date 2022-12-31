@@ -4,7 +4,14 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
 num_runs = 3
-categories = ["sine_momentum"]
+# categories = ["chebyshev_extrapolation",
+#               "constant_extrapolation",
+#               "linear_extrapolation",
+#               "parabola_extrapolation",
+#               "piecewise-polynomial_extrapolation",
+#               "sine_extrapolation",
+#               "square_extrapolation"]
+categories = ["sine_moredata"]
 
 
 def loglogplot(x, average_errors, standard_deviations, category, type):
@@ -34,7 +41,7 @@ def loglogplot(x, average_errors, standard_deviations, category, type):
 
 if __name__ == '__main__':
     # x = np.array([10, 100, 150, 500])
-    x = np.array([10, 100, 500, 1000, 5000, 10000])
+    x = np.array([10, 100, 500, 1000, 10000])
 
     with open("logs/baseline_errors.txt", "r") as f:
         lines = f.readlines()
@@ -51,4 +58,3 @@ if __name__ == '__main__':
         loglogplot(x, avg_var_errs, var_stdevs, category, "variational")
         loglogplot(x, avg_val_errs, val_stdevs, category, "validation")
         lines = lines[len(x)*num_runs:]
-

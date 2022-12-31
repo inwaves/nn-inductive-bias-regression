@@ -16,3 +16,11 @@ sq-no-es-5000-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-1000
 sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08764379924558217
 sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08772140202726406
 sq-no-es-10k-square-baseline-10dp-ASIShallowRelu-sgd-relu-no_earlystopping-100000epochs-none_schedule-cpu, 10000, 0.08710474714545333
+untagged-sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 100, 0.7065899655821843
+untagged-sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 100, 0.11809695796009684
+sine-no-es-1k-sine-interpolation-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-plateau_schedule-cpu, 1000, 0.12237564725967665
+parabola-es-1k-parabola-interpolation-11dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-plateau_schedule-cpu, 1000, 1.3517875671386719
+sin-normal-10-sine-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 10, 0.1982841744672379
+lrsw0.01-chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 10, 1.3893591825868823
+lrsw0.01-chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 10, 1.3603147928621508
+lrsw0.01-chebyshev_polynomial-baseline-10dp-ASIShallowRelu-sgd-relu-earlystopping-infinite_epochs-none_schedule-cpu, 10, 1.3902574245836474
