@@ -11,7 +11,7 @@
 #! Name of the job:
 #SBATCH -J constant-exp
 #! Which project should be charged (NB Wilkes2 projects end in '-GPU'):
-#SBATCH -A KRUEGER-SL2-GPU
+#SBATCH -A [REDACTED]
 #! How many whole nodes should be allocated?
 #SBATCH --nodes=1
 #SBATCH --gres=gpu:1
